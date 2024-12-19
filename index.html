@@ -36,6 +36,17 @@
         <div id="joinSession" class="joinSession" onclick="clickLiveSession()">Join a live session</div>
 	</div>
 
+	<div id="subNav" style="background-color: #191919 ;display: none;">
+		<img src="icons/favicon-32x32.png" class="siteIcon" id="siteIcon"/>
+		<div class="ninjaIcon"><a href="https://vdo.ninja" target="_blank" class="vdoninjatext">Powered by<br>VDO.NINJA</a></div>
+		<div id="clock" class="clock"></div>	
+		<div id="exitSessionIcon" class="exitSessionIcon" onclick="window.location.href = 'http://www.google.com'">EXIT</div>
+	</div>
+
+	<!--frames for chat and live stream-->
+	<div id="chatIFrame" class="chatIFrame" style="display:none"></div>
+	<div id="mainIFrame" class="mainIFrame" style="display:none"></div>
+
     <div class="siteHeader">
         <img src="icons/android-chrome-192x192.png" class="siteMainIcon"/>
         <div class="siteTitle">RPXL</div>
@@ -201,37 +212,37 @@
 	</div>
 
 	<!--popup window things-->
-<!--darken screen for popups-->
+	<!--darken screen for popups-->
 	<div class="blackout" id="blackout" role="button" onclick="fadeOutPopup()" style="display:none;">
 
-<!--fade and slide in popup window-->
-<div class="popupGroup" id="popupGroup"> 
+		<!--fade and slide in popup window-->
+		<div class="popupGroup" id="popupGroup"> 
             
-	<!--popup window, draws the white popup window-->
-				<div class="popupWindow" id="popupWindow" onclick="event.stopPropagation()">
-					
-	<!--popup window content : live session ID--> 
-					<div id="sessionIDpopupContent">	
-						<div class="popupTitle" style="width:445px;">
-							Enter live session ID
-							<p></p>
-						</div>
-						<form id="sessionIDCode" name="sessionIDCode" onsubmit="return validateSessionID()" method="post" required="">
-							<input name="sessionIDInput" id="sessionIDInput" type="text" autocomplete="one-time-code" maxlength="6" onkeypress="return onlyAlphabets(event,this);" oninput="this.value = this.value.toUpperCase()" tabindex="1" style="--_otp-digit: 6;">
-							<br>
-							<div style="display: flex; justify-content: center; align-items: center; width:445px;">
-								<input type="submit" id="submitSessionID" value="Next" class="button" tabindex="2">
-							</div>
-						</form>
+			<!--popup window, draws the white popup window-->
+			<div class="popupWindow" id="popupWindow" onclick="event.stopPropagation()">
+				
+				<!--popup window content : live session ID--> 
+				<div id="sessionIDpopupContent">	
+					<div class="popupTitle" style="width:445px;">
+						Enter live session ID
+						<p></p>
 					</div>
+					<form id="sessionIDCode" name="sessionIDCode" onsubmit="return validateSessionID()" method="post" required="">
+						<input name="sessionIDInput" id="sessionIDInput" type="text" autocomplete="one-time-code" maxlength="6" onkeypress="return onlyAlphabets(event,this);" oninput="this.value = this.value.toUpperCase()" tabindex="1" style="--_otp-digit: 6;">
+						<br>
+						<div style="display: flex; justify-content: center; align-items: center; width:445px;">
+							<input type="submit" id="submitSessionID" value="Next" class="button" tabindex="2">
+						</div>
+					</form>
+				</div>
 				 
-	<!--popup window content : ask for a username--> 
-					<div class="askNamePopupContent" id="askNamePopupContent" style="animation: 300ms ease-out fadeIn; display: none;">
-						<div class="popupTitle">Enter your name</div><p></p>
-						<form id="stageName" name="stageName" onsubmit="return validateStageName()" method="post" required="">
-							<input class="enterStageName" type="text" maxlength="11" name="enterStageName">
-							<br>
-							<div style="position: relative; padding: 20px; border-radius: 10px; width: 260px; left: 12px; margin-top: 10px; margin-bottom: 10px;">
+				<!--popup window content : ask for a username--> 
+				<div class="askNamePopupContent" id="askNamePopupContent" style="animation: 300ms ease-out fadeIn; display: none;">
+					<div class="popupTitle">Enter your name</div><p></p>
+					<form id="stageName" name="stageName" onsubmit="return validateStageName()" method="post" required="">
+						<input class="enterStageName" type="text" maxlength="11" name="enterStageName">
+						<br>
+						<div style="position: relative; padding: 20px; border-radius: 10px; width: 260px; left: 12px; margin-top: 10px; margin-bottom: 10px;">
 							<div class="popupTitle">
 								Important!
 							</div>
@@ -244,13 +255,12 @@
 								You can modify microphone and camera settings later via the settings gear.
 							</div> 
 						</div> 
-							<input type="submit" value="Join" class="button">                            
-						</form>
+						<input type="submit" value="Join" class="button">                            
+					</form>
 					</div>
 				</div>
 			</div>
-
-
+		</div>
 	</div>
 </body>
 </html>
@@ -275,10 +285,10 @@ function fadeOutPopup() {
 
 //check if there is a live session otherwise hide live session button
 //using fetch so done asynchronously while loading page
-fetch("https://remotepixels.app/sessions/ilive.txt")
+fetch("https://rpxl.app/sessions/ilive.txt")
 	.then( response => {
 	if (response.ok) {
-		topnav.style.display = "block";
+		joinSession.style.display = "block";
 	}
 	return;
 	})
@@ -380,7 +390,7 @@ function checkSessionFile () {
 		//check to see if the session ID entered exists
 		//done synchronous to make sure we get the file before checking
 		const request = new XMLHttpRequest();
-		request.open("GET", "https://remotepixels.app/sessions/"+sessionFile+".txt", false); // `false` makes the request synchronous
+		request.open("GET", "https://rpxl.app/sessions/"+sessionFile+".txt", false); // `false` makes the request synchronous
 		request.send(null);
 
 		//if the sessionID entered matches the file on the server, check if you've been here in the last 24 hours
@@ -439,16 +449,14 @@ function validateStageName(){
 
 		//swap navigation bars, add clock and load vdoninja
 		startTime ();
+
 		blackout.style.display = "none";
-		document.getElementById("topnav").style.display = "none";
-		document.getElementById("subNav").style.display = "block";
-		document.getElementById("siteIcon").style.opacity = "0.4";
+		document.getElementById("topnav").style.height = "40px";
+		document.getElementById("joinSession").style.display = "none";
+		document.getElementById("subnav").style.display = "block";
+
 		document.getElementById("chatIFrame").style.display="inline-block";
 		document.getElementById("mainIFrame").style.display="inline-block";
-
-		//delete the portfolio iframe
-		let frame = document.getElementById("portfolioIFrame");
-		frame.parentNode.removeChild(frame);
 	
 		//set sources for chat frame
 		let chatFeed = "https://remotepixels.github.io/remotepixels.app/?room=RPXL_"+sessionFile+
@@ -459,7 +467,6 @@ function validateStageName(){
 			"&webcam"+	//disables screenshare use &webcam2 to show share your camera screen
 			"&cover"+	//make video cover space
 			"&videobitrate=100"+
-			//"&ad=1"+	//autoselect audio device
 			"&vdo=1"+	//auto select camera
 			"&rounded=100"+	//makes videos round
 			"&mirror=2"+	//mirrors guest videos
@@ -468,49 +475,32 @@ function validateStageName(){
 			"&st=6"+	//show audio only sources as coloured circles with first letter of name
 			"&meterstyle=2"+	//round highlight over person talking
 			"&hh"+	//hide vdo ninja header
-			//"&as"+	//autostart skips the camera microphone selection screen
 			"&ee"+	//easy exit
-			//"&cb=0"+	//chat button 0 turns off
 			"&cv"+	//clean viewer
 			"&hpb"+	//hide play button
 			"&nsb"+	//hide speaker button
 			"&nohub"+	//hide hangup button
 			"&hidehome"+	//hide vdo ninja home page
-			//"&hiddenscenebitrate=300"+	//should be set by director but make as low as possible
-			//"&totalroombitrate=300"+
 			"&transparent"+	//makes bg transparent
-			//"&nofiles"+	//no file share button
 			"&hidetranslate"+	//hides translate menu
 			"&darkmode"+	//
 			"&disablehotkeys"+	//no hotkeys
 			"&nocontrols"+	//hides video player controls
 			"&showlist=0"+	//show hidden guest list
-			//"&signalmeter"+ //adds signal meter
 			"&animate"+	//videos animate around when people join or leave
-			//"&hands"+	//adds raise hand button
-			//"&mono"+	//set audio to mono and reduces bitrate
-			//"&queue"+	//when a guest joins a room they are added to queue and the direcot must let them in manually
-			"&css=https%3A%2F%2Fremotepixels.app%2Fninjachat.css"+	//load style sheet
+			"&css=https%3A%2F%2Frpxl.app%2Fninjachat.css"+	//load style sheet
 		""; 
 
 		//set sources for main frame
 		var mainFeed = "https://remotepixels.github.io/remotepixels.app/?room=RPXL_"+sessionFile+
 			"&view=RPXL_"+sessionFile+"_Main_Feed"+ //shows only the directors main feed on left
-			//"&nopush"+ //don't show up in other views
-			//"&bc"+	//broadcast mode, only shows director no other guests videos
 			"&solo"+	//solos view only show the master stream
 			"&cleanoutput"+	//remove all interface bits
-			//"&ad=0"+	//disable audio for frame
-			//"&vd=0"+	//disable video device for frame
 			"&hideplaybutton"+	//hides big play button if autoplay is disabled
-			//"&as"+	//autostart, skips the camera microphone selection screen
 			"&cv"+	//clean viewer
 			"&videobitrate=10000"+
-			//"&hiddenscenebitrate=10000"+	//should be set by director but
-			//"&totalscenetrate=10000"+	//maximum bitrate for the main stream
 			"&scale=100"+	//do not scale video
 			"&transparent"+	//makes bg transparent
-			//"&sync=-200"+	//fix sync about 4 frames, a bit flakey
 			"&buffer=1000"+	//adds a xms buffer  set by director
 			"&showlist=0"+	//hides the hidden viewr list
 			""; 

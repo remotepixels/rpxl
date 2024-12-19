@@ -28,10 +28,10 @@
     
 <body>
     
-	<div class="topnav" id="subNav" style="background-color: rgb(25, 25, 25);">
+	<div class="topnav" id="subNav">
 		<img src="../icons/favicon-32x32.png" class="siteIcon" id="siteIcon" style="opacity:0.3;"/>
 		<div class="ninjaIcon"><a href="https://vdo.ninja" target="_blank" class="vdoninjatext">Powered by<br>VDO.NINJA</a></div>
-		<div id="clock" class="clock" style="left: calc(100% - 95px)!important;"></div>
+		<div id="clock" class="clock"></div>
 	</div>
     
 		
@@ -39,90 +39,123 @@
 <iframe title="directorroom" class="directorroom" name="inset_window" id="inset_window" allowfullscreen=false></iframe>
 
 <!--darken screen for popups-->
-	<div class="blackout" id="blackout">
+<div class="blackout" id="blackout" style="display: block;">
 
 <!--used to fade and slide in popup window-->
-		<div class="popupGroup" id="popupGroup"> 
-            
+	<div class="popupGroup" id="popupGroup"> 
+		
 <!--popup window, draws the white popup window-->
-			<div class="popupWindow" id="popupWindow">
-                
+		<div class="popupWindow" id="popupWindow" style="height: 520px;">
+			
 <!--popup window content : live session ID--> 
-				<div id="sessionIDpopupContent">	
-					<div class="popupTitle" style="width:445px;">
-						Enter live session ID
-						<p></p>
-					</div>
-					<form id="sessionIDCode" name="sessionIDCode" onsubmit="return validateSessionID()" method="post" required="">
-						<input name="sessionIDInput" id="sessionIDInput" type="text" autocomplete="one-time-code" maxlength="6" onkeypress="return onlyAlphabets(event,this);" oninput="this.value = this.value.toUpperCase()" tabindex="1" style="--_otp-digit: 6;">
-						<br>
-						<div style="display: flex; justify-content: center; align-items: center; width:445px;">
-							<input type="submit" id="submitSessionID" value="Next" class="button" tabindex="2">
-						</div>
-					</form>
+			<div id="sessionIDpopupContent">	
+				<div class="popupTitle" style="width:445px;">
+					Enter live session ID
+					<p></p>
 				</div>
-			</div>     
-		</div>
+				<form id="sessionIDCode" name="sessionIDCode" onsubmit="return validateSessionID()" method="post" required="">
+					<input type="text" tabindex="1" name="sessionIDInput" id="sessionIDInput" autocomplete="one-time-code" maxlength="6" onkeypress="return onlyAlphabets(event,this);" oninput="this.value = this.value.toUpperCase()" style="text-transform: uppercase;">
+					<br>
+					Resolution
+					<input type="hidden" id="resolution" value="0">
+					<input type="button" name="button" tabindex="2" id="res1080" class="multiSelectBlock multiSelectBlockHighlighted" style="border-top-left-radius: 20px; border-bottom-left-radius: 20px; left:130px;" value="1080">
+					<input type="button" name="button" tabindex="3" id="res720" class="multiSelectBlock" style="border-top-right-radius: 20px; border-bottom-right-radius: 20px; left:130px;" value="720">
+					<p></p>
+					Quality <sup>1</sup>
+					<input type="hidden" id="quality" value="20000">
+					<input type="button" name="button" tabindex="4" id="qualityHigh" class="multiSelectBlock multiSelectBlockHighlighted" style="border-top-left-radius: 20px; border-bottom-left-radius: 20px; left: 58px;" value="High">
+					<input type="button" name="button" tabindex="5" id="qualityMedium" class="multiSelectBlock" style="left: 58px;"value="Medium">
+					<input type="button" name="button" tabindex="6" id="qualityLow" class="multiSelectBlock" style="border-top-right-radius: 20px; border-bottom-right-radius: 20px;left: 58px;" value="Low">
+					<p></p>
+					Queue <sup>2</sup>
+					<input type="hidden" id="queue" value="0">
+					<input type="button" name="button" tabindex="7" id="queueOn" class="multiSelectBlock" style="border-top-left-radius: 20px; border-bottom-left-radius: 20px; left: 162px;" value="On">
+					<input type="button" name="button" tabindex="8" id="queueOff" class="multiSelectBlock multiSelectBlockHighlighted" style="border-top-right-radius: 20px; border-bottom-right-radius: 20px; left: 162px;" value="Off">
+					<br>
+					<h5 style="position:relative; left: -16px; top:-10px; text-align:center;">
+						<sup>1</sup> Approximately : High (20Mbps), Medium (10Mbps), Low (5Mbps).<p>
+						<sup>2</sup> If you enable the queue you will have to manually approve<br>every client before they can join the session.
+					</h5>
+					<p></p>
+					<div style="display: flex; justify-content: center; align-items: center; width: 445px;">
+						<input type="submit" id="submitSessionID" value="Next" class="button" tabindex="9">
+					</div>
+				</form>
+			</div>
+		</div>     
 	</div>
+</div>
 </body>
 </html>
 
 <script type="text/javascript"> 
-//show popup    
-blackout.style.display = "block";
+//move caret to focus on inbut of session ID 
 document.forms["sessionIDCode"]["sessionIDInput"].focus();
-    
-//check if an URL parameter is sent and process accordingly, skipping the session ID screen
-var sessionFile;
-let query = location.search;
 
-if  (query != 0) {
-	let sessionID = query.slice(1);
-	const request = new XMLHttpRequest();
-	request.open("GET", "https://remotepixels.app/sessions/"+sessionID+".txt", false); // `false` makes the request synchronous
-	request.send(null);
-        
-	if (request.status === 200) {                //if file and session ID match then get rid of popup and start direcotr session and duration counter
-		blackout.style.display = "none";
-		sessionIDpopupContent.style.animation = "fadeOut 300ms";
-		setTimeout ( function () {sessionIDpopupContent.style.animation = "none"; sessionIDpopupContent.style.display = "none";}, 300);
-		sessionFile = sessionID;
-		alert("sessionID"+sesionFile)
-		var timeSpentOnSite = getTimeSpentOnSite();
-		startCounting();
-		loadNinja ();
-		}   
+//menu options select and set values
+window.addEventListener("click", function (event) {
+if (event.target.name === "button") {
+	if (event.target.id == "res1080") {
+		res1080.classList.add("multiSelectBlockHighlighted");
+		res720.classList.remove("multiSelectBlockHighlighted");
+		document.forms["sessionIDCode"]["resolution"].value = "0";	
+	}
+	if (event.target.id == "res720") {
+		res1080.classList.remove("multiSelectBlockHighlighted");
+		res720.classList.add("multiSelectBlockHighlighted");
+		document.forms["sessionIDCode"]["resolution"].value = "1";	
+	}
+
+	if (event.target.id == "qualityHigh") {
+		qualityHigh.classList.add("multiSelectBlockHighlighted");
+		qualityMedium.classList.remove("multiSelectBlockHighlighted");
+		qualityLow.classList.remove("multiSelectBlockHighlighted");
+		document.forms["sessionIDCode"]["quality"].value = "20000";	
+	}
+	if (event.target.id == "qualityMedium") {
+		qualityHigh.classList.remove("multiSelectBlockHighlighted");
+		qualityMedium.classList.add("multiSelectBlockHighlighted");
+		qualityLow.classList.remove("multiSelectBlockHighlighted");
+		document.forms["sessionIDCode"]["quality"].value = "10000";	
+	}
+	if (event.target.id == "qualityLow") {
+		qualityHigh.classList.remove("multiSelectBlockHighlighted");
+		qualityMedium.classList.remove("multiSelectBlockHighlighted");
+		qualityLow.classList.add("multiSelectBlockHighlighted");
+		document.forms["sessionIDCode"]["quality"].value = "5000";	
+	}
+
+	if (event.target.id == "queueOn") {
+		queueOn.classList.add("multiSelectBlockHighlighted");
+		queueOff.classList.remove("multiSelectBlockHighlighted");
+		document.forms["sessionIDCode"]["queue"].value = "&queue";	
+	}
+	if (event.target.id == "queueOff") {
+		queueOn.classList.remove("multiSelectBlockHighlighted");
+		queueOff.classList.add("multiSelectBlockHighlighted");
+		document.forms["sessionIDCode"]["queue"].value = "";	
+	}
+
+}
+});
+
+//check if an URL parameter is sent and prefill the session ID field
+//var sessionFile;
+let query = location.search;
+let sessionIDURL = query.slice(1);
+let sessionIDUp = sessionIDURL.toUpperCase();
+let	sessionFile = encodeURIComponent(sessionIDUp); 
+
+if  ((sessionFile != 0) && (sessionFile.length == 6)) {
+		document.forms["sessionIDCode"]["sessionIDInput"].value = sessionFile;	
 	}         
 
 //session duration clock   
-var timer;
-var timerStart;
-
 function getTimeSpentOnSite(){
 	timeSpentOnSite = parseInt(sessionStorage.getItem('timeSpentOnSite'));
 	timeSpentOnSite = isNaN(timeSpentOnSite) ? 0 : timeSpentOnSite;
 	return timeSpentOnSite;
 }
-
-function startCounting(){
-	timerStart = Date.now();
-	timer = setInterval(function(){
-		timeSpentOnSite = getTimeSpentOnSite()+(Date.now()-timerStart);
-		sessionStorage.setItem('timeSpentOnSite',timeSpentOnSite);
-		timerStart = parseInt(Date.now());
-        // Convert to seconds
-		var milliseconds = timeSpentOnSite % 1000;
-		var seconds = Math.floor((timeSpentOnSite / 1000) % 60);
-		var minutes = Math.floor((timeSpentOnSite / (60 * 1000)) % 60);
-		var hours = Math.floor((timeSpentOnSite / (60 * 60 * 1000)) % 24);
-		
-		hours = (hours < 10) ? "0" + hours : hours;
-		minutes = (minutes < 10) ? "0" + minutes : minutes;
-		seconds = (seconds < 10) ? "0" + seconds : seconds;
-        
-		document.getElementById("clock").innerHTML = ( hours + ":" +minutes + ":" + seconds);
-		},1000);
-	}
      			
 //Session ID field entry, force upper caase, restrict to alpha-numeric
 const input = document.querySelector('[autocomplete=one-time-code');
@@ -150,101 +183,98 @@ input.addEventListener("keypress", function(event) {
 	});
    
 //validates the session ID when the user submits a correctly formatted value as above
-//on submit, check there are 6 values in the field
 function validateSessionID(){
-	let v1 = document.forms ["sessionIDCode"]["sessionIDInput"].value;
-	//if there are less than 6 characters shake the box and clear it
-	if (v1.length != 6) {
+	let sessionEnc = document.forms ["sessionIDCode"]["sessionIDInput"].value;
+	let	sessionFile = encodeURIComponent(sessionEnc); //encode submitted value to escape any funny characters
+
+	//if there are less or more than 6 characters shake the box and clear it
+	if (sessionFile.length != 6) {
 		popupWindow.style.animation = "shake 500ms";
 		setTimeout ( function () {popupWindow.style.animation = "none"; document.getElementById("sessionIDCode").reset();}, 300);
 		document.forms["sessionIDCode"]["sessionIDInput"].focus();
 		return false;
 		}
 	else {
-		sessionFile = v1;
+		const request = new XMLHttpRequest();
+
+		request.open("GET", "https://rpxl.app/sessions/"+sessionFile+".txt", false); // `false` makes the request synchronous
+		request.send(null);
+
+		if (request.status === 200) {
+			blackout.style.animation = "fadeOut 300ms";
+			setTimeout ( function () {blackout.style.animation = "none"; blackout.style.display = "none";}, 300);
+			sessionIDpopupContent.style.animation = "fadeOut 300ms";
+			setTimeout ( function () {sessionIDpopupContent.style.animation = "none"; sessionIDpopupContent.style.display = "none";}, 300);
+
+			//start session duration counter
+			let timeSpentOnSite = parseInt(sessionStorage.getItem('timeSpentOnSite'));
+			timeSpentOnSite = isNaN(timeSpentOnSite) ? 0 : timeSpentOnSite;
+
+			let timerStart = Date.now();
+			let timer = setInterval(function(){
+				timeSpentOnSite = getTimeSpentOnSite()+(Date.now()-timerStart);
+				sessionStorage.setItem('timeSpentOnSite',timeSpentOnSite);
+				timerStart = parseInt(Date.now());
+				// Convert to seconds
+				var milliseconds = timeSpentOnSite % 1000;
+				var seconds = Math.floor((timeSpentOnSite / 1000) % 60);
+				var minutes = Math.floor((timeSpentOnSite / (60 * 1000)) % 60);
+				var hours = Math.floor((timeSpentOnSite / (60 * 60 * 1000)) % 24);
+				
+				hours = (hours < 10) ? "0" + hours : hours;
+				minutes = (minutes < 10) ? "0" + minutes : minutes;
+				seconds = (seconds < 10) ? "0" + seconds : seconds;
+				
+				document.getElementById("clock").innerHTML = ( hours + ":" +minutes + ":" + seconds);
+				},1000);
+
+			document.getElementById("inset_window").allow = "autoplay;camera;microphone;fullscreen;picture-in-picture;display-capture;";
+			document.getElementById("inset_window").src = "https://remotepixels.github.io/remotepixels.app/?director=RPXL_"+sessionFile+
+			"&push=RPXL_"+sessionFile+"_Main_Feed"+
+			"&rampuptime=6000"+	//ramp up time of 6 seconds
+			"&label=Server"+	//sets livestream as label for director connection
+			"&hidehome"+	//hide vdo ninja homepage	
+			"&director"+	//join as director
+			"&preview"+	//forces self preview for clients
+			"&showdirector"+	//shows director interface
+			"&device=1"+	//select default audio and video device
+			"&wc"+	//disables screenshare use &webcam2 to show share your camera screen
+			"&novice"+	//simplyfy director layout
+			"&hidesolo"+	//hide solo links
+			"&chatbutton=0"+	//no chat button
+			"&mirror=2"+	//mirrors guest videos but not local videos
+			"&notify"+	// notify when people join
+			"&ovb="+document.forms["sessionIDCode"]["quality"].value+	//outbound video bitrate for main (obs stream)
+			"&trb=30000"+	//total room bit rate
+			"&hiddenscenebitrate=30000"+	//30mbps, highest quality
+			"&quality="+document.forms["sessionIDCode"]["resolution"].value+	//1 720p set to 0 for 1080p
+			"&cleandirector"+	//hides link generator in diretor room
+			"&darkmode"+	
+			"&nohub"+	//hide hangup button
+			"&nsb"+	//hide speaker button
+			"&hidetranslate"+	//hide translate
+			"&signalmeter"+	//add signal meter
+			"&agc=0"+	//turns off auto gain control
+			"&denoise=0"+	//turns off denoiser
+			"&ab=128"+	//constant audio bitrate of 24kbps
+			//"&maxviewers=12"+
+			"&chroma=191919"+	//set bg color
+			"&codirector="+sessionFile+	//allow co-directors and set the password to same session (not ideal but for now whatever) 
+			document.forms["sessionIDCode"]["queue"].value+
+			//"&queue"+ 	//adds quests to queue, director must approve each to let them in
+			"&css=https%3A%2F%2Frpxl.app%2Fninjadirector.css"+	//css
+			"";
+			return false;
 		}
-        
-	//check to see if the session ID entered exists
-	//done synchronous to make sure we get the file before checking
-	const request = new XMLHttpRequest();
-	request.open("GET", "https://remotepixels.app/sessions/"+sessionFile+".txt", false); // `false` makes the request synchronous
-	request.send(null);
 
-	//if the sessionID entered matches the file on the server fade out the sessionID and ask for a username
-	if (request.status === 200) {
-		blackout.style.animation = "fadeOut 300ms";
-		setTimeout ( function () {blackout.style.animation = "none"; blackout.style.display = "none";}, 300);
-		sessionIDpopupContent.style.animation = "fadeOut 300ms";
-		setTimeout ( function () {sessionIDpopupContent.style.animation = "none"; sessionIDpopupContent.style.display = "none";}, 300);
-
-		//start session duration counter
-		var timeSpentOnSite = getTimeSpentOnSite();
-		startCounting();
-		loadNinja ();
-		return false;
-                }
-	//and the sessionID does not match the file on server
-	else {
-		popupWindow.style.animation = "shake 500ms";
-		setTimeout ( function () {popupWindow.style.animation = "none"; document.getElementById("sessionIDCode").reset();}, 300);
-		document.forms["sessionIDCode"]["sessionIDInput"].focus();
+		//and the sessionID does not match the file on server
+		else {
+			popupWindow.style.animation = "shake 500ms";
+			setTimeout ( function () {popupWindow.style.animation = "none"; document.getElementById("sessionIDCode").reset();}, 300);
+			document.forms["sessionIDCode"]["sessionIDInput"].focus();
+			return false;
+		} 
 		return false;
 	} 
-	return false;
-} 
-
-function loadNinja() {
-	document.getElementById("inset_window").allow = "autoplay;camera;microphone;fullscreen;picture-in-picture;display-capture;";
-	document.getElementById("inset_window").src = "https://remotepixels.github.io/remotepixels.app/?director=RPXL_"+sessionFile+
-		"&push=RPXL_"+sessionFile+"_Main_Feed"+
-		"&rampuptime=6000"+	//ramp up time of 6 seconds
-		"&label=Server"+	//sets livestream as label for director connection
-		"&hidehome"+	//hide vdo ninja homepage	
-		"&director"+	//join as director
-		"&preview"+	//forces self preview for clients
-		"&showdirector"+	//shows director interface
-		"&device=1"+	//select default audio and video device
-		"&wc"+	//disables screenshare use &webcam2 to show share your camera screen
-		"&novice"+	//simplyfy director layout
-		"&hidesolo"+	//hide solo links
-		"&chatbutton=0"+	//no chat button
-		"&mirror=2"+	//mirrors guest videos but not local videos
-		"&notify"+	// notify when people join
-		"&ovb=20000"+	//outbound video bitrate (obs stream)
-		"&trb=30000"+	//total room bit rate
-		"&hiddenscenebitrate=30000"+	//should be set by director but make as low as possible
-		"&quality=0"+	//1 720p set to 0 for 1080p
-		"&cleandirector"+	//hides link generator in diretor room
-		"&darkmode"+	
-		"&nohub"+	//hide hangup button
-		"&nsb"+	//hide speaker button
-		"&hidetranslate"+	//hide translate
-		"&signalmeter"+	//add signal meter
-		"&agc=0"+	//turns off auto gain control
-		"&denoise=0"+	//turns off denoiser
-		"&ab=128"+	//constant audio bitrate of 24kbps
-		//"&maxviewers=12"+
-		"&chroma=191919"+	//set bg color
-		"&codirector="+sessionFile+	//allow co-directors and set the password to same session (not ideal but for now whatever) 
-		//"&queue"+ 	//adds quests to queue, director must approve each to let them in
-		"&css=https%3A%2F%2Fremotepixels.app%2Fninjadirector.css"+	//css
-		"";
-		return false;
 }
-	
-// 		unsed director room parameters
-//		"&hm"+	//hides menu
-//		"&nowebsite"+		//no website share
-//		"&nofileshare"+	//no file share button
-//		"&slotmode"+	//allows allocation of slots
-//		"&nvb"+		//disables guests video button
-//		"&mfps=25"+	//maximum frame rate
-//		"&hidehome"+	//hide vdo ninja homepage	
-//		"&signalmeter"+	//add signal meter
-//		"&blindall"+	//button to blind all quest	
-//		"&showconnections"+	//show total number of connections
-//		"&chunked=30000"+	//chunked custom codec 5mbps
-//		"&buffer=250"+	//chunked codec buffer in ms
-//		"&retransmit"+	//will transimit between peers, maybe
-	
 </script>

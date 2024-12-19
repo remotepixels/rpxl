@@ -35,13 +35,11 @@
 	<div class="topnav" id="subNav" style="background-color: #191919 ;">
 		<img src="../icons/favicon-32x32.png" class="siteIcon" id="siteIcon" style="opacity:0.4;"/>
 		<div class="ninjaIcon"><a href="https://vdo.ninja" target="_blank" class="vdoninjatext">Powered by<br>VDO.NINJA</a></div>
-		<div id="clock" class="clock" style="left: calc(100% - 95px)!important;"></div>	
+		<div id="clock" class="clock"></div>	
 	</div>
 		
 <!--loadblank frame-->
-	<div>
-		<iframe title="directorroom" class="directorroom" name="inset_window" id="inset_window" allowfullscreen=false></iframe>
-	</div>
+	<iframe title="directorroom" class="directorroom" name="inset_window" id="inset_window" allowfullscreen=false></iframe>
 	
 <!--popup window things-->
 <!--darken screen for popups-->
@@ -82,7 +80,7 @@
 								<div class="subtext">
 									Your browser may prompt you for microphone and camera access.
 									<p></p>
-									If you deny access other participants will not be able to hear or see you.
+									If you deny access, other participants will not be able to hear or see you.
 									</p><p>
 									You can modify microphone and camera settings later via the settings gear.
 								</div> 
@@ -102,36 +100,15 @@
 var cookieStoredName;    
 var sessionFile;
 
+//move caret to focus on inbut of session ID 
+document.forms["sessionIDCode"]["sessionIDInput"].focus();
+
 //interface bits, popups, hide navigation bar etc
 //scroll to hide menubar on ios
 setTimeout(function () {
   window.scrollTo(0, 1);
 }, 1000);
-/*
-//popup live session window if the live button is clicked
-function clickLiveSession() {
-	blackout.style.animation = "fadeIn 500ms ease-out";
-	blackout.style.display = "block";
-	setTimeout(function () { blackout.style.animation = "none";}, 300);
-        document.forms["sessionIDCode"]["sessionIDInput"].focus();
-	}
-  			
-//hide live session window when user clicks off
-function fadeOutPopup() {
-	blackout.style.animation = "fadeOut 300ms ease-out";
-	setTimeout(function () { blackout.style.animation = "none"; blackout.style.display = "none"; }, 300);
-	}
 
-//check if there is a live session otherwise hide live session button
-//using fetch so done asynchronously while loading page
-fetch("https://remotepixels.app/sessions/_live.txt")
-	.then( response => {
-	if (response.ok) {
-		liveSessionIcon.style.display = "inline";
-	}
-	return;
-	})
-*/
 //cookie bits
 //checks if cookie exists and stores the value in cookieStoredName
 let user = getCookie("username");
@@ -159,13 +136,13 @@ function getCookie(cname) {
 //check if an URL parameter is supplied
 //if there is clean the string and check the file
 let query = location.search;
-if  (query != 0) {
-	let sessionIDURL = query.slice(1);
-	sessionFile = encodeURIComponent(sessionIDURL); 
-	blackout.style.display = "block";
+let sessionIDURL = query.slice(1);
+let sessionIDUp = sessionIDURL.toUpperCase();
+	sessionFile = encodeURIComponent(sessionIDUp); 
 
-	checkSessionFile ();
-}
+if  ((sessionFile != 0) && (sessionFile.length == 6)) {
+	checkSessionFile ();	
+	}   
 
 //clock for top right of window
 function startTime() {
@@ -229,7 +206,7 @@ function checkSessionFile () {
 		//check to see if the session ID entered exists
 		//done synchronous to make sure we get the file before checking
 		const request = new XMLHttpRequest();
-		request.open("GET", "https://remotepixels.app/sessions/"+sessionFile+".txt", false); // `false` makes the request synchronous
+		request.open("GET", "https://rpxl.app/sessions/"+sessionFile+".txt", false); // `false` makes the request synchronous
 		request.send(null);
 
 		//if the sessionID entered matches the file on the server, check if you've been here in the last 24 hours
@@ -289,7 +266,6 @@ function validateStageName(){
 		//swap navigation bars, add clock and load vdoninja
 		startTime ();
 		blackout.style.display = "none";
-		document.getElementById("siteIcon").style.opacity = "0.4";
 
 		//set sources for main frame
 		document.getElementById("inset_window").allow = "autoplay;camera;microphone;fullscreen;picture-in-picture;display-capture;";
@@ -298,7 +274,6 @@ function validateStageName(){
 		"&codirector="+sessionFile+	//join as codirector
 		"&hidehome"+	//hide vdo ninja homepage	
 		"&showlabels"+	//show the usernames
-
 		"&quality=3"+	//set camera quality to lowest possible, about 360p
 		"&webcam"+	//disables screenshare use &webcam2 to show share your camera screen
 		"&cover"+	//make video cover space
@@ -310,14 +285,10 @@ function validateStageName(){
 		"&safemode"+	//loads camera in simplist way
 		"&st=6"+	//show audio only sources as coloured circles with first letter of name
 		"&meterstyle=2"+	//round highlight over person talking
-
 		"&preview"+	//forces self preview for clients
 		"&showdirector"+	//shows director in scenes
-		//"&device=1"+	//select default audio and video device
-		//"&wc"+	//disables screenshare use &webcam2 to show share your camera screen
 		"&novice"+	//simplyfy director layout
 		"&hidesolo"+	//hide solo links
-		//"&chatbutton=0"+	//no chat button
 		"&notify"+	// notify when people join
 		"&cleandirector"+	//hides link generator in diretor room
 		"&darkmode"+	
@@ -325,13 +296,8 @@ function validateStageName(){
 		"&nsb"+	//hide speaker button
 		"&hidetranslate"+	//hide translate
 		"&signalmeter"+	//add signal meter
-		//"&agc=0"+	//turns off auto gain control
-		//"&denoise=0"+	//turns off denoiser
-		//"&ab=128"+	//constant audio bitrate of 24kbps
-		//"&maxviewers=12"+
 		"&chroma=191919"+	//set bg color
-		//"&queue"+ 	//adds quests to queue, director must approve each to let them in
-		"&css=https%3A%2F%2Fremotepixels.app%2Fninjadirector.css"+	//css
+		"&css=https%3A%2F%2Frpxl.app%2Fninjadirector.css"+	//css
 		"";
 		}
 		return false;
