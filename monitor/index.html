@@ -43,13 +43,13 @@
 	
 <!--popup window things-->
 <!--darken screen for popups-->
-<div class="blackout" id="blackout" role="button" onclick="fadeOutPopup()" style="display:block;">
+<div class="blackout" id="blackout" role="button" style="display:block;">
 
 	<!--fade and slide in popup window-->
 	<div class="popupGroup" id="popupGroup"> 
 				
 		<!--popup window, draws the white popup window-->
-					<div class="popupWindow" id="popupWindow" onclick="event.stopPropagation()">
+					<div class="popupWindow" id="popupWindow">
 						
 		<!--popup window content : live session ID--> 
 						<div id="sessionIDpopupContent">	
@@ -58,7 +58,7 @@
 								<p></p>
 							</div>
 							<form id="sessionIDCode" name="sessionIDCode" onsubmit="return validateSessionID()" method="post" required="">
-								<input name="sessionIDInput" id="sessionIDInput" type="text" autocomplete="one-time-code" maxlength="6" onkeypress="return onlyAlphabets(event,this);" oninput="this.value = this.value.toUpperCase()" tabindex="1" style="--_otp-digit: 6;">
+								<input name="sessionIDInput" id="sessionIDInput" type="text" autocomplete="one-time-code" maxlength="6" onkeypress="return onlyAlphabets(event,this);" oninput="this.value = this.value.toUpperCase()" tabindex="1">
 								<br>
 								<div style="display: flex; justify-content: center; align-items: center; width:445px;">
 									<input type="submit" id="submitSessionID" value="Next" class="button" tabindex="2">
@@ -88,6 +88,19 @@
 								<input type="submit" value="Join" class="button">                            
 							</form>
 						</div>
+
+						<!--popup window content : warning if on mobile device--> 
+						<div id="mobileWarningPopupContent" style="animation: 300ms ease-out fadeIn; display: none;">
+							<div class="popupTitle" style="width:445px;">
+								Mobile support coming soon.
+								<p></p>
+							</div>
+							<div style="position:relative; left:20px; top:20px; width:400px;">
+							Currently, RPXL only supports desktop clients on Windows, Mac and Linux.
+							<p></p>
+							Support for mobile clients, iOs, iPadOs and Android is in development.
+							</div>
+						</div>
 					</div>
 				</div>
 	
@@ -96,18 +109,30 @@
 </body>
 </html>
 
-<script type="text/javascript">  
+<script type="text/javascript"> 
+//warning banner if on mobile device
+let mobile = 0;
+let getMobileOS = () => {
+  let ua = navigator.userAgent
+  if (/android/i.test(ua)) {
+    mobile = 1;
+  }
+  else if ((/iPad|iPhone|iPod/.test(ua)) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) {
+    mobile = 1;
+  }
+}
+
+if (mobile == 1) {
+	sessionIDpopupContent.style.display = "none";
+	mobileWarningPopupContent.style.display = "block";
+	stop;
+}
+
 var cookieStoredName;    
 var sessionFile;
 
 //move caret to focus on inbut of session ID 
 document.forms["sessionIDCode"]["sessionIDInput"].focus();
-
-//interface bits, popups, hide navigation bar etc
-//scroll to hide menubar on ios
-setTimeout(function () {
-  window.scrollTo(0, 1);
-}, 1000);
 
 //cookie bits
 //checks if cookie exists and stores the value in cookieStoredName

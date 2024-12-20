@@ -41,13 +41,13 @@
 <!--darken screen for popups-->
 <div class="blackout" id="blackout" style="display: block;">
 
-<!--used to fade and slide in popup window-->
+	<!--used to fade and slide in popup window-->
 	<div class="popupGroup" id="popupGroup"> 
 		
-<!--popup window, draws the white popup window-->
+		<!--popup window, draws the white popup window-->
 		<div class="popupWindow" id="popupWindow" style="height: 520px;">
 			
-<!--popup window content : live session ID--> 
+			<!--popup window content : live session ID--> 
 			<div id="sessionIDpopupContent">	
 				<div class="popupTitle" style="width:445px;">
 					Enter live session ID
@@ -82,13 +82,45 @@
 					</div>
 				</form>
 			</div>
-		</div>     
+
+			<!--popup window content : warning if on mobile device--> 
+			<div id="mobileWarningPopupContent" style="animation: 300ms ease-out fadeIn; display: none;">
+				<div class="popupTitle" style="width:445px;">
+					Mobile support coming soon.
+					<p></p>
+				</div>
+				<div style="position:relative; left:20px; top:20px; width:400px;">
+				Currently, RPXL only supports desktop clients on Windows, Mac and Linux.
+				<p></p>
+				Support for mobile clients, iOs, iPadOs and Android is in development.
+				</div>
+		</div>  
+		</div>   
 	</div>
 </div>
 </body>
 </html>
 
 <script type="text/javascript"> 
+//warning banner if on mobile device
+let mobile = 0;
+let getMobileOS = () => {
+  let ua = navigator.userAgent
+  if (/android/i.test(ua)) {
+    mobile = 1;
+  }
+  else if ((/iPad|iPhone|iPod/.test(ua)) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) {
+    mobile = 1;
+  }
+}
+
+if (mobile == 1) {
+	sessionIDpopupContent.style.display = "none";
+	popupWindow.style.height = "250px";
+	mobileWarningPopupContent.style.display = "block";
+	stop;
+}
+
 //move caret to focus on inbut of session ID 
 document.forms["sessionIDCode"]["sessionIDInput"].focus();
 
@@ -146,7 +178,7 @@ let sessionIDURL = query.slice(1);
 let sessionIDUp = sessionIDURL.toUpperCase();
 let	sessionFile = encodeURIComponent(sessionIDUp); 
 
-if  ((sessionFile != 0) && (sessionFile.length == 6)) {
+if  ((sessionFile != 0) && (sessionFile.length == 6)  && (mobile == 0)) {
 		document.forms["sessionIDCode"]["sessionIDInput"].value = sessionFile;	
 	}         
 
