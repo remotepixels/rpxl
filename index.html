@@ -36,25 +36,25 @@
         <div id="joinSession" class="joinSession" onclick="clickLiveSession()">Join a live session</div>
 	</div>
 
-	<div id="subNav" style="background-color: #191919 ;display: none;">
+	<div id="subNav"  class="topnav" style="background-color: #191919 ;display: none;">
 		<img src="icons/favicon-32x32.png" class="siteIcon" id="siteIcon"/>
 		<div class="ninjaIcon"><a href="https://vdo.ninja" target="_blank" class="vdoninjatext">Powered by<br>VDO.NINJA</a></div>
-		<div id="clock" class="clock"></div>	
-		<div id="exitSessionIcon" class="exitSessionIcon" onclick="window.location.href = 'http://www.google.com'">EXIT</div>
+		<div id="clock" class="clock" style="left: calc(100% - 230px);"></div>	
+		<div id="exitSession" class="exitSession" onclick="window.location.href = 'http://www.google.com'">Leave</div>
 	</div>
 
 	<!--frames for chat and live stream-->
 	<div id="chatIFrame" class="chatIFrame" style="display:none"></div>
 	<div id="mainIFrame" class="mainIFrame" style="display:none"></div>
 
-    <div class="siteHeader">
+    <div id="siteHeader" class="siteHeader">
         <img src="icons/android-chrome-192x192.png" class="siteMainIcon"/>
         <div class="siteTitle">RPXL</div>
         <p></p>
         <div class="siteSubTitle">Simple,<br>secure,<br>serverless,<br>remote collaboration.</div>
     </div>
 
-    <div class="textBG">
+    <div id="textBG" class="textBG">
         <div id="opening text">
             <p>&nbsp;</p>
             <h3>
@@ -487,9 +487,11 @@ function validateStageName(){
 		startTime ();
 
 		blackout.style.display = "none";
-		document.getElementById("topnav").style.height = "40px";
-		document.getElementById("joinSession").style.display = "none";
-		document.getElementById("subnav").style.display = "block";
+		document.getElementById("topnav").style.display = "none";
+		document.getElementById("siteHeader").style.display = "none";
+		document.getElementById("textBG").style.display = "none";
+		document.getElementById("footer").style.display = "none";
+		document.getElementById("subNav").style.display = "block";
 
 		document.getElementById("chatIFrame").style.display="inline-block";
 		document.getElementById("mainIFrame").style.display="inline-block";

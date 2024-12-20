@@ -42,6 +42,29 @@ body {
 	background-color: dodgerblue;
 	border: 2px solid dodgerblue;
 	}	
+
+.exitSession {
+	position: absolute;
+	text-align: center;
+	right: 5px;
+	width: 95px;
+	/* margin: 10px; */
+	top: 17px;
+	color: #5e5e5e;
+	text-decoration: none;
+	border-radius: 20px;
+	font-weight: 400;
+	height: 22px;
+	padding: 2px 0px 2px 1px;
+	border: 2px solid color(srgb 0.3686 0.3686 0.3687);
+	background: #2b2b2bb3;
+	cursor: pointer;
+	}
+.exitSession:hover {
+	color: gainsboro;
+	background-color: #840000;
+	border: 2px solid gainsboro;
+	}	
 .siteHeader{
 	position: relative;
 	display: inline-block;
@@ -132,27 +155,39 @@ a {
 	}
 .ninjaIcon {
 	position: absolute;
+	float: left;
 	top: 12px;
 	text-decoration: none;
 	transition-duration: 0.2s;
 	left: 60px;
-	Cursor: pointer;
-	opacity: 1;
+	cursor: pointer;
+	font-weight: 400;
+	opacity: 0.5;
 	}	
 .ninjaIcon:hover {
+	color: white;
 	opacity: 1;
 	}
-.vdoninjatext{
-	position: relative;
+
+.sessionLink {
+	display: none;
+	position: absolute;
 	text-decoration: none;
-	font: 18px;
-	font-weight: 100;
-	}
-.vdoninjatext:hover {
-	opacity: 1;
-	}
-
-
+	font-size: 24px;
+	font-weight: 400;
+    color: #ffffff4d;
+    top:15px;
+    right:140px;
+    border:2px solid  #ffffff4d;
+    padding: 2px 20px 1px 20px;
+    border-radius: 20px;  
+}
+.sessionLink:hover {
+    color: white;
+    border:2px solid dodgerblue ;
+    background-color: dodgerblue ;
+    cursor: pointer;
+}
 
 iframe {
 	width:100%;
@@ -164,7 +199,7 @@ iframe {
 	display:block;
 	}
 .clock {
-	position: relative;
+	position: absolute;
 	text-align: center;
 	left: calc(100% - 120px);
 	width: 120px;
@@ -179,12 +214,12 @@ iframe {
 	}
 .mainIFrame {
 	width:calc(100% - 113px);
-	height:calc(100% - 40px);
+	height:calc(100% - 60px);
 	border:0px;
 	margin:0px;
 	padding-left:0px;
 	position:fixed;
-	top:40px;
+	top:60px;
 	left:5px;
 	background-color: #121212;
 	display:block;
@@ -196,7 +231,7 @@ iframe {
 	border:0px;
 	margin:0px;
 	padding:0px;
-	top:40px;
+	top:60px;
 	left:3px;
 	position:fixed;
 	z-index:5;

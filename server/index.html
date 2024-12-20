@@ -31,6 +31,7 @@
 	<div class="topnav" id="subNav">
 		<img src="../icons/favicon-32x32.png" class="siteIcon" id="siteIcon" style="opacity:0.3;"/>
 		<div class="ninjaIcon"><a href="https://vdo.ninja" target="_blank" class="vdoninjatext">Powered by<br>VDO.NINJA</a></div>
+		<div id="sessionLink" class="sessionLink" value="https://rpxl.app" alt="Copy to clipboard"></div>
 		<div id="clock" class="clock"></div>
 	</div>
     
@@ -102,6 +103,9 @@
 </html>
 
 <script type="text/javascript"> 
+//move caret to focus on inbut of session ID 
+document.forms["sessionIDCode"]["sessionIDInput"].focus();
+
 //warning banner if on mobile device
 let mobile = 0;
 let getMobileOS = () => {
@@ -120,9 +124,6 @@ if (mobile == 1) {
 	mobileWarningPopupContent.style.display = "block";
 	stop;
 }
-
-//move caret to focus on inbut of session ID 
-document.forms["sessionIDCode"]["sessionIDInput"].focus();
 
 //menu options select and set values
 window.addEventListener("click", function (event) {
@@ -167,8 +168,11 @@ if (event.target.name === "button") {
 		queueOff.classList.add("multiSelectBlockHighlighted");
 		document.forms["sessionIDCode"]["queue"].value = "";	
 	}
-
 }
+if (event.target.id == "sessionLink") {
+	let urlLink = document.getElementById("sessionLink").value;
+	navigator.clipboard.writeText(urlLink);
+	}
 });
 
 //check if an URL parameter is sent and prefill the session ID field
@@ -237,6 +241,10 @@ function validateSessionID(){
 			setTimeout ( function () {blackout.style.animation = "none"; blackout.style.display = "none";}, 300);
 			sessionIDpopupContent.style.animation = "fadeOut 300ms";
 			setTimeout ( function () {sessionIDpopupContent.style.animation = "none"; sessionIDpopupContent.style.display = "none";}, 300);
+
+			document.getElementById("sessionLink").innerHTML = ("Client URL : https://rpxl.app/?"+sessionFile);
+			document.getElementById("sessionLink").value = "https://rpxl.app/?"+sessionFile;	
+			document.getElementById("sessionLink").style.display = "block";
 
 			//start session duration counter
 			let timeSpentOnSite = parseInt(sessionStorage.getItem('timeSpentOnSite'));
