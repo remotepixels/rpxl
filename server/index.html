@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang=en>
 <head>
-	<title>live.remotepixels.app</title>
+	<title>rpxl.app - Server</title>
 
 	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
 	<meta http-equiv="Pragma" content="no-cache"/>
@@ -27,31 +27,26 @@
 </head>
     
 <body>
-    
 	<div class="topnav" id="subNav">
-		<img src="../icons/favicon-32x32.png" class="siteIcon" id="siteIcon" style="opacity:0.3;"/>
+		<img src="../icons/android-chrome-192x192.png" class="siteIcon" id="siteIcon" style="opacity:0.3;"/>
 		<div class="ninjaIcon"><a href="https://vdo.ninja" target="_blank" class="vdoninjatext">Powered by<br>VDO.NINJA</a></div>
-		<div id="sessionLink" class="sessionLink" value="https://rpxl.app" alt="Copy to clipboard"></div>
+		<div class="clientLink" id="clientLink">Link : <div id="sessionLink" class="sessionLink" value="https://rpxl.app" alt="Copy to clipboard"></div><img src="../images/copy.png" width="20" height="20" style="display: inline-block; position: relative; left: 10px; opacity: 0.5;"></div>
 		<div id="clock" class="clock"></div>
 	</div>
     
 		
-<!--load blank iframe, will be replaced with directors room when loged in-->
-<iframe title="directorroom" class="directorroom" name="inset_window" id="inset_window" allowfullscreen=false></iframe>
+	<!--load blank iframe, will be replaced with directors room when loged in-->
+	<iframe title="directorroom" class="directorroom" name="inset_window" id="inset_window" allowfullscreen=false></iframe>
 
-<!--darken screen for popups-->
-<div class="blackout" id="blackout" style="display: block;">
-
-	<!--used to fade and slide in popup window-->
-	<div class="popupGroup" id="popupGroup"> 
-		
-		<!--popup window, draws the white popup window-->
+	<!--darken screen for popups-->
+	<div class="blackout" id="blackout" style="display: block;">			
+		<!--popup window, draws the popup window-->
 		<div class="popupWindow" id="popupWindow" style="height: 520px;">
 			
-			<!--popup window content : live session ID--> 
+			<!--popup window content : session setting--> 
 			<div id="sessionIDpopupContent">	
 				<div class="popupTitle" style="width:445px;">
-					Enter live session ID
+					Create live session
 					<p></p>
 				</div>
 				<form id="sessionIDCode" name="sessionIDCode" onsubmit="return validateSessionID()" method="post" required="">
@@ -95,16 +90,24 @@
 				<p></p>
 				Support for mobile clients, iOs, iPadOs and Android is in development.
 				</div>
-		</div>  
+			</div>  
+
 		</div>   
 	</div>
-</div>
+
 </body>
 </html>
 
 <script type="text/javascript"> 
 //move caret to focus on inbut of session ID 
 document.forms["sessionIDCode"]["sessionIDInput"].focus();
+
+//session duration clock   
+function getTimeSpentOnSite(){
+	timeSpentOnSite = parseInt(sessionStorage.getItem('timeSpentOnSite'));
+	timeSpentOnSite = isNaN(timeSpentOnSite) ? 0 : timeSpentOnSite;
+	return timeSpentOnSite;
+}
 
 //warning banner if on mobile device
 let mobile = 0;
@@ -185,13 +188,6 @@ let	sessionFile = encodeURIComponent(sessionIDUp);
 if  ((sessionFile != 0) && (sessionFile.length == 6)  && (mobile == 0)) {
 		document.forms["sessionIDCode"]["sessionIDInput"].value = sessionFile;	
 	}         
-
-//session duration clock   
-function getTimeSpentOnSite(){
-	timeSpentOnSite = parseInt(sessionStorage.getItem('timeSpentOnSite'));
-	timeSpentOnSite = isNaN(timeSpentOnSite) ? 0 : timeSpentOnSite;
-	return timeSpentOnSite;
-}
      			
 //Session ID field entry, force upper caase, restrict to alpha-numeric
 const input = document.querySelector('[autocomplete=one-time-code');
@@ -218,12 +214,12 @@ input.addEventListener("keypress", function(event) {
 		}
 	});
    
-//validates the session ID when the user submits a correctly formatted value as above
+//validates the session ID when the user submits
 function validateSessionID(){
 	let sessionEnc = document.forms ["sessionIDCode"]["sessionIDInput"].value;
 	let	sessionFile = encodeURIComponent(sessionEnc); //encode submitted value to escape any funny characters
 
-	//if there are less or more than 6 characters shake the box and clear it
+	//if there are less or more or less than 6 characters shake the box and clear it
 	if (sessionFile.length != 6) {
 		popupWindow.style.animation = "shake 500ms";
 		setTimeout ( function () {popupWindow.style.animation = "none"; document.getElementById("sessionIDCode").reset();}, 300);
@@ -231,90 +227,72 @@ function validateSessionID(){
 		return false;
 		}
 	else {
-		const request = new XMLHttpRequest();
+		blackout.style.animation = "fadeOut 300ms";
+		setTimeout ( function () {blackout.style.animation = "none"; blackout.style.display = "none";}, 300);
+//		sessionIDpopupContent.style.animation = "fadeOut 300ms";
+//		setTimeout ( function () {sessionIDpopupContent.style.animation = "none"; sessionIDpopupContent.style.display = "none";}, 300);
 
-		request.open("GET", "https://rpxl.app/sessions/"+sessionFile+".txt", false); // `false` makes the request synchronous
-		request.send(null);
+		document.getElementById("sessionLink").innerHTML = ("https://rpxl.app/?"+sessionFile);
+		document.getElementById("sessionLink").value = "https://rpxl.app/?"+sessionFile;	
+		document.getElementById("sessionLink").style.display = "inline-block";
+		document.getElementById("clientLink").style.display = "block";
 
-		if (request.status === 200) {
-			blackout.style.animation = "fadeOut 300ms";
-			setTimeout ( function () {blackout.style.animation = "none"; blackout.style.display = "none";}, 300);
-			sessionIDpopupContent.style.animation = "fadeOut 300ms";
-			setTimeout ( function () {sessionIDpopupContent.style.animation = "none"; sessionIDpopupContent.style.display = "none";}, 300);
+		//start session duration counter
+		let timerStart = Date.now();
+		let timer = setInterval(function(){
+			timeSpentOnSite = getTimeSpentOnSite()+(Date.now()-timerStart);
+			sessionStorage.setItem('timeSpentOnSite',timeSpentOnSite);
+			timerStart = parseInt(Date.now());
+			// Convert to seconds
+			var milliseconds = timeSpentOnSite % 1000;
+			var seconds = Math.floor((timeSpentOnSite / 1000) % 60);
+			var minutes = Math.floor((timeSpentOnSite / (60 * 1000)) % 60);
+			var hours = Math.floor((timeSpentOnSite / (60 * 60 * 1000)) % 24);
+			
+			hours = (hours < 10) ? "0" + hours : hours;
+			minutes = (minutes < 10) ? "0" + minutes : minutes;
+			seconds = (seconds < 10) ? "0" + seconds : seconds;
+			
+			document.getElementById("clock").innerHTML = ( hours + ":" +minutes + ":" + seconds);
+			},1000);
 
-			document.getElementById("sessionLink").innerHTML = ("Client URL : https://rpxl.app/?"+sessionFile);
-			document.getElementById("sessionLink").value = "https://rpxl.app/?"+sessionFile;	
-			document.getElementById("sessionLink").style.display = "block";
-
-			//start session duration counter
-			let timeSpentOnSite = parseInt(sessionStorage.getItem('timeSpentOnSite'));
-			timeSpentOnSite = isNaN(timeSpentOnSite) ? 0 : timeSpentOnSite;
-
-			let timerStart = Date.now();
-			let timer = setInterval(function(){
-				timeSpentOnSite = getTimeSpentOnSite()+(Date.now()-timerStart);
-				sessionStorage.setItem('timeSpentOnSite',timeSpentOnSite);
-				timerStart = parseInt(Date.now());
-				// Convert to seconds
-				var milliseconds = timeSpentOnSite % 1000;
-				var seconds = Math.floor((timeSpentOnSite / 1000) % 60);
-				var minutes = Math.floor((timeSpentOnSite / (60 * 1000)) % 60);
-				var hours = Math.floor((timeSpentOnSite / (60 * 60 * 1000)) % 24);
-				
-				hours = (hours < 10) ? "0" + hours : hours;
-				minutes = (minutes < 10) ? "0" + minutes : minutes;
-				seconds = (seconds < 10) ? "0" + seconds : seconds;
-				
-				document.getElementById("clock").innerHTML = ( hours + ":" +minutes + ":" + seconds);
-				},1000);
-
-			document.getElementById("inset_window").allow = "autoplay;camera;microphone;fullscreen;picture-in-picture;display-capture;";
-			document.getElementById("inset_window").src = "https://remotepixels.github.io/remotepixels.app/?director=RPXL_"+sessionFile+
-			"&push=RPXL_"+sessionFile+"_Main_Feed"+
-			"&rampuptime=6000"+	//ramp up time of 6 seconds
-			"&label=Server"+	//sets livestream as label for director connection
-			"&hidehome"+	//hide vdo ninja homepage	
-			"&director"+	//join as director
-			"&preview"+	//forces self preview for clients
-			"&showdirector"+	//shows director interface
-			"&device=1"+	//select default audio and video device
-			"&wc"+	//disables screenshare use &webcam2 to show share your camera screen
-			"&novice"+	//simplyfy director layout
-			"&hidesolo"+	//hide solo links
-			"&chatbutton=0"+	//no chat button
-			"&mirror=2"+	//mirrors guest videos but not local videos
-			"&notify"+	// notify when people join
-			"&ovb="+document.forms["sessionIDCode"]["quality"].value+	//outbound video bitrate for main (obs stream)
-			"&trb=30000"+	//total room bit rate
-			"&hiddenscenebitrate=30000"+	//30mbps, highest quality
-			"&quality="+document.forms["sessionIDCode"]["resolution"].value+	//1 720p set to 0 for 1080p
-			"&cleandirector"+	//hides link generator in diretor room
-			"&darkmode"+	
-			"&nohub"+	//hide hangup button
-			"&nsb"+	//hide speaker button
-			"&hidetranslate"+	//hide translate
-			"&signalmeter"+	//add signal meter
-			"&agc=0"+	//turns off auto gain control
-			"&denoise=0"+	//turns off denoiser
-			"&ab=128"+	//constant audio bitrate of 24kbps
-			//"&maxviewers=12"+
-			"&chroma=191919"+	//set bg color
-			"&codirector="+sessionFile+	//allow co-directors and set the password to same session (not ideal but for now whatever) 
-			document.forms["sessionIDCode"]["queue"].value+
-			//"&queue"+ 	//adds quests to queue, director must approve each to let them in
-			"&css=https%3A%2F%2Frpxl.app%2Fninjadirector.css"+	//css
-			"";
-			return false;
-		}
-
-		//and the sessionID does not match the file on server
-		else {
-			popupWindow.style.animation = "shake 500ms";
-			setTimeout ( function () {popupWindow.style.animation = "none"; document.getElementById("sessionIDCode").reset();}, 300);
-			document.forms["sessionIDCode"]["sessionIDInput"].focus();
-			return false;
-		} 
+		//vdo ninja configuration and startup
+		document.getElementById("inset_window").allow = "autoplay;camera;microphone;fullscreen;picture-in-picture;display-capture;";
+		document.getElementById("inset_window").src = "https://remotepixels.github.io/remotepixels.app/?director=RPXL_"+sessionFile+
+		"&push=RPXL_"+sessionFile+"_Main_Feed"+
+		"&rampuptime=6000"+	//ramp up time of 6 seconds
+		"&label=Server"+	//sets livestream as label for director connection
+		"&hidehome"+	//hide vdo ninja homepage	
+		"&director"+	//join as director
+		"&preview"+	//forces self preview for clients
+		"&showdirector"+	//shows director interface
+		"&device=1"+	//select default audio and video device
+		"&wc"+	//disables screenshare use &webcam2 to show share your camera screen
+		"&novice"+	//simplyfy director layout
+		"&hidesolo"+	//hide solo links
+		"&chatbutton=0"+	//no chat button
+		"&mirror=2"+	//mirrors guest videos but not local videos
+		"&notify"+	// notify when people join
+		"&ovb="+document.forms["sessionIDCode"]["quality"].value+	//outbound video bitrate for main (obs stream)
+		"&trb=30000"+	//total room bit rate
+		"&hiddenscenebitrate=30000"+	//30mbps, highest quality
+		"&quality="+document.forms["sessionIDCode"]["resolution"].value+	//1 720p set to 0 for 1080p
+		"&cleandirector"+	//hides link generator in diretor room
+		"&darkmode"+	
+		"&nohub"+	//hide hangup button
+		"&nsb"+	//hide speaker button
+		"&hidetranslate"+	//hide translate
+		"&signalmeter"+	//add signal meter
+		"&agc=0"+	//turns off auto gain control
+		"&denoise=0"+	//turns off denoiser
+		"&ab=128"+	//constant audio bitrate of 24kbps
+		"&chroma=191919"+	//set bg color
+		"&codirector="+sessionFile+	//allow co-directors and set the password to same session (not ideal but for now whatever) 
+		document.forms["sessionIDCode"]["queue"].value+
+		"&css=https%3A%2F%2Frpxl.app%2Fninjadirector.css"+	//css
+		"";
 		return false;
-	} 
-}
+	}
+	return false;
+} 
 </script>

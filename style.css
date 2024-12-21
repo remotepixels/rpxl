@@ -144,8 +144,8 @@ a {
 
 .siteIcon {
 	position: absolute;
-	top:10px;
-	left: 10px;
+	top:8px;
+	left: 8px;
 	height:44px;
 	width:44px;
 	opacity: 0.8;
@@ -156,7 +156,7 @@ a {
 .ninjaIcon {
 	position: absolute;
 	float: left;
-	top: 12px;
+	top: 10px;
 	text-decoration: none;
 	transition-duration: 0.2s;
 	left: 60px;
@@ -169,23 +169,30 @@ a {
 	opacity: 1;
 	}
 
-.sessionLink {
+
+.clientLink {
 	display: none;
 	position: absolute;
-	text-decoration: none;
 	font-size: 24px;
 	font-weight: 400;
     color: #ffffff4d;
     top:15px;
     right:140px;
-    border:2px solid  #ffffff4d;
     padding: 2px 20px 1px 20px;
-    border-radius: 20px;  
+}
+.sessionLink {
+	display: none;
+	position: relative;
+	text-decoration: underline;
+	font-size: 24px;
+	font-weight: 400;
+    color: #ffffff4d;
+
 }
 .sessionLink:hover {
     color: white;
-    border:2px solid dodgerblue ;
-    background-color: dodgerblue ;
+	text-decoration: underline;
+	text-decoration-color: dodgerblue;
     cursor: pointer;
 }
 

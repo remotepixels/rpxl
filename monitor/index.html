@@ -2,7 +2,7 @@
 <html lang=en>
 
 <head>
-	<title>remotepixels.app</title>
+	<title>rpxl.app - monitor</title>
 
 	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
 	<meta http-equiv="Pragma" content="no-cache"/>
@@ -32,10 +32,11 @@
 <body>
 
 <!-- top navbar for live session -->    
-	<div class="topnav" id="subNav" style="background-color: #191919 ;">
-		<img src="../icons/favicon-32x32.png" class="siteIcon" id="siteIcon" style="opacity:0.4;"/>
+	<div class="topnav" id="subNav">
+		<img src="../icons/android-chrome-192x192.png" class="siteIcon" id="siteIcon" style="opacity:0.3;"/>
 		<div class="ninjaIcon"><a href="https://vdo.ninja" target="_blank" class="vdoninjatext">Powered by<br>VDO.NINJA</a></div>
-		<div id="clock" class="clock"></div>	
+		<div class="clientLink" id="clientLink">Link : <div id="sessionLink" class="sessionLink" value="https://rpxl.app" alt="Copy to clipboard"></div><img src="../images/copy.png" width="20" height="20" style="display: inline-block; position: relative; left: 10px; opacity: 0.5;"></div>
+		<div id="clock" class="clock"></div>
 	</div>
 		
 <!--loadblank frame-->
@@ -43,69 +44,63 @@
 	
 <!--popup window things-->
 <!--darken screen for popups-->
-<div class="blackout" id="blackout" role="button" style="display:block;">
-
-	<!--fade and slide in popup window-->
-	<div class="popupGroup" id="popupGroup"> 
-				
+	<div class="blackout" id="blackout" role="button" style="display:block;">	
 		<!--popup window, draws the white popup window-->
-					<div class="popupWindow" id="popupWindow">
-						
-		<!--popup window content : live session ID--> 
-						<div id="sessionIDpopupContent">	
-							<div class="popupTitle" style="width:445px;">
-								Enter live session ID
-								<p></p>
-							</div>
-							<form id="sessionIDCode" name="sessionIDCode" onsubmit="return validateSessionID()" method="post" required="">
-								<input name="sessionIDInput" id="sessionIDInput" type="text" autocomplete="one-time-code" maxlength="6" onkeypress="return onlyAlphabets(event,this);" oninput="this.value = this.value.toUpperCase()" tabindex="1">
-								<br>
-								<div style="display: flex; justify-content: center; align-items: center; width:445px;">
-									<input type="submit" id="submitSessionID" value="Next" class="button" tabindex="2">
-								</div>
-							</form>
-						</div>
-					 
-		<!--popup window content : ask for a username--> 
-						<div class="askNamePopupContent" id="askNamePopupContent" style="animation: 300ms ease-out fadeIn; display: none;">
-							<div class="popupTitle">Enter your name</div><p></p>
-							<form id="stageName" name="stageName" onsubmit="return validateStageName()" method="post" required="">
-								<input class="enterStageName" type="text" maxlength="11" name="enterStageName">
-								<br>
-								<div style="position: relative; padding: 20px; border-radius: 10px; width: 260px; left: 12px; margin-top: 10px; margin-bottom: 10px;">
-								<div class="popupTitle">
-									Important!
-								</div>
-								<br>
-								<div class="subtext">
-									Your browser may prompt you for microphone and camera access.
-									<p></p>
-									If you deny access, other participants will not be able to hear or see you.
-									</p><p>
-									You can modify microphone and camera settings later via the settings gear.
-								</div> 
-							</div> 
-								<input type="submit" value="Join" class="button">                            
-							</form>
-						</div>
-
-						<!--popup window content : warning if on mobile device--> 
-						<div id="mobileWarningPopupContent" style="animation: 300ms ease-out fadeIn; display: none;">
-							<div class="popupTitle" style="width:445px;">
-								Mobile support coming soon.
-								<p></p>
-							</div>
-							<div style="position:relative; left:20px; top:20px; width:400px;">
-							Currently, RPXL only supports desktop clients on Windows, Mac and Linux.
-							<p></p>
-							Support for mobile clients, iOs, iPadOs and Android is in development.
-							</div>
-						</div>
-					</div>
+		<div class="popupWindow" id="popupWindow">
+				
+			<!--popup window content : live session ID--> 
+			<div id="sessionIDpopupContent">	
+				<div class="popupTitle" style="width:445px;">
+					Enter live session ID
+					<p></p>
 				</div>
-	
-	
+				<form id="sessionIDCode" name="sessionIDCode" onsubmit="return checkSessionFile()" method="post" required="">
+					<input name="sessionIDInput" id="sessionIDInput" type="text" autocomplete="one-time-code" maxlength="6" onkeypress="return onlyAlphabets(event,this);" oninput="this.value = this.value.toUpperCase()" tabindex="1">
+					<br>
+					<div style="display: flex; justify-content: center; align-items: center; width:445px;">
+						<input type="submit" id="submitSessionID" value="Next" class="button" tabindex="2">
+					</div>
+				</form>
+			</div>
+					
+			<!--popup window content : ask for a username--> 
+			<div class="askNamePopupContent" id="askNamePopupContent" style="animation: 300ms ease-out fadeIn; display: none;">
+				<div class="popupTitle">Enter your name</div><p></p>
+				<form id="stageName" name="stageName" onsubmit="return validateStageName()" method="post" required="">
+					<input class="enterStageName" type="text" maxlength="11" name="enterStageName">
+					<br>
+					<div style="position: relative; padding: 20px; border-radius: 10px; width: 260px; left: 12px; margin-top: 10px; margin-bottom: 10px;">
+					<div class="popupTitle">
+						Important!
+					</div>
+					<br>
+					<div class="subtext">
+						Your browser may prompt you for microphone and camera access.
+						<p></p>
+						If you deny access, other participants will not be able to hear or see you.
+						</p><p>
+						You can modify microphone and camera settings later via the settings gear.
+					</div> 
+				</div> 
+					<input type="submit" value="Join" class="button">                            
+				</form>
+			</div>
+
+			<!--popup window content : warning if on mobile device--> 
+			<div id="mobileWarningPopupContent" style="animation: 300ms ease-out fadeIn; display: none;">
+				<div class="popupTitle" style="width:445px;">
+					Mobile support coming soon.
+					<p></p>
+				</div>
+				<div style="position:relative; left:20px; top:20px; width:400px;">
+				Currently, RPXL only supports desktop clients on Windows, Mac and Linux.
+				<p></p>
+				Support for mobile clients, iOs, iPadOs and Android is in development.
+				</div>
+			</div>
 		</div>
+
+	</div>
 </body>
 </html>
 
@@ -121,26 +116,15 @@ let getMobileOS = () => {
     mobile = 1;
   }
 }
-
 if (mobile == 1) {
 	sessionIDpopupContent.style.display = "none";
 	mobileWarningPopupContent.style.display = "block";
 	stop;
 }
 
-var cookieStoredName;    
-var sessionFile;
-
 //move caret to focus on inbut of session ID 
 document.forms["sessionIDCode"]["sessionIDInput"].focus();
 
-//cookie bits
-//checks if cookie exists and stores the value in cookieStoredName
-let user = getCookie("username");
-if (user != "") {
-	cookieStoredName = user;
-	}
-   
 //read cookie username value
 function getCookie(cname) {
 	let name = cname + "=";
@@ -163,13 +147,15 @@ function getCookie(cname) {
 let query = location.search;
 let sessionIDURL = query.slice(1);
 let sessionIDUp = sessionIDURL.toUpperCase();
-	sessionFile = encodeURIComponent(sessionIDUp); 
+let	sessionFile = encodeURIComponent(sessionIDUp); 
 
-if  ((sessionFile != 0) && (sessionFile.length == 6)) {
-	checkSessionFile ();	
-	}   
+if  ((sessionFile != 0) && (sessionFile.length == 6) && (mobile == 0)) {
+	document.forms ["sessionIDCode"]["sessionIDInput"].value = sessionFile;	
+	checkSessionFile ();
+	}  
 
 //clock for top right of window
+//clock check if and add zero in front of numbers < 10
 function startTime() {
 	const today = new Date();
         let h = today.getHours();
@@ -181,8 +167,6 @@ function startTime() {
         document.getElementById('clock').innerHTML =  h + ":" + m + ":" +s ;
         setTimeout(startTime, 1000);
 	}
-
-//clock check if and add zero in front of numbers < 10
 function checkTime(i) {
         if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
         return i;
@@ -213,74 +197,52 @@ input.addEventListener("keypress", function(event) {
 		}
 	});
 
-//if no session ID supplied on the url, ask for session ID and valid it
-//validates the session ID when the user submits a correctly formated value
-//on submit, check there are 6 values in the field and run check against sessionfile
-function validateSessionID(){
-	let v1 = document.forms ["sessionIDCode"]["sessionIDInput"].value;
-	sessionFile = encodeURIComponent(v1); 
-
-	checkSessionFile ();
-	return false;
-}
 	
 //checks the sessionID to the file on the server, if it exists then ask for a username, if not shake the box start over
 function checkSessionFile () {	
-	if (sessionFile.length == 6) {
+	let v1 = document.forms ["sessionIDCode"]["sessionIDInput"].value;
+	sessionFile = encodeURIComponent(v1); 
+	let user = getCookie("username");
+	if (user != "") {
+		cookieStoredName = user;
+	}
+	else {
+		cookieStoredName == ""
+	}
 
-		//check to see if the session ID entered exists
-		//done synchronous to make sure we get the file before checking
-		const request = new XMLHttpRequest();
-		request.open("GET", "https://rpxl.app/sessions/"+sessionFile+".txt", false); // `false` makes the request synchronous
-		request.send(null);
+	if  ((sessionFile != 0) && (sessionFile.length == 6)) {
+		sessionIDpopupContent.style.animation = "none";
+		sessionIDpopupContent.style.display = "none";
 
-		//if the sessionID entered matches the file on the server, check if you've been here in the last 24 hours
-		//if you have auto fill username from cookie and ask to join
-		if (request.status === 200) {	
-			if (cookieStoredName == "" || cookieStoredName == null) {
-				cookieStoredName = "";
-			}
-			
-			blackout.style.display = "block";
-			sessionIDpopupContent.style.animation = "fadeOut 300ms";
-			setTimeout ( function () {sessionIDpopupContent.style.animation = "none"; sessionIDpopupContent.style.display = "none";}, 300);
-			askNamePopupContent.style.animation = "fadeIn 300ms ease-out";
-
-			setTimeout(function () {
-					popupWindow.style.height = "420px";
-					popupWindow.style.width = "320px";
-					popupWindow.style.left = "calc(50% - 190px)";
-					askNamePopupContent.style.display = "block";
-					document.forms["stageName"]["enterStageName"].value = cookieStoredName;
-					document.forms["stageName"]["enterStageName"].focus()
-					},300);
-		}
-		//if session id doesn't exist then shake the box and clear
-		else {							
-			popupWindow.style.animation = "shake 500ms";
-			setTimeout ( function () {popupWindow.style.animation = "none"; document.getElementById("sessionIDCode").reset();}, 300);
-			document.forms["sessionIDCode"]["sessionIDInput"].focus();
-		} 
-	} 
-	//if session id length is less than 6 shake the box and reset, don't waste time checking
+		askNamePopupContent.style.animation = "fadeIn 300ms ease-out";
+		popupWindow.style.height = "420px";
+		popupWindow.style.width = "320px";
+		popupWindow.style.left = "calc(50% - 190px)";
+		askNamePopupContent.style.display = "block";
+		document.forms["stageName"]["enterStageName"].value = cookieStoredName;
+		document.forms["stageName"]["enterStageName"].focus()
+		return false;
+	}
 	else {
 		popupWindow.style.animation = "shake 500ms";
-		setTimeout ( function () {popupWindow.style.animation = "none"; document.getElementById("sessionIDCode").reset();}, 300);
+		setTimeout ( function () {popupWindow.style.animation = "none"; document.forms["stageName"]["enterStageName"].focus(); }, 300); 
 		document.forms["sessionIDCode"]["sessionIDInput"].focus();
+		return false;
 	}
 }
-	  
-//if the session id checks out when user enters a name
+
 //check the username (stagename), make sure it isn't empty, then clean up the string
 //set a cookie and start the session
 function validateStageName(){
 	let varstageName = document.forms ["stageName"]["enterStageName"].value;
+
 	//if they try to submit an empty name shake the box and highlight the stage name field
 	if (!varstageName) {								
 		popupWindow.style.animation = "shake 500ms";
 		setTimeout ( function () {popupWindow.style.animation = "none"; document.forms["stageName"]["enterStageName"].focus(); }, 300);  
 		return false;
 		}
+
 	//encode the name entered to a URI to escape any odd characters set cookie for next 24 hours
 	else {
 		let uri = document.forms ["stageName"]["enterStageName"].value;		
