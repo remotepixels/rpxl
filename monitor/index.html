@@ -201,13 +201,12 @@ input.addEventListener("keypress", function(event) {
 //checks the sessionID to the file on the server, if it exists then ask for a username, if not shake the box start over
 function checkSessionFile () {	
 	let v1 = document.forms ["sessionIDCode"]["sessionIDInput"].value;
+	let cookieStoredName = "";
+
 	sessionFile = encodeURIComponent(v1); 
 	let user = getCookie("username");
 	if (user != "") {
 		cookieStoredName = user;
-	}
-	else {
-		cookieStoredName == ""
 	}
 
 	if  ((sessionFile != 0) && (sessionFile.length == 6)) {
