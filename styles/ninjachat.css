@@ -76,13 +76,6 @@
 #subControlButtons {
 	display: inline-flex!important;
 	position: fixed!important;
-	/* background-color: rgb(0 0 0 / 50%)!important; */
-	/* pointer-events: auto!important; */
-	/* border: #6060608a 1px solid!important; */
-	/* border-radius: 10px!important; */
-	/* align-items: center!important; */
-	/* justify-content: center!important; */
-	/* align-items: center!important; */
 	top: calc(100% - 165px)!important;
 	left: calc(100% - 105px)!important;
 	height: 100px!important;
@@ -90,13 +83,7 @@
 	min-width: 30px!important;
 	min-height: 30px!important;
 	cursor: default!important;
-	/* scale: 100%!important; */
-	/* padding: 0px!important; */
-	/* margin: 0px!important; */
 	transform: translate(0px,0px)!important;
-	/* box-shadow: 0px 0px 10px #000000; */
-	/* -webkit-backdrop-filter: blur(10px); */
-	/* backdrop-filter: blur(10px); */
 }
 #subControlButtons div {
 	width: 45px!important;
@@ -155,9 +142,9 @@
 
 #chatbutton:hover {
     border-color:#000000!important;
-background-color:#121314!important;
-opacity: 1!important;
-scale: 100%!important;
+	background-color:#121314!important;
+	opacity: 1!important;
+	scale: 100%!important;
     padding:10px!important;
 }
 
@@ -217,9 +204,10 @@ scale: 100%!important;
 button:hover {
 	background-color: blue!important;
 }
-/*	hide fullscreen ions	*/
+/*	hide fullscreen icons	*/
 .fullwindowButton {
-	transition: opacity 0.3s;
+	display:none;
+/*	transition: opacity 0.3s;
 	width: 0vh;
 	height: 0vh;
 	max-width: 0px;
@@ -232,7 +220,7 @@ button:hover {
 	right: 4vh;
 	top: 4vh;
 	color: white;
-	cursor: pointer;
+	cursor: pointer;*/
 }
 .fullwindowButtonimg {
 	user-select: none;
@@ -476,24 +464,4 @@ i.las.la-chevron-right {
 .testtonebutton:hover{
 	background-color: #6633ff!important;
 	color: white!important;
-}
-
-/*	portrait layout	*/
-@media (orientation:portrait) {
-	.container_holder_video {
-		position:relative!important;
-		display:inline-flex!important;
-		width:100px!important;
-		height:100px!important;
-		left:0px!important;
-		top:calc(100% - 148px)!important;
-		height:102px!important;
-		transition: 0ms!important;
-	}
-	.holder {
-		top:9px!important;
-	}
-	.video-label{
-		opacity:0;
-	}
 }

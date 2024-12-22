@@ -18,7 +18,6 @@
 	<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
-	<link rel="manifest" href=icons/site.webmanifest">
 	<link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#5bbad5">
 	<link rel="shortcut icon" href="icons/favicon.ico">
 
@@ -45,8 +44,8 @@
 	</div>
 
 	<!--frames for chat and live stream-->
-	<div id="chatIFrame" class="chatIFrame" style="display:none"></div>
-	<div id="mainIFrame" class="mainIFrame" style="display:none"></div>
+	<div title="chatIFrame" id="chatIFrame" class="chatIFrame" style="display:none"></div>
+	<div title="mainIFrame" id="mainIFrame" class="mainIFrame" style="display:none"></div>
 
     <div id="siteHeader" class="siteHeader">
         <img src="icons/android-chrome-192x192.png" class="siteMainIcon"/>
@@ -513,13 +512,14 @@ function validateStageName(){
 			"&cleanoutput"+	//remove all interface bits
 			"&hideplaybutton"+	//hides big play button if autoplay is disabled
 			"&cv"+	//clean viewer
-			"&videobitrate=10000"+
+			"&videobitrate=50000"+ //server limited but hey, ask for as much as possible
 			"&scale=100"+	//do not scale video
-			"&transparent"+	//makes bg transparent
+			"&chroma=121212"+
+			//"&transparent"+	//makes bg transparent
 			"&buffer=1000"+	//adds a xms buffer  set by director
 			"&showlist=0"+	//hides the hidden viewr list
 			""; 
-	
+
 		//create the chat iframe
 		var iframe = document.createElement("iframe");
 		iframe.allow = "autoplay;camera;microphone;fullscreen;picture-in-picture;display-capture;allow-same-origin;allow-forms;allow-modals;allow-scripts;";
