@@ -28,42 +28,17 @@
 	
 /* main control bar customizations */
 #subControlButtons {
-	display: inline-flex!important;
-	position: fixed!important;
-	/* background-color: rgb(0 0 0 / 50%)!important; */
-	/* pointer-events: auto!important; */
-	/* border: #6060608a 1px solid!important; */
-	/* border-radius: 10px!important; */
-	/* align-items: center!important; */
-	/* justify-content: center!important; */
-	/* align-items: center!important; */
-	top: calc(100% - 165px)!important;
-	left: calc(100% - 105px)!important;
-	height: 100px!important;
-	width: 100px!important;
-	min-width: 30px!important;
-	min-height: 30px!important;
-	cursor: default!important;
-	/* scale: 100%!important; */
-	/* padding: 0px!important; */
-	/* margin: 0px!important; */
+	right:0px;
+	border-color:grey;
+	padding:5px;
 	transform: translate(0px,0px)!important;
-	/* box-shadow: 0px 0px 10px #000000; */
-	/* -webkit-backdrop-filter: blur(10px); */
-	/* backdrop-filter: blur(10px); */
-
-}
+	opacity:.7;
+	}
 #subControlButtons div {
-	width: 45px!important;
-	height: 45px!important;
-	margin: 2px!important;
-	padding: 0px!important;
-	border-radius: 40px!important;
-	border: #525252 1px solid!important;
-	box-shadow: 0!important;
-	opacity: 0.5;
+        border-radius: 40px!important;
+        box-shadow: 0!important;
+    }
 
-}
 .queueNotification {
 	position: absolute;
 	font-size: 34px;

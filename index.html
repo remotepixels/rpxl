@@ -39,6 +39,7 @@
 	<div id="subNav"  class="topnav" style="background-color: #191919 ;display: none;">
 		<img src="icons/favicon-32x32.png" class="siteIcon" id="siteIcon"/>
 		<div class="ninjaIcon"><a href="https://vdo.ninja" target="_blank" class="vdoninjatext">Powered by<br>VDO.NINJA</a></div>
+		<div class="clientLink" id="clientLink">Session : <div id="sessionLink" class="sessionLink" value="https://rpxl.app" alt="Copy to clipboard"></div></div>
 		<div id="clock" class="clock" style="left: calc(100% - 230px);"></div>	
 		<div id="exitSession" class="exitSession" onclick="window.location.href = 'http://www.google.com'">Leave</div>
 	</div>
@@ -419,6 +420,8 @@ function checkSessionFile () {
 		sessionIDpopupContent.style.animation = "none";
 		sessionIDpopupContent.style.display = "none";
 
+		document.getElementById("sessionLink").value = sessionFile;	
+		
 		askNamePopupContent.style.animation = "fadeIn 300ms ease-out";
 		popupWindow.style.height = "420px";
 		popupWindow.style.width = "320px";
