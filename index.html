@@ -37,10 +37,10 @@
 	</div>
 
 	<div id="subNav"  class="topnav" style="background-color: #191919 ;display: none;">
-		<img src="icons/favicon-32x32.png" class="siteIcon" id="siteIcon"/>
+		<img src="icons/android-chrome-192x192.png" class="siteIcon" id="siteIcon"/>
 		<div class="ninjaIcon"><a href="https://vdo.ninja" target="_blank" class="vdoninjatext">Powered by<br>VDO.NINJA</a></div>
-		<div class="clientLink" id="clientLink">Session : <div id="sessionLink" class="sessionLink" value="https://rpxl.app" alt="Copy to clipboard"></div></div>
-		<div id="clock" class="clock" style="left: calc(100% - 230px);"></div>	
+		<div class="clientLink" id="clientLink" style="right: 230px; top:16px;">Session ID : <div id="sessionLink" class="sessionLink" value="https://rpxl.app"></div></div>
+		<div id="clock" class="clock" style="left: calc(100% - 240px);"></div>	
 		<div id="exitSession" class="exitSession" onclick="window.location.href = 'http://www.google.com'">Leave</div>
 	</div>
 
@@ -420,7 +420,8 @@ function checkSessionFile () {
 		sessionIDpopupContent.style.animation = "none";
 		sessionIDpopupContent.style.display = "none";
 
-		document.getElementById("sessionLink").value = sessionFile;	
+		document.getElementById("sessionLink").innerHTML = sessionFile;
+//		document.getElementById("sessionLink").value = +sessionFile;	
 		
 		askNamePopupContent.style.animation = "fadeIn 300ms ease-out";
 		popupWindow.style.height = "420px";
@@ -466,6 +467,8 @@ function validateStageName(){
 		document.getElementById("textBG").style.display = "none";
 		document.getElementById("footer").style.display = "none";
 		document.getElementById("subNav").style.display = "block";
+		document.getElementById("clientLink").style.display = "block";
+		document.getElementById("sessionLink").style.display = "inline-block";
 
 		document.getElementById("chatIFrame").style.display="inline-block";
 		document.getElementById("mainIFrame").style.display="inline-block";

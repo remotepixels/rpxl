@@ -218,22 +218,20 @@ iframe {
 	cursor: default;
 	}
 .mainIFrame {
-	width:calc(100% - 115px);
-	height:calc(100% - 60px);
-	border:0px;
-	margin:0px;
-	padding-left:0px;
-	position:fixed;
-	top:60px;
-	left:5px;
+	width: calc(100% - 115px);
+	height: calc(100% - 60px);
+	border: 0px;
+	margin: 0px;
+	padding-left: 0px;
+	position: fixed;
+	top: 60px;
+	left: 5px;
 	background-color: #121212;
-    background-image: url("../images/nosignal.png");
-	background-attachment: fixed;
+	background-image: url("../images/nosignal.png");
 	background-repeat: no-repeat;
 	background-position: center;
-	background-size: cover;
-	display:block;
-	z-index:0;
+	display: block;
+	z-index: 0;
 }
 .chatIFrame {
 	width:calc(100% - 5px);
