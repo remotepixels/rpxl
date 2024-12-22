@@ -199,15 +199,26 @@
 		<div class="textBG">
 			<p>&nbsp;</p>
 			<p>&nbsp;</p>
-			Links
+			Links 
 			<p></p>
-			<a href="https://vdo.ninja">vdo.ninja website</a><br>
-			<a href="https://https://docs.vdo.ninja">vdo.ninja documentation</a><br>
-			<a href="https://github.com/steveseguin/vdo.ninja">vdo.ninja github</a><br>
-			<a href="https://discord.com/invite/T4xpQVv">Steve Seguin discord</a>
-			<p style="text-align: right;">
-				<a href="#top" style="text-align: right;">back to top</a>
-			</p>
+			<div style="position: relative; display: inline-block; width:400px;">
+				<a href="https://vdo.ninja">vdo.ninja website</a><br>
+				<a href="https://https://docs.vdo.ninja">vdo.ninja documentation</a><br>
+				<a href="https://github.com/steveseguin/vdo.ninja">vdo.ninja github</a><br>
+				<a href="https://discord.com/invite/T4xpQVv">Steve Seguin discord</a>	
+			</div>
+			<div style="position: relative; display: inline-block; width:300px; top:-3px;">
+				<a href="https://ndi.video/tools/">ndi tools</a><br>
+				<a href="https://obsproject.com">obs studio</a><br>
+				<p>&nbsp;</p>
+			</div>
+			<br>
+			<div style="position: relative; display: inline-block; width:800px;">
+				<p style="text-align: right;">
+					<a href="#top" style="text-align: right;">back to top</a>
+				</p>
+			</div>
+			
 		</div>
 	</div>
 
@@ -227,7 +238,7 @@
 						Enter live session ID
 						<p></p>
 					</div>
-					<form id="sessionIDCode" name="sessionIDCode" onsubmit="return validateSessionID()" method="post" required="">
+					<form id="sessionIDCode" name="sessionIDCode" onsubmit="return checkSessionFile()" method="post" required="">
 						<input name="sessionIDInput" id="sessionIDInput" type="text" autocomplete="one-time-code" maxlength="6" onkeypress="return onlyAlphabets(event,this);" oninput="this.value = this.value.toUpperCase()" tabindex="1" style="--_otp-digit: 6;">
 						<br>
 						<div style="display: flex; justify-content: center; align-items: center; width:445px;">
@@ -280,28 +291,30 @@
 </html>
 
 <script type="text/javascript">  
-//warning banner if on mobile device
-let mobile = 0;
-let getMobileOS = () => {
-  let ua = navigator.userAgent
-  if (/android/i.test(ua)) {
-    mobile = 1;
-  }
-  else if ((/iPad|iPhone|iPod/.test(ua)) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) {
-    mobile = 1;
-  }
+//check if on mobile device
+let mobile = false;
+//ipad pro workaround, not really working at moment
+if ('ontouchstart' in window || (window?.DocumentTouch && document instanceof DocumentTouch)) {
+	mobile = true;
+}
+//usual mobile detection
+if (navigator.userAgent.match(/Android/i)
+	|| navigator.userAgent.match(/webOS/i)
+	|| navigator.userAgent.match(/iPhone/i)
+	|| navigator.userAgent.match(/iPad/i)
+	|| navigator.userAgent.match(/iPod/i)
+	|| navigator.userAgent.match(/BlackBerry/i)
+	|| navigator.userAgent.match(/Windows Phone/i)) {
+	mobile = true;
+} else {
+	mobile = false;
 }
 
 if (mobile == 1) {
-	blackout.style.display = "block";
 	sessionIDpopupContent.style.display = "none";
-	askNamePopupContent.style.display = "none";
-	mobileWarningPopupContent.style.display = "inline-block";
+	mobileWarningPopupContent.style.display = "block";
 	stop;
 }
-
-var cookieStoredName;    
-var sessionFile;
 
 //popup live session window if the live button is clicked
 function clickLiveSession() {
@@ -317,23 +330,7 @@ function fadeOutPopup() {
 	setTimeout(function () { blackout.style.animation = "none"; blackout.style.display = "none"; }, 300);
 	}
 
-//check if there is a live session otherwise hide live session button
-//using fetch so done asynchronously while loading page
-fetch("https://rpxl.app/sessions/ilive.txt")
-	.then( response => {
-	if (response.ok) {
-		joinSession.style.display = "block";
-	}
-	return;
-	})
-
 //cookie bits
-//checks if cookie exists and stores the value in cookieStoredName
-let user = getCookie("username");
-if (user != "") {
-	cookieStoredName = user;
-	}
-   
 //read cookie username value
 function getCookie(cname) {
 	let name = cname + "=";
@@ -356,15 +353,16 @@ function getCookie(cname) {
 let query = location.search;
 let sessionIDURL = query.slice(1);
 let sessionIDUp = sessionIDURL.toUpperCase();
-	sessionFile = encodeURIComponent(sessionIDUp); 
+let	sessionFile = encodeURIComponent(sessionIDUp); 
 
-if  ((query != 0) && (sessionFile.length == 6) && (mobile == 0)){
+if  ((sessionFile != 0) && (sessionFile.length == 6) && (mobile == 0)) {
+	document.forms ["sessionIDCode"]["sessionIDInput"].value = sessionFile;	
 	blackout.style.display = "block";
-
 	checkSessionFile ();
-}
+	}  
 
 //clock for top right of window
+//clock check if and add zero in front of numbers < 10
 function startTime() {
 	const today = new Date();
         let h = today.getHours();
@@ -376,8 +374,6 @@ function startTime() {
         document.getElementById('clock').innerHTML =  h + ":" + m + ":" +s ;
         setTimeout(startTime, 1000);
 	}
-
-//clock check if and add zero in front of numbers < 10
 function checkTime(i) {
         if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
         return i;
@@ -407,61 +403,36 @@ input.addEventListener("keypress", function(event) {
 		document.getElementById("submitSessionID").click();
 		}
 	});
-
-//if no session ID supplied on the url, ask for session ID and valid it
-//validates the session ID when the user submits a correctly formated value
-//on submit, check there are 6 values in the field and run check against sessionfile
-function validateSessionID(){
-	let v1 = document.forms ["sessionIDCode"]["sessionIDInput"].value;
-	sessionFile = encodeURIComponent(v1); 
-
-	checkSessionFile ();
-	return false;
-}
 	
-//checks the sessionID to the file on the server, if it exists then ask for a username, if not shake the box start over
+//checks the sessionID input is 6 characters long after encoding and auto fills username if cookie exists (been here in last 24 hours)
 function checkSessionFile () {	
-	if (sessionFile.length == 6) {
+	let v1 = document.forms ["sessionIDCode"]["sessionIDInput"].value;
+	let cookieStoredName = "";
 
-		//check to see if the session ID entered exists
-		//done synchronous to make sure we get the file before checking
-		const request = new XMLHttpRequest();
-		request.open("GET", "https://rpxl.app/sessions/"+sessionFile+".txt", false); // `false` makes the request synchronous
-		request.send(null);
+	sessionFile = encodeURIComponent(v1); 
+	let user = getCookie("username");
+	if (user != "") {
+		cookieStoredName = user;
+	}
 
-		//if the sessionID entered matches the file on the server, check if you've been here in the last 24 hours
-		//if you have auto fill username from cookie and ask to join
-		if (request.status === 200) {	
-			if (cookieStoredName == "" || cookieStoredName == null) {
-				cookieStoredName = "";
-			}
-			
-			blackout.style.display = "block";
-			sessionIDpopupContent.style.animation = "fadeOut 300ms";
-			setTimeout ( function () {sessionIDpopupContent.style.animation = "none"; sessionIDpopupContent.style.display = "none";}, 300);
+	if  ((sessionFile != 0) && (sessionFile.length == 6)) {
+		sessionIDpopupContent.style.animation = "none";
+		sessionIDpopupContent.style.display = "none";
 
-			askNamePopupContent.style.animation = "fadeIn 300ms ease-out";
-			setTimeout(function () {
-					popupWindow.style.height = "420px";
-					popupWindow.style.width = "320px";
-					popupWindow.style.left = "calc(50% - 190px)";
-					askNamePopupContent.style.display = "block";
-					document.forms["stageName"]["enterStageName"].value = cookieStoredName;
-					document.forms["stageName"]["enterStageName"].focus()
-					},300);
-		}
-		//if session id doesn't exist then shake the box and clear
-		else {							
-			popupWindow.style.animation = "shake 500ms";
-			setTimeout ( function () {popupWindow.style.animation = "none"; document.getElementById("sessionIDCode").reset();}, 300);
-			document.forms["sessionIDCode"]["sessionIDInput"].focus();
-		} 
-	} 
-	//if session id length is less than 6 shake the box and reset, don't waste time checking
+		askNamePopupContent.style.animation = "fadeIn 300ms ease-out";
+		popupWindow.style.height = "420px";
+		popupWindow.style.width = "320px";
+		popupWindow.style.left = "calc(50% - 190px)";
+		askNamePopupContent.style.display = "block";
+		document.forms["stageName"]["enterStageName"].value = cookieStoredName;
+		document.forms["stageName"]["enterStageName"].focus()
+		return false;
+	}
 	else {
 		popupWindow.style.animation = "shake 500ms";
-		setTimeout ( function () {popupWindow.style.animation = "none"; document.getElementById("sessionIDCode").reset();}, 300);
+		setTimeout ( function () {popupWindow.style.animation = "none"; document.forms["stageName"]["enterStageName"].focus(); }, 300); 
 		document.forms["sessionIDCode"]["sessionIDInput"].focus();
+		return false;
 	}
 }
 	  
