@@ -1,3 +1,74 @@
+/*camera selection screen customizations */
+.darktheme .card {
+	background-color:#0d0d0d!important
+        ;
+}
+
+.container-inner {
+	background-color: #0d0d0d!important
+        ;
+}
+
+.previewWebcam {
+	width: 240px;
+	height: 240px;
+    object-fit: cover;
+	opacity: 1;
+	animation: fadeIn 0.2s;
+	border-radius: 1000px!important;
+	border-width: 2px!important;
+	border-color: grey!important;
+	border-style: solid;
+}
+
+#gowebcam:enabled {
+	background: #6633ff!important;
+	color: rgb(255, 255, 255)!important;
+	font-weight: bold !important;
+	animation: pulsate 2s ease-out infinite;
+	border-radius: 10px;
+	}
+
+#gowebcam {
+	font-size: 110%;
+	background-color: gainsboro!important;
+	color: black!important;
+	cursor: pointer;
+	margin: 20px;
+	padding: 10px 50px;
+	border-radius: 10px;
+}
+
+#videoMenu {
+display: none;
+}
+
+#videoSourceSelect{
+    width: 300px!important;
+    padding: 4 4 4 40px!important;
+}
+#audioMenu {
+    width:450px;
+	margin: 15px 0 0 0;
+	border-radius: 10px;
+}
+.multiselect-contents{
+    width:420px!important;
+}
+#headphonesDiv {
+	width: 450px;
+	padding: 4 4 4 11px;
+	border-radius: 10px;
+    
+}
+
+.startupWarning {
+    display: none!important;
+}
+
+
+
+
 #header {
 	width: 100%;
 	padding: 1px;
@@ -29,6 +100,7 @@
 /* main control bar customizations */
 #subControlButtons {
 	right:0px;
+    min-width:100px!important;
 	border-color:grey;
 	padding:5px;
 	transform: translate(0px,0px)!important;
@@ -134,6 +206,7 @@
 	background:#2c2c2d91!important;
 	z-index:996!important;
 	padding:0 10 0 20px;
+    overflow: auto;
 	}
 .toggleSettings {
 	position:relative;
@@ -159,10 +232,7 @@ i.las.la-chevron-right {
 	margin:0 0 10 0;
 	}
 #videoMenu3 {
-	padding:10 10 3 10px!important;
-	border-radius:10px!important;
-	background-color:#545454!important;
-	border:0px!important;
+display:none
 	}
 #videoSource3 {
 	background-color:white;
@@ -221,3 +291,62 @@ i.las.la-chevron-right {
 	background-color: #6633ff!important;
 	color: white!important;
 	}
+
+#mutevideobutton {
+    display:none!important;
+    
+}
+
+#miniTaskBar {
+    top:0px;
+    margin:5px;
+    color: gainsboro;
+    opacity:0.4;
+    
+   
+}
+#closedList_connectUsers{
+    font-size:55px;
+}
+
+#connectUsers {
+float: right;
+display: none;
+height:15%;
+position: absolute;
+max-width: 400px;
+min-width: 205px;
+max-height: 85%;
+background-color: #08090e;
+z-index: 5;
+padding: 15px;
+right: 10px;
+top: 10px;
+box-shadow: 0px 0px!important;
+border-radius: 10px;
+border: 2px solid dargrey;
+opacity: 1;
+color: white;
+    	overflow: auto;
+	-webkit-backdrop-filter: blur(20px);
+	backdrop-filter: blur(20px);
+	background-color: #121212c4;
+}
+#hideusers {
+        font: Arial Black;
+        /* font-size: 2em!important; */
+        position: relative;
+        color: gainsboro;
+        background-color: color(srgb 0.1169 0.1215 0.1345);
+        border-radius: 20px;
+        padding: 10px;
+        margin: 0px;
+        left: 10px;
+        top: -10px;
+    
+    }
+
+.la-theater-masks:before {
+content: "\f2bd";
+   font-weight: 100!important;
+}
