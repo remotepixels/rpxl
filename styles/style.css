@@ -444,3 +444,74 @@ input[type=text]:focus {
 	display: inline;
 	font-size: 12px;
 }
+
+@media only screen and (max-width: 900px) {
+	.siteHeader{
+		height: 440px;
+		width: 100%;
+		}
+	.siteMainIcon {
+		top: 80px;
+		left: 20px;
+		height: 60px;
+		width: 60px;
+		}
+	.siteTitle {
+		font-size: 60px;
+
+		top: 70px;
+		left: 30px;
+		}
+	.siteSubTitle {
+		left: 20px;
+		font-size:50px;
+        font-weight: 400;
+		top: 60px;
+		line-height: 130%;
+		letter-spacing: px;
+		}
+	h2 {
+
+		font-size: 40px;
+		line-height: 130%;
+		letter-spacing: 2px;
+		}
+	h3 {
+
+		font-size: 30px;
+
+		}
+	.textBG{
+        font-size: 15px;
+		margin: auto;
+		width: 550px;
+		}
+	h4 {
+		font-size: 24px;
+		font-weight: 100;
+		}
+	h5 {
+		font-size: 14px;
+		font-weight: 100;
+		}
+    .interfaceHD {
+        display:none;
+    }
+    .interfaceMobile {
+        display: block!important;
+    }
+    .login {
+        position: relative;
+        left:-60px;
+        height:600px!important;
+    }
+    .loginpic {
+        width:300px;
+        height:490px;
+    }
+}
+
+
+@media only screen and (max-width: 500px) {
+
+}

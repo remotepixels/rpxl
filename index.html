@@ -73,7 +73,7 @@
             
         </div>
 
-		<div id="interface" style="height:890px;">
+		<div id="interface" class="interfaceHD" style="height:890px;">
             <h3>
                 Designed to stay in the background providing only the functions need.<br>Designed to stay in the background providing only the functions need.
             </h3>
@@ -87,8 +87,22 @@
 			<div style="position: relative; display: inline-flex; top: -180px; right: 120px;"><h5>Your footage featured in beautiful Full HD</h5></div>
 		</div>
 
-        <div id="login" style="height:700px;">
-            <div style="position: relative; display: inline-flex; width: 400px; left: 50px;"><img src="images/join.jpg" width="350" height="572">
+		<div id="interface" class="interfaceMobile" style="height:890px; display:none;">
+            <h3>
+                Designed to stay in the background providing only the functions need.<br>Designed to stay in the background providing only the functions need.
+            </h3>
+            <p>&nbsp;</p>
+			<p>&nbsp;</p>
+			<div><img src="images/interfaceMobile.jpg" width="800" height="483"></div>
+			<div style="position: relative; display: inline-flex; top: -545px; right: -175px;">Runs in the browser, no need for downloads or installs. </div>
+			<div style="position: relative; display: inline-flex; top: -470px; right: 650px; width: 200px;"><h5>Sometimes bandwidth can be undependable, so send files directly for download and review. Files are sent from the host directly to the client, they are not stored on a server and so all links will vanish when the session ends.</h5></div>
+			<div style="position: relative; display: inline-flex; top: -644px; left: 818px; width: 200px;"><h5>Clients connect with their camera and microphone in low quality, low bandwidth but very low latency (typically less than 40ms using only 40kbps per connection). All communication is peer to peer and encrypted, not passing through a central server.</h5></div>
+			<div style="position: relative; display: inline-flex; top: -271px; left: 614px; width: 200px;"><h5>Minimal interface showing only the controls you need, download files. Mute the mic or camera, and settings.</h5></div>
+			<div style="position: relative; display: inline-flex; top: -180px; right: 120px;"><h5>Your footage featured in beautiful Full HD</h5></div>
+		</div>
+
+        <div id="login" class="login" style="height:700px;">
+            <div style="position: relative; display: inline-flex; width: 400px; left: 50px;"><img src="images/join.jpg" width="350" height="572" class="loginpic" >
                 <div style="position: relative; left: 50px; top:50px; width: 350px;">
                     <h2>
                     Mic,<br>
@@ -291,6 +305,7 @@
 </html>
 
 <script type="text/javascript">  
+/*
 //check if on mobile device
 let mobile = false;
 //ipad pro workaround, not really working at moment
@@ -315,7 +330,7 @@ if (mobile == 1) {
 	mobileWarningPopupContent.style.display = "block";
 	stop;
 }
-
+*/
 //popup live session window if the live button is clicked
 function clickLiveSession() {
 	blackout.style.animation = "fadeIn 500ms ease-out";
@@ -452,6 +467,24 @@ function validateStageName(){
 		}
 	//encode the name entered to a URI to escape any odd characters set cookie for next 24 hours
 	else {
+		//check if on mobile device
+		let mobile = false;
+		//ipad pro workaround, not really working at moment
+		if ('ontouchstart' in window || (window?.DocumentTouch && document instanceof DocumentTouch)) {
+			mobile = true;
+		}
+		//usual mobile detection
+		if (navigator.userAgent.match(/Android/i)
+			|| navigator.userAgent.match(/webOS/i)
+			|| navigator.userAgent.match(/iPhone/i)
+			|| navigator.userAgent.match(/iPad/i)
+			|| navigator.userAgent.match(/iPod/i)
+			|| navigator.userAgent.match(/BlackBerry/i)
+			|| navigator.userAgent.match(/Windows Phone/i)) {
+			mobile = true;
+		} else {
+			mobile = false;
+		}
 		let uri = document.forms ["stageName"]["enterStageName"].value;		
 		let encodedUserName = encodeURIComponent(uri);     
 		let expires = "expires=" + (new Date(Date.now() + 86400*1000).toUTCString());
@@ -469,75 +502,124 @@ function validateStageName(){
 		document.getElementById("clientLink").style.display = "block";
 		document.getElementById("sessionLink").style.display = "inline-block";
 
-		document.getElementById("chatIFrame").style.display="inline-block";
-		document.getElementById("mainIFrame").style.display="inline-block";
-	
-		//set sources for chat frame
-		let chatFeed = "https://remotepixels.github.io/remotepixels.app/?room=RPXL_"+sessionFile+
-			"&exclude=RPXL_"+sessionFile+"_Main_Feed"+	//do not show the main feed
-			"&label="+encodedUserName+ //sets label to guests name they entered earlier
-			"&showlabels"+	//show the usernames
-			"&quality=3"+	//set camera quality to lowest possible, about 360p
-			"&webcam"+	//disables screenshare use &webcam2 to show share your camera screen
-			"&cover"+	//make video cover space
-			"&videobitrate=100"+
-			"&vdo=1"+	//auto select camera
-			"&rounded=100"+	//makes videos round
-			"&mirror=2"+	//mirrors guest videos
-			"&viewwidth=160&viewheight=90"+	//sets incoming video to px size (very low res)
-			"&safemode"+	//loads camera in simplist way
-			"&st=6"+	//show audio only sources as coloured circles with first letter of name
-			"&meterstyle=2"+	//round highlight over person talking
-			"&hh"+	//hide vdo ninja header
-			"&ee"+	//easy exit
-			"&cv"+	//clean viewer
-			"&hpb"+	//hide play button
-			"&nsb"+	//hide speaker button
-			"&nohub"+	//hide hangup button
-			"&hidehome"+	//hide vdo ninja home page
-			"&transparent"+	//makes bg transparent
-			"&hidetranslate"+	//hides translate menu
-			"&darkmode"+	//
-			"&disablehotkeys"+	//no hotkeys
-			"&nocontrols"+	//hides video player controls
-			"&showlist=0"+	//show hidden guest list
-			"&animate"+	//videos animate around when people join or leave
-			"&css=https%3A%2F%2Frpxl.app%2Fstyles%2Fninjachat.css"+	//load style sheet
-		""; 
-
-		//set sources for main frame
-		var mainFeed = "https://remotepixels.github.io/remotepixels.app/?room=RPXL_"+sessionFile+
-			"&view=RPXL_"+sessionFile+"_Main_Feed"+ //shows only the directors main feed on left
-			"&solo"+	//solos view only show the master stream
-			"&cleanoutput"+	//remove all interface bits
-			"&hideplaybutton"+	//hides big play button if autoplay is disabled
-			"&cv"+	//clean viewer
-			"&videobitrate=50000"+ //server limited but hey, ask for as much as possible
-			"&scale=100"+	//do not scale video
-			//"&chroma=121212"+
-			"&transparent"+	//makes bg transparent
-			"&buffer=1000"+	//adds a xms buffer  set by director
-			"&showlist=0"+	//hides the hidden viewr list
+		if (mobile == 0) {
+			document.getElementById("chatIFrame").style.display="inline-block";
+			document.getElementById("mainIFrame").style.display="inline-block";
+			
+			//set sources for chat frame
+			let chatFeed = "https://remotepixels.github.io/remotepixels.app/?room=RPXL_"+sessionFile+
+				"&exclude=RPXL_"+sessionFile+"_Main_Feed"+	//do not show the main feed
+				"&label="+encodedUserName+ //sets label to guests name they entered earlier
+				"&showlabels"+	//show the usernames
+				"&quality=3"+	//set camera quality to lowest possible, about 360p
+				"&webcam"+	//disables screenshare use &webcam2 to show share your camera screen
+				"&cover"+	//make video cover space
+				"&videobitrate=100"+
+				"&vdo=1"+	//auto select camera
+				"&rounded=100"+	//makes videos round
+				"&mirror=2"+	//mirrors guest videos
+				"&viewwidth=160&viewheight=90"+	//sets incoming video to px size (very low res)
+				"&safemode"+	//loads camera in simplist way
+				"&st=6"+	//show audio only sources as coloured circles with first letter of name
+				"&meterstyle=2"+	//round highlight over person talking
+				"&hh"+	//hide vdo ninja header
+				"&ee"+	//easy exit
+				"&cv"+	//clean viewer
+				"&hpb"+	//hide play button
+				"&nsb"+	//hide speaker button
+				"&nohub"+	//hide hangup button
+				"&hidehome"+	//hide vdo ninja home page
+				"&transparent"+	//makes bg transparent
+				"&hidetranslate"+	//hides translate menu
+				"&darkmode"+	//
+				"&disablehotkeys"+	//no hotkeys
+				"&nocontrols"+	//hides video player controls
+				"&showlist=0"+	//show hidden guest list
+				"&animate"+	//videos animate around when people join or leave
+				"&css=https%3A%2F%2Frpxl.app%2Fstyles%2Fninjachat.css"+	//load style sheet
 			""; 
 
-		//create the chat iframe
-		var iframe = document.createElement("iframe");
-		iframe.allow = "autoplay;camera;microphone;fullscreen;picture-in-picture;display-capture;allow-same-origin;allow-forms;allow-modals;allow-scripts;";
-		iframe.src = chatFeed;
-		var iframeContainer = document.createElement("div");
-		iframeContainer.appendChild(iframe);
-		document.getElementById("chatIFrame").appendChild(iframeContainer);
+			//set sources for main frame
+			var mainFeed = "https://remotepixels.github.io/remotepixels.app/?room=RPXL_"+sessionFile+
+				"&view=RPXL_"+sessionFile+"_Main_Feed"+ //shows only the directors main feed on left
+				"&solo"+	//solos view only show the master stream
+				"&cleanoutput"+	//remove all interface bits
+				"&hideplaybutton"+	//hides big play button if autoplay is disabled
+				"&cv"+	//clean viewer
+				"&videobitrate=50000"+ //server limited but hey, ask for as much as possible
+				"&scale=100"+	//do not scale video
+				//"&chroma=121212"+
+				"&transparent"+	//makes bg transparent
+				"&buffer=1000"+	//adds a xms buffer  set by director
+				"&showlist=0"+	//hides the hidden viewr list
+				""; 
 
-		//create the main stream frame (have to pause for a few secs)
-		setTimeout(function(){
+			//create the chat iframe
 			var iframe = document.createElement("iframe");
-			iframe.allow = "autoplay;camera;microphone;fullscreen;picture-in-picture;display-capture;";
-			iframe.src = mainFeed;
+			iframe.allow = "autoplay;camera;microphone;fullscreen;picture-in-picture;display-capture;allow-same-origin;allow-forms;allow-modals;allow-scripts;";
+			iframe.src = chatFeed;
 			var iframeContainer = document.createElement("div");
 			iframeContainer.appendChild(iframe);
-			document.getElementById("mainIFrame").appendChild(iframeContainer);
-			},1000);
+			document.getElementById("chatIFrame").appendChild(iframeContainer);
+
+			//create the main stream frame (have to pause for a few secs)
+			setTimeout(function(){
+				var iframe = document.createElement("iframe");
+				iframe.allow = "autoplay;camera;microphone;fullscreen;picture-in-picture;display-capture;";
+				iframe.src = mainFeed;
+				var iframeContainer = document.createElement("div");
+				iframeContainer.appendChild(iframe);
+				document.getElementById("mainIFrame").appendChild(iframeContainer);
+				},1000);
+			}
+		else {
+			//if we are on tablet or mobile device, load a different set of options
+			document.getElementById("mainIFrame").style.top="0px";
+			document.getElementById("subNav").style.display = "none";
+			document.getElementById("mainIFrame").style.width="100%";
+			document.getElementById("mainIFrame").style.height="100%";
+			document.getElementById("mainIFrame").style.display="inline-block";
+
+			let mainFeed = "https://remotepixels.github.io/remotepixels.app/?room=RPXL_"+sessionFile+
+				"&broadcast"+	//show only directors feed
+				"&label="+encodedUserName+ //sets label to guests name they entered earlier
+				//"&showlabels"+	//show the usernames
+				//"&quality=3"+	//set camera quality to lowest possible, about 360p
+				"&webcam"+	//disables screenshare use &webcam2 to show share your camera screen
+				//"&cover"+	//make video cover space
+				//"&videobitrate=100"+
+				"&vdo=0"+	//join without camera
+				//"&rounded=100"+	//makes videos round
+				//"&mirror=2"+	//mirrors guest videos
+				//"&viewwidth=160&viewheight=90"+	//sets incoming video to px size (very low res)
+				//"&safemode"+	//loads camera in simplist way
+				//"&st=6"+	//show audio only sources as coloured circles with first letter of name
+				//"&meterstyle=2"+	//round highlight over person talking
+				"&hh"+	//hide vdo ninja header
+				"&ee"+	//easy exit
+				"&cv"+	//clean viewer
+				"&hpb"+	//hide play button
+				"&nsb"+	//hide speaker button
+				//"&nohub"+	//hide hangup button
+				"&hidehome"+	//hide vdo ninja home page
+				"&transparent"+	//makes bg transparent
+				"&hidetranslate"+	//hides translate menu
+				"&darkmode"+	//
+				//"&disablehotkeys"+	//no hotkeys
+				"&nocontrols"+	//hides video player controls
+				"&showlist=1"+	//show hidden guest list
+				//"&animate"+	//videos animate around when people join or leave
+				"&css=https%3A%2F%2Frpxl.app%2Fstyles%2Fninjamobile.css"+	//load style sheet
+			""; 
+
+				var iframe = document.createElement("iframe");
+				iframe.allow = "autoplay;camera;microphone;fullscreen;picture-in-picture;display-capture;";
+				iframe.src = mainFeed;
+				var iframeContainer = document.createElement("div");
+				iframeContainer.appendChild(iframe);
+				document.getElementById("mainIFrame").appendChild(iframeContainer);
 		}
 		return false;
+	}
 }
 </script>

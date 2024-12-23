@@ -1,0 +1,223 @@
+#header {
+	width: 100%;
+	padding: 1px;
+	background-color: #191919;
+	color: #FFF;
+	-webkit-app-region: drag;
+	}
+.las.la-window-minimize{
+		display:none;
+	}
+.shift{
+		display:none;
+	}
+.streamID {
+	margin:2 2 5 2px;
+	width: 263px;
+	}
+.directorsgrid .vidcon {
+	border-radius: 5px;
+	}
+.div#guestFeeds {
+	border-radius: 10px;
+	}
+.las.la-external-link-alt{
+		display:none;
+	}
+
+	
+/* main control bar customizations */
+#subControlButtons {
+	right:0px;
+	border-color:grey;
+	padding:5px;
+	transform: translate(0px,0px)!important;
+	opacity:.7;
+	}
+#subControlButtons div {
+        border-radius: 40px!important;
+        box-shadow: 0!important;
+    }
+
+.queueNotification {
+	position: absolute;
+	font-size: 34px;
+	font-weight: 900;
+	padding-top: 6px;
+	width: 51px;
+	height: 51px;
+	top: 11px;
+	left: 11.5px;
+	background-color: #840000!important;
+   }
+.float {
+	opacity: 1;
+	}
+#subControlButtons:hover{
+	opacity:1;
+	}
+#subControlButtons div:hover {
+	background-color: #4f4f4f;
+	outline: 2px solid grey;
+	color: white!important;
+    }	
+.shake {
+    animation: none;
+	}
+.toggleSize {
+	font-size: 34px;
+	padding: 5px;
+	outline: 1px solid grey;
+	outline-offset: 4px;
+	border-radius: 30px;
+	}
+.toggleSize:hover{
+	color: #ffffff!important;
+    }
+.la-users-cog:before {
+	content: "\f7c0";
+	}
+.la-phone:before {
+	content: "\f011";
+	}
+.rotate225 {
+	transform: rotate(0deg);
+	}
+.la-video:before {
+	content: "\f06e";
+	}
+.la-video-slash:before {
+	content: "\f070";
+	color:white;
+	}
+.la-microphone:before {
+	content: "\f028";
+	color:grey;
+	}
+.la-microphone-slash:before {
+	content: "\f6a9";	
+	}
+.float.red.pulsate {
+	animation: none!important;
+	}
+.las.la-video-slash.toggleSize {
+	color:#ffffff;
+	}
+#roomsettingsbutton{
+	display:none!important;
+	}
+#chatNotification {
+	display:none!important;
+	}
+
+
+
+/*full screen icon hide*/
+.fullwindowButton {
+	display:none!important;
+	}
+.fullwindowButtonimg {
+	display:none!important;
+	}
+
+
+/*advanced options fly out costimizations */
+#advancedOptionsGeneral {
+	display:none!important;
+	}
+#popupSelector_user_settings {
+	display:none!important;
+	}
+#popupSelector {
+	-webkit-backdrop-filter: blur(15px);
+	backdrop-filter: blur(10px);
+	background:#2c2c2d91!important;
+	z-index:996!important;
+	padding:0 10 0 20px;
+	}
+.toggleSettings {
+	position:relative;
+	margin-left: 0px;
+	margin-top: 0px;
+	height: 38px;
+	border: 0px;
+	text-align: center;
+	text-decoration: none;
+	border-radius:10px;
+	font: 14px Arial;
+	font-weight: regular!;
+	background-color:#545454!important;
+	}
+.toggleSettings:hover {
+	background-color: #6633ff!important;
+	color: white!important;
+	}
+i.las.la-chevron-right {
+	display:none!important;
+	}
+.title { 
+	margin:0 0 10 0;
+	}
+#videoMenu3 {
+	padding:10 10 3 10px!important;
+	border-radius:10px!important;
+	background-color:#545454!important;
+	border:0px!important;
+	}
+#videoSource3 {
+	background-color:white;
+	}
+#audioSource3 {
+	background-color:white!important;
+	}
+#outputSource3 {
+	background-color:white!important;
+	width:100%;
+	}
+#headphonesDiv3 {
+	border-radius:10px!important;
+	background-color:#545454!important;
+	border:0px!important;
+	}
+#audioMenu2 {
+	border-radius:10px!important;
+	border:0px!important;
+	background-color:#545454!important;
+	}
+#avatarDiv3 {
+	display:none;
+	}
+#effectsDiv3 {
+	display:none!important;
+	}
+#advancedOptionsCamera {
+	display:none!important;
+	}
+#advancedOptionsAudio {
+	display:none!important;
+	}
+#websitesharebutton {
+	display:none!important;
+	}
+#screenshare3button {
+	display:none!important;
+	}
+#popupSelector_constraints_loading {
+	scale: 1!important;
+	opacity:0.5;
+	}
+.la-spinner:before {
+	content: "\f2f1";
+	}
+.testtonebutton {
+	color:black!important;
+	background-color: gainsboro!important;
+	position: relative;
+	padding: 3px 10px 2px 10px !important;
+	font-size: 14px;
+	border-radius: 5px !important;
+	}
+.testtonebutton:hover{
+	background-color: #6633ff!important;
+	color: white!important;
+	}
