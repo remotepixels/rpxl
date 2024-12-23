@@ -83,6 +83,7 @@
 	min-width: 30px!important;
 	min-height: 30px!important;
 	cursor: default!important;
+	box-shadow: 0 0!important;
 	transform: translate(0px,0px)!important;
 }
 #subControlButtons div {
@@ -92,7 +93,6 @@
 	padding: 0px!important;
 	border-radius: 40px!important;
 	border: #525252 1px solid!important;
-	box-shadow: 0!important;
 	opacity: 0.5;
 }
 
@@ -206,7 +206,7 @@ button:hover {
 }
 /*	hide fullscreen icons	*/
 .fullwindowButton {
-	display:none;
+    display: none !important;
 /*	transition: opacity 0.3s;
 	width: 0vh;
 	height: 0vh;
@@ -223,9 +223,7 @@ button:hover {
 	cursor: pointer;*/
 }
 .fullwindowButtonimg {
-	user-select: none;
-	background-color:#0007;
-	width:4vh;
+    display: none !important;
 }
 
 /*	hide right click context menu	*/
@@ -397,6 +395,7 @@ scale:1.3;
 	/* width: 450px!important; */
 	padding:0 10 0 20px;
 	box-shadow: 0px 0px 20px #00000082;
+	overflow: auto;
 }
 .toggleSettings {
 	margin-left: 0px;
