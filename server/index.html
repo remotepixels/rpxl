@@ -40,7 +40,7 @@
 	<!--darken screen for popups-->
 	<div class="blackout" id="blackout" style="display: block;">			
 		<!--popup window, draws the popup window-->
-		<div class="popupWindow" id="popupWindow" style="height: 520px;">
+		<div class="popupWindow" id="popupWindow" style="height: 420px;">
 			
 			<!--popup window content : session setting--> 
 			<div id="sessionIDpopupContent">	
@@ -62,18 +62,23 @@
 					<input type="button" name="button" tabindex="5" id="qualityMedium" class="multiSelectBlock" style="left: 58px;"value="Medium">
 					<input type="button" name="button" tabindex="6" id="qualityLow" class="multiSelectBlock" style="border-top-right-radius: 20px; border-bottom-right-radius: 20px;left: 58px;" value="Low">
 					<p></p>
+					<!--
+
 					Queue <sup>2</sup>
 					<input type="hidden" id="queue" value="0">
 					<input type="button" name="button" tabindex="7" id="queueOn" class="multiSelectBlock" style="border-top-left-radius: 20px; border-bottom-left-radius: 20px; left: 162px;" value="On">
 					<input type="button" name="button" tabindex="8" id="queueOff" class="multiSelectBlock multiSelectBlockHighlighted" style="border-top-right-radius: 20px; border-bottom-right-radius: 20px; left: 162px;" value="Off">
 					<br>
+										-->
 					<h5 style="position:relative; left: -16px; top:-10px; text-align:center;">
 						<sup>1</sup> Approximately : High (20Mbps), Medium (10Mbps), Low (5Mbps).<p>
-						<sup>2</sup> If you enable the queue you will have to manually approve<br>every client on the server before they can join the session.
+											<!--
+							<sup>2</sup> If you enable the queue you will have to manually approve<br>every client on the server before they can join the session.
+							-->
 					</h5>
 					<p></p>
 					<div style="display: flex; justify-content: center; align-items: center; width: 445px;">
-						<input type="submit" id="submitSessionID" value="Next" class="button" tabindex="9">
+						<input type="submit" id="submitSessionID" value="Create" class="button" tabindex="9">
 					</div>
 				</form>
 			</div>
@@ -124,6 +129,18 @@ if (mobile == 1) {
 	stop;
 }
 
+//generate random code and prefil
+	let length = 6;
+    let randomID = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    
+    // Loop to generate characters for the specified length
+    for (let i = 0; i < length; i++) {
+        const randomInd = Math.floor(Math.random() * characters.length);
+        randomID += characters.charAt(randomInd);
+    }
+	document.forms["sessionIDCode"]["sessionIDInput"].value = randomID;	
+
 //move caret to focus on inbut of session ID 
 document.forms["sessionIDCode"]["sessionIDInput"].focus();
 
@@ -166,7 +183,7 @@ if (event.target.name === "button") {
 		qualityLow.classList.add("multiSelectBlockHighlighted");
 		document.forms["sessionIDCode"]["quality"].value = "5000";	
 	}
-
+/*
 	if (event.target.id == "queueOn") {
 		queueOn.classList.add("multiSelectBlockHighlighted");
 		queueOff.classList.remove("multiSelectBlockHighlighted");
@@ -177,6 +194,7 @@ if (event.target.name === "button") {
 		queueOff.classList.add("multiSelectBlockHighlighted");
 		document.forms["sessionIDCode"]["queue"].value = "";	
 	}
+		*/
 }
 if (event.target.id == "sessionLink") {
 	let urlLink = document.getElementById("sessionLink").value;
@@ -292,7 +310,7 @@ function validateSessionID(){
 		"&ab=128"+	//constant audio bitrate of 24kbps
 		"&chroma=191919"+	//set bg color
 		"&codirector="+sessionFile+	//allow co-directors and set the password to same session (not ideal but for now whatever) 
-		document.forms["sessionIDCode"]["queue"].value+
+		//document.forms["sessionIDCode"]["queue"].value+		//for queue, curently off
 		"&css=https%3A%2F%2Frpxl.app%2Fstyles%2Fninjadirector.css"+	//css
 		"";
 		return false;

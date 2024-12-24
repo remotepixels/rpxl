@@ -44,24 +44,26 @@ display: none;
 }
 
 #videoSourceSelect{
-    width: 300px!important;
-    padding: 4 4 4 40px!important;
+ display:none;
 }
 #audioMenu {
-    width:450px;
+
 	margin: 15px 0 0 0;
 	border-radius: 10px;
 }
 .multiselect-contents{
-    width:420px!important;
 }
 #headphonesDiv {
-	width: 450px;
 	padding: 4 4 4 11px;
 	border-radius: 10px;
     
 }
+#outputSource {
 
+        margin-top: 7px;
+        min-height: 24px;
+    
+    }
 .startupWarning {
     display: none!important;
 }
@@ -99,7 +101,7 @@ display: none;
 	
 /* main control bar customizations */
 #subControlButtons {
-	right:0px;
+	right:20px;
     min-width:100px!important;
 	border-color:grey;
 	padding:5px;
@@ -114,20 +116,8 @@ display: none;
 	}
 #subControlButtons div {
         border-radius: 40px!important;
-
     }
 
-.queueNotification {
-	position: absolute;
-	font-size: 34px;
-	font-weight: 900;
-	padding-top: 6px;
-	width: 51px;
-	height: 51px;
-	top: 11px;
-	left: 11.5px;
-	background-color: #840000!important;
-   }
 .float {
 	opacity: 1;
 	}
@@ -143,14 +133,16 @@ display: none;
     animation: none;
 	}
 .toggleSize {
-	font-size: 34px;
-	padding: 5px;
-	outline: 1px solid grey;
-	outline-offset: 4px;
-	border-radius: 30px;
-	}
+        font-size: 34px;
+        padding: 5px;
+        outline: 1px solid grey;
+        outline-offset: 4px;
+        border-radius: 30px;
+    
+    }
 .toggleSize:hover{
-	color: #ffffff!important;
+        color: #ffffff!important;
+    
     }
 .la-users-cog:before {
 	content: "\f7c0";
@@ -168,13 +160,7 @@ display: none;
 	content: "\f070";
 	color:white;
 	}
-.la-microphone:before {
-	content: "\f028";
-	color:grey;
-	}
-.la-microphone-slash:before {
-	content: "\f6a9";	
-	}
+
 .float.red.pulsate {
 	animation: none!important;
 	}
@@ -190,7 +176,13 @@ display: none;
 #flipcamerabutton {
 	display:none!important;
 }
-
+#chattoggle {
+/* top: 0.5px; */
+position: relative;
+left: -10px;
+width: 45px;
+outline: 0px solid;
+}
 
 /*full screen icon hide*/
 .fullwindowButton {
@@ -307,7 +299,7 @@ display:none
 
 #miniTaskBar {
     top:0px;
-    margin:5px;
+    margin:5px 20px;
     color: gainsboro;
     opacity:0.4;
     
@@ -320,7 +312,7 @@ display:none
 #connectUsers {
 	float: right;
 	display: none;
-	height:15%;
+	height:200px;
 	position: absolute;
 	max-width: 400px;
 	min-width: 205px;
@@ -328,7 +320,7 @@ display:none
 	background-color: #08090e;
 	z-index: 5;
 	padding: 15px;
-	right: 10px;
+	right: 20px;
 	top: 10px;
 	box-shadow: 0px 0px!important;
 	border-radius: 10px;
