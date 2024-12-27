@@ -173,7 +173,7 @@
 				Secure to the core.
             </h3>
 			<p>&nbsp;</p>
-			<img src="images/securemobile.jpg" width="600" height="93" class="secureMobileImage">
+			<img src="images/securemobile.png" width="600" height="93" class="secureMobileImage">
 			<p></p>
 			WebRTC was designed to be secure from the start and as such all transfers are encrypted using DTLS (Datagram Transport Layer Security) and SRTP (Secure Real-time Transport Protocol).
 			<p></p>
@@ -193,7 +193,7 @@
 				Credit, where credit is due.</h3>
             </h3>
             <p>&nbsp;</p>
-			<div style="position: relative; display: inline-block; width:calc(100% - 250px)" class="creditText">
+			<div style="position: relative; display: inline-block; width:calc(100% - 100px)" class="creditText">
 				This entire application was created off the incredible open source project, vdo.ninja, created by Steve Seguin.
 				<p></p>
 				In its simplest form, VDO.Ninja brings live video from a smartphone, tablet, or remote computer, directly into OBS Studio or other browser-enabled software. VDO.Ninja is offered as a free web service, but it's also available as customisable and deployable code. Some have called it the modern Swiss Army knife of audio and video transmission.
@@ -202,7 +202,7 @@
 				<p></p>
 			</div>
 
-            <div style="position: relative; display: inline; left: 50px; vertical-align: top;">
+            <div style="position: relative; display: inline; left: 10px; vertical-align: top;">
 				<img src="images/vdoninja.png" width="200" height="200" class="creditIcon">
 			</div>
         </div>
@@ -299,7 +299,7 @@
 								Important!
 							</div>
 							<br>
-							<div class="subtext">
+							<div class="subtext" id="subtext">
 								Your browser may prompt you for microphone and camera access.
 								<p></p>
 								If you deny access other participants will not be able to hear or see you.
@@ -597,7 +597,7 @@ function validateStageName(){
 				var iframeContainer = document.createElement("div");
 				iframeContainer.appendChild(iframe);
 				document.getElementById("mainIFrame").appendChild(iframeContainer);
-				},1000);
+				},3000);
 			}
 		else {
 			//if we are on tablet or mobile device, load a different set of options

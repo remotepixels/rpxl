@@ -120,13 +120,14 @@
 }	
 
 .las.la-comment-alt:before{
-        content: "\f381";
+    content: "\f15b";
+	color:#424242;
 }
 .las.la-comment-dots:before {
-        content: "\f381";
+        content: "\f56d";
 }
 .la-comments:before {
-    content: "\f381";
+	content: "\f56d";
     color:#fff;
     background-color: #20f!important;
     border-radius:30px;
@@ -200,9 +201,11 @@
 [data-translate="upload-chat"] {
 	display:none;
 }
-
+.brown {
+    background-color: #20f!important;
+	}
 button:hover {
-	background-color: blue!important;
+	background-color: #20f!important;
 }
 /*	hide fullscreen icons	*/
 .fullwindowButton {

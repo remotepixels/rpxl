@@ -272,8 +272,10 @@ iframe {
 	z-index: 5;
 	position: fixed;
 	width:100%;
-	top:25px;
+	top:0px;
 	animation: slideIn 0.25s linear;
+	overflow: auto;
+	height :100vh;
 	}
 .popupWindow {
 	position: relative;
@@ -567,7 +569,7 @@ input[type=text]:focus {
 	.textBG{
         font-size: 15px;
 		margin: auto;
-		width: 400px;
+		width: 360px;
 		}
 	h4 {
 		font-size: 24px;
@@ -584,7 +586,7 @@ input[type=text]:focus {
         display: block!important;
     }
 	.interfaceMobileImage {
-		width:400px;
+		width:360px;
 		height:185px;
 	}
 
@@ -601,17 +603,20 @@ input[type=text]:focus {
 		display:block!important;
 	}
 	.secureMobileImage {
-		width:400px;
-		height:62px;
+		width:360px;
+		height:56px;
 	}
 	.creditText {
-		width:calc(100% - 125px)!important;
+		width:calc(100% - 100px)!important;
 	}
 	.creditIcon {
-		width:100px;
-		height: 100px;
+		width: 80px;
+		height: 80px;
 	}
 	.about {
-		height:1000px!important;
+		height:1100px!important;
 	}
+	.popupGroup {
+	scale:0.7;
+		}
 }
