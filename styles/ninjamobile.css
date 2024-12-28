@@ -394,7 +394,7 @@ i.las.la-chevron-right {
 }
 
 #popOutChat{
-display: none;
+	display: none;
 }
 
 #chatModule{
@@ -427,7 +427,7 @@ display: none;
 	border-radius: 10px;
 	padding: 10px;
 	margin: 10px;
-		box-shadow: 0px 0px 10px 3px black;
+	box-shadow: 0px 0px 10px 3px black;
 }
 [data-button-type="clear"] {
 	display:none;

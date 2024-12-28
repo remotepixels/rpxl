@@ -40,7 +40,7 @@
 		<div class="ninjaIcon"><a href="https://vdo.ninja" target="_blank" class="vdoninjatext">Powered by<br>VDO.NINJA</a></div>
 		<div class="clientLink" id="clientLink" style="right: 230px; top:16px;">Session ID : <div id="sessionLink" class="sessionLink" value="https://rpxl.app"></div></div>
 		<div id="clock" class="clock" style="left: calc(100% - 240px);"></div>	
-		<div id="exitSession" class="exitSession" onclick="window.location.href = 'http://www.google.com'">Leave</div>
+		<div id="exitSession" class="exitSession" onclick="leave()">Leave</div>
 	</div>
 
 	<!--frames for chat and live stream-->
@@ -193,7 +193,7 @@
 				Credit, where credit is due.</h3>
             </h3>
             <p>&nbsp;</p>
-			<div style="position: relative; display: inline-block; width:calc(100% - 100px)" class="creditText">
+			<div style="position: relative; display: inline-block; width:calc(100% - 250px)" class="creditText">
 				This entire application was created off the incredible open source project, vdo.ninja, created by Steve Seguin.
 				<p></p>
 				In its simplest form, VDO.Ninja brings live video from a smartphone, tablet, or remote computer, directly into OBS Studio or other browser-enabled software. VDO.Ninja is offered as a free web service, but it's also available as customisable and deployable code. Some have called it the modern Swiss Army knife of audio and video transmission.
@@ -332,32 +332,6 @@
 </html>
 
 <script type="text/javascript">  
-/*
-//check if on mobile device
-let mobile = false;
-//ipad pro workaround, not really working at moment
-if ('ontouchstart' in window || (window?.DocumentTouch && document instanceof DocumentTouch)) {
-	mobile = true;
-}
-//usual mobile detection
-if (navigator.userAgent.match(/Android/i)
-	|| navigator.userAgent.match(/webOS/i)
-	|| navigator.userAgent.match(/iPhone/i)
-	|| navigator.userAgent.match(/iPad/i)
-	|| navigator.userAgent.match(/iPod/i)
-	|| navigator.userAgent.match(/BlackBerry/i)
-	|| navigator.userAgent.match(/Windows Phone/i)) {
-	mobile = true;
-} else {
-	mobile = false;
-}
-
-if (mobile == 1) {
-	sessionIDpopupContent.style.display = "none";
-	mobileWarningPopupContent.style.display = "block";
-	stop;
-}
-*/
 //popup live session window if the live button is clicked
 function clickLiveSession() {
 	blackout.style.animation = "fadeIn 500ms ease-out";
@@ -397,7 +371,7 @@ let sessionIDURL = query.slice(1);
 let sessionIDUp = sessionIDURL.toUpperCase();
 let	sessionFile = encodeURIComponent(sessionIDUp); 
 
-if  ((sessionFile != 0) && (sessionFile.length == 6) && (mobile == 0)) {
+if  ((sessionFile != 0) && (sessionFile.length == 6)) {
 	document.forms ["sessionIDCode"]["sessionIDInput"].value = sessionFile;	
 	blackout.style.display = "block";
 	checkSessionFile ();
@@ -577,7 +551,7 @@ function validateStageName(){
 				"&scale=100"+	//do not scale video
 				//"&chroma=121212"+
 				"&transparent"+	//makes bg transparent
-				"&buffer=1000"+	//adds a xms buffer  set by director
+				"&buffer=500"+	//adds a xms buffer  set by director
 				"&showlist=0"+	//hides the hidden viewr list
 				""; 
 
@@ -632,7 +606,7 @@ function validateStageName(){
 				"&transparent"+	//makes bg transparent
 				"&hidetranslate"+	//hides translate menu
 				"&darkmode"+	//
-				"&buffer=1000"+
+				"&buffer=500"+
 				"&scale=100"+	//do not scale video
 				//"&queue"+
 				//"&disablehotkeys"+	//no hotkeys
@@ -651,5 +625,21 @@ function validateStageName(){
 		}
 		return false;
 	}
+}
+function leave () {
+		//reset site to as first arrived
+		let frame = document.getElementById("mainIFrame");
+		frame.parentNode.removeChild(frame);
+		
+		frame = document.getElementById("chatIFrame");
+		frame.parentNode.removeChild(frame);
+
+		document.getElementById("topnav").style.display = "block";
+		document.getElementById("siteHeader").style.display = "block";
+		document.getElementById("textBG").style.display = "block";
+		document.getElementById("footer").style.display = "block";
+
+		document.getElementById("subNav").style.display = "none";
+		document.getElementById("clientLink").style.display = "none";
 }
 </script>
