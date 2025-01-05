@@ -460,18 +460,17 @@ input[type=text]:focus {
 		}
 	.siteMainIcon {
 		top: 80px;
-		left: 20px;
+		left: 40px;
 		height: 60px;
 		width: 60px;
 		}
 	.siteTitle {
 		font-size: 60px;
-
 		top: 70px;
-		left: 30px;
+		left: 60px;
 		}
 	.siteSubTitle {
-		left: 20px;
+		left: 40px;
 		font-size:50px;
         font-weight: 400;
 		top: 60px;
@@ -479,15 +478,12 @@ input[type=text]:focus {
 		letter-spacing: 1px;
 		}
 	h2 {
-
 		font-size: 40px;
 		line-height: 130%;
 		letter-spacing: 2px;
 		}
 	h3 {
-
 		font-size: 30px;
-
 		}
 	.textBG{
         font-size: 15px;
@@ -502,53 +498,57 @@ input[type=text]:focus {
 		font-size: 14px;
 		font-weight: 100;
 		}
+	.openingText {
+		height: 430px!important;
+		}
     .interfaceHD {
         display:none;
-    }
+		}
     .interfaceMobile {
         display: block!important;
-    }
+    	}
     .login {
 	display:none;
-    }
+    	}
     .browser {
 	display:none;
-    }
+    	}
 	.secure {
 		display:none;
-	}
+		}
 	.secureMobile {
 		display:block!important;
-	}
+		}
 	.creditText {
 		width:calc(100% - 200px)!important;
-	}
+		}
 	.creditIcon {
 		width:150px;
 		height: 150px;
-	}
+		}
+	.about {
+		height: 1200px!important;
+		}
 }
-
 
 @media only screen and (max-width: 600px) {
 	.siteHeader{
-		height: 440px;
+		height: 400px;
 		width: 100%;
 		}
 	.siteMainIcon {
 		top: 80px;
-		left: 20px;
+		left: 40px;
 		height: 60px;
 		width: 60px;
 		}
 	.siteTitle {
 		font-size: 60px;
-
 		top: 70px;
-		left: 30px;
+		left: 70px;
 		}
 	.siteSubTitle {
-		left: 20px;
+		left: 40px;
 		font-size:40px;
         font-weight: 400;
 		top: 60px;
@@ -562,9 +562,7 @@ input[type=text]:focus {
 		letter-spacing: 2px;
 		}
 	h3 {
-
 		font-size: 30px;
-
 		}
 	.textBG{
         font-size: 15px;
@@ -579,32 +577,39 @@ input[type=text]:focus {
 		font-size: 14px;
 		font-weight: 100;
 		}
+	.openingText {
+		height: 580px!important;
+		}
     .interfaceHD {
         display:none;
     }
     .interfaceMobile {
         display: block!important;
+		height: 530px!important;
     }
 	.interfaceMobileImage {
 		width:360px;
 		height:185px;
 	}
-
     .login {
-	display:none;
+		display:none;
     }
     .browser {
-	display:none;
+		display:none;
     }
 	.secure {
 		display:none;
 	}
 	.secureMobile {
 		display:block!important;
+		height:620px!important;
 	}
 	.secureMobileImage {
 		width:360px;
 		height:56px;
+	}
+	.credit {
+		height:670px!important;
 	}
 	.creditText {
 		width:calc(100% - 100px)!important;
@@ -614,9 +619,9 @@ input[type=text]:focus {
 		height: 80px;
 	}
 	.about {
-		height:1100px!important;
+		height:1600px!important;
 	}
 	.popupGroup {
-	scale:0.7;
-		}
+		scale:0.7;
+	}
 }
