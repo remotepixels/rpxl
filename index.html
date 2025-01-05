@@ -615,7 +615,7 @@ function validateStageName(){
 			""; 
 
 				var iframe = document.createElement("iframe");
-				iframe.allow = "autoplay;camera;microphone;";
+				iframe.allow = "autoplay;camera;microphone;allowfullscreen='0'";
 				iframe.src = mainFeed;
 				var iframeContainer = document.createElement("div");
 				iframeContainer.appendChild(iframe);

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang=en>
+
+<head>
+	<title>rpxl.app</title>
+
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+	<meta http-equiv="Pragma" content="no-cache"/>
+	<meta http-equiv="Expires" content="0"/>
+	<meta name="msapplication-TileColor" content="#2e2e2e"/>
+	<meta name="theme-color" content="#2e2e2e"/>
+	<meta name="keywords" content="Gui Felix, Advertising, Visual Effects, Motion Graphics, Remote Pixels, vdo.ninja"/>
+	<meta name="robots" content="index, follow"/>
+	<meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="../icons/favicon-16x16.png">
+	<link rel="mask-icon" href="../icons/safari-pinned-tab.svg" color="#5bbad5">
+	<link rel="shortcut icon" href="../icons/favicon.ico">
+
+	<link rel="stylesheet" href="../styles/style.css">
+</head>
+
+<style>
+	.round {
+		color:#121212; 
+		background-color: gainsboro; 
+		border: 2px solid gainsboro;
+	}
+	.round:hover{
+		color:white; 
+		background-color: dodgerblue; 
+		border: 2px solid dodgerblue;
+	}
+</style>
+
+<body style="background-image: url('../images/header.jpg'); background-attachment: scroll; background-repeat: no-repeat;background-position: right bottom;background-size: cover;">	
+	<!--load blank iframe, will be replaced with directors room when loged in-->
+	<iframe name="mainIFrame" id="mainIFrame" style="display:none;"></iframe>
+		
+	<!--popup window, draws the popup window-->
+	<div class="popupWindow" id="popupWindow" style="height: 200px; top:100px; background-color: #141414a9;">
+			<div style="position: absolute; width:460px; height: 30px; font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 30px; color:gainsboro;text-align: center;">Join live session :</div>
+			<div style="position: absolute; top: 100px; display: inline-block!important; width: 300px; ">
+				<form id="sessionIDCode" name="sessionIDCode" onsubmit="return validateSessionID()" method="post" required="" style="position: relative; display: inline-block;">
+					<input type="text" tabindex="1" name="sessionIDInput" id="sessionIDInput" maxlength="6" onkeypress="return onlyAlphabets(event,this);" oninput="this.value = this.value.toUpperCase()" style="text-transform: uppercase; font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 60px; color:#fff;background-color: #141414; width:300px; border-radius: 10px; border: 2px solid grey; padding: 20px; justify-content: center; align-items: center; text-align: center;">
+					<input class="round" type="submit" id="submitSessionID" value="&rarr;" tabindex="2" style="position: absolute; left: 375px; top:20px; font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 60px; font-weight: 900; width:80px; height: 80px; border-radius: 100px;">
+				</form>
+			</div>
+	</div>   
+
+</body>
+</html>
+
+<script type="text/javascript"> 
+//move caret to focus on inbut of session ID 
+document.forms["sessionIDCode"]["sessionIDInput"].focus();
+	
+//Session ID field entry, force upper caase, restrict to alpha-numeric
+function onlyAlphabets(e, t) {
+	var regexp = new RegExp(/^[a-zA-Z0-9]*$/);
+	if (window.event) {
+		keynum = e.keyCode;
+		}
+	else if (e.which) {
+		keynum = e.which;
+		}
+	var test = regexp.test(String.fromCharCode(keynum));
+	return test;
+	}
+   
+//validates the session ID when the user submits
+function validateSessionID(){
+	let sessionEnc = document.forms ["sessionIDCode"]["sessionIDInput"].value;
+	let	sessionFile = encodeURIComponent(sessionEnc); //encode submitted value to escape any funny characters
+
+	//if there are less or more or less than 6 characters shake the box and clear it
+	if (sessionFile.length != 6) {
+		popupWindow.style.animation = "shake 500ms";
+		setTimeout ( function () {popupWindow.style.animation = "none"; document.getElementById("sessionIDCode").reset();}, 300);
+		document.forms["sessionIDCode"]["sessionIDInput"].focus();
+		return false;
+		}
+	else {
+		//TV, main stream only
+		document.getElementById("popupWindow").style.display="none";
+		
+		document.getElementById("mainIFrame").style.top="0px";
+		document.getElementById("mainIFrame").style.width="100%";
+		document.getElementById("mainIFrame").style.height="100%";
+		document.getElementById("mainIFrame").style.display="inline-block";
+
+		document.getElementById("mainIFrame").allow = "autoplay;fullscreen;picture-in-picture;";
+		document.getElementById("mainIFrame").src = "https://remotepixels.github.io/remotepixels.app/?room=RPXL_"+sessionFile+
+				"&view=RPXL_"+sessionFile+"_Main_Feed"+ //shows only the directors main feed on left
+				"&solo"+	//solos view only show the master stream
+				"&cleanoutput"+	//remove all interface bits
+				"&hideplaybutton"+	//hides big play button if autoplay is disabled
+				"&cv"+	//clean viewer
+				"&videobitrate=50000"+ //server limited but hey, ask for as much as possible
+				"&scale=100"+	//do not scale video
+				"&chroma=000000"+
+				//"&transparent"+	//makes bg transparent
+				"&buffer=500"+	//adds a xms buffer
+				"&showlist=0"+	//hides the hidden viewr list
+				"&as"+
+				""; 
+			return false;
+	}
+}
+</script>
