@@ -106,18 +106,21 @@ function validateSessionID(){
 		document.getElementById("mainIFrame").src = "https://remotepixels.github.io/remotepixels.app/?room=RPXL_"+sessionFile+
 				"&broadcast"+	//show only directors feed
 				"&label=TV"+ //sets label to guests name they entered earlier
-				"&showlabels"+	//show the usernames
-				"&quality=3"+	//set camera quality to lowest possible, about 360p
+				//"&solo"+	//solos view only show the master stream
+				//"&minipreview"+
+				"&nopreview"+
+				//"&showlabels"+	//show the usernames
+				//"&quality=1"+	//set camera quality to lowest possible, about 720p
 				"&webcam"+	//disables screenshare use &webcam2 to show share your camera screen
 				"&cover"+	//make video cover space
-				"&videobitrate=100"+
+				//"&videobitrate=100"+
 				"&vdo=1"+	//auto select camera
-				"&rounded=100"+	//makes videos round
+				//"&rounded=100"+	//makes videos round
 				"&mirror=2"+	//mirrors guest videos
-				"&viewwidth=160&viewheight=90"+	//sets incoming video to px size (very low res)
+				//"&viewwidth=160&viewheight=90"+	//sets incoming video to px size (very low res)
 				"&safemode"+	//loads camera in simplist way
-				"&st=6"+	//show audio only sources as coloured circles with first letter of name
-				"&meterstyle=2"+	//round highlight over person talking
+				//"&st=6"+	//show audio only sources as coloured circles with first letter of name
+				//"&meterstyle=2"+	//round highlight over person talking
 				"&hh"+	//hide vdo ninja header
 				"&ee"+	//easy exit
 				"&cv"+	//clean viewer
@@ -131,7 +134,8 @@ function validateSessionID(){
 				"&disablehotkeys"+	//no hotkeys
 				"&nocontrols"+	//hides video player controls
 				"&showlist=0"+	//show hidden guest list
-				"&animate"+	//videos animate around when people join or leave
+				//"&animate"+	//videos animate around when people join or leave
+				"&cleanoutput"+	//remove all interface bits
 				"&css=https%3A%2F%2Frpxl.app%2Fstyles%2Fninjatv.css"+	//load style sheet
 				""; 
 			return false;
