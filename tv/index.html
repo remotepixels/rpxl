@@ -45,7 +45,7 @@
 			<div style="position: absolute; top: 100px; display: inline-block!important; width: 300px; ">
 				<form id="sessionIDCode" name="sessionIDCode" onsubmit="return validateSessionID()" method="post" required="" style="position: relative; display: inline-block;">
 					<input type="text" tabindex="1" name="sessionIDInput" id="sessionIDInput" maxlength="6" onkeypress="return onlyAlphabets(event,this);" oninput="this.value = this.value.toUpperCase()" style="text-transform: uppercase; font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 60px; color:#fff;background-color: #141414; width:300px; border-radius: 10px; border: 2px solid grey; padding: 20px; justify-content: center; align-items: center; text-align: center;">
-					<input class="round" type="submit" id="submitSessionID" value="&rarr;" tabindex="2" style="position: absolute; left: 375px; top:20px; font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 60px; font-weight: 900; width:80px; height: 80px; border-radius: 100px;">
+					<input class="round" type="submit" id="submitSessionID" value="go" tabindex="2" style="position: absolute; left: 375px; top:20px; font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 30px; font-weight: 900; width:80px; height: 80px; border-radius: 100px;">
 				</form>
 			</div>
 	</div>   
@@ -55,8 +55,19 @@
 
 <script type="text/javascript"> 
 //move caret to focus on inbut of session ID 
-document.forms["sessionIDCode"]["sessionIDInput"].focus();
-	
+//document.forms["sessionIDCode"]["sessionIDInput"].focus();
+document.getElementById("sessionIDInput").focus();
+
+//submit session ID if user hits enter key
+let inputSessionID = document.getElementById("sessionIDInput");
+inputSessionID.addEventListener("keypress", function(event) {
+	if (event.key === "Enter") {
+		event.preventDefault();
+		document.getElementById("submitSessionID").click();
+		}
+	});
+
+
 //Session ID field entry, force upper caase, restrict to alpha-numeric
 function onlyAlphabets(e, t) {
 	var regexp = new RegExp(/^[a-zA-Z0-9]*$/);
