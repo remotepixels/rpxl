@@ -91,20 +91,37 @@ function validateSessionID(){
 		document.getElementById("mainIFrame").style.height="100%";
 		document.getElementById("mainIFrame").style.display="inline-block";
 
-		document.getElementById("mainIFrame").allow = "autoplay;fullscreen;picture-in-picture;";
+		document.getElementById("mainIFrame").allow = "autoplay;camera;microphone;fullscreen;picture-in-picture;display-capture;allow-same-origin;allow-forms;allow-modals;allow-scripts;";
 		document.getElementById("mainIFrame").src = "https://remotepixels.github.io/remotepixels.app/?room=RPXL_"+sessionFile+
-				"&view=RPXL_"+sessionFile+"_Main_Feed"+ //shows only the directors main feed on left
-				"&solo"+	//solos view only show the master stream
-				"&cleanoutput"+	//remove all interface bits
-				"&hideplaybutton"+	//hides big play button if autoplay is disabled
+				"&broadcast"+	//show only directors feed
+				"&label=TV"+ //sets label to guests name they entered earlier
+				"&showlabels"+	//show the usernames
+				"&quality=3"+	//set camera quality to lowest possible, about 360p
+				"&webcam"+	//disables screenshare use &webcam2 to show share your camera screen
+				"&cover"+	//make video cover space
+				"&videobitrate=100"+
+				"&vdo=1"+	//auto select camera
+				"&rounded=100"+	//makes videos round
+				"&mirror=2"+	//mirrors guest videos
+				"&viewwidth=160&viewheight=90"+	//sets incoming video to px size (very low res)
+				"&safemode"+	//loads camera in simplist way
+				"&st=6"+	//show audio only sources as coloured circles with first letter of name
+				"&meterstyle=2"+	//round highlight over person talking
+				"&hh"+	//hide vdo ninja header
+				"&ee"+	//easy exit
 				"&cv"+	//clean viewer
-				"&videobitrate=50000"+ //server limited but hey, ask for as much as possible
-				"&scale=100"+	//do not scale video
-				"&chroma=000000"+
-				//"&transparent"+	//makes bg transparent
-				"&buffer=500"+	//adds a xms buffer
-				"&showlist=0"+	//hides the hidden viewr list
-				"&as"+
+				"&hpb"+	//hide play button
+				"&nsb"+	//hide speaker button
+				"&nohub"+	//hide hangup button
+				"&hidehome"+	//hide vdo ninja home page
+				"&transparent"+	//makes bg transparent
+				"&hidetranslate"+	//hides translate menu
+				"&darkmode"+	//
+				"&disablehotkeys"+	//no hotkeys
+				"&nocontrols"+	//hides video player controls
+				"&showlist=0"+	//show hidden guest list
+				"&animate"+	//videos animate around when people join or leave
+				"&css=https%3A%2F%2Frpxl.app%2Fstyles%2Fninjatv.css"+	//load style sheet
 				""; 
 			return false;
 	}
