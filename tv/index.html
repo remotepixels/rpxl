@@ -36,8 +36,6 @@
 </style>
 
 <body style="background-image: url('../images/header.jpg'); background-attachment: scroll; background-repeat: no-repeat;background-position: right bottom;background-size: cover;">	
-	<!--load blank iframe, will be replaced with directors room when loged in-->
-	<iframe name="mainIFrame" id="mainIFrame" style="display:none;"></iframe>
 		
 	<!--popup window, draws the popup window-->
 	<div class="popupWindow" id="popupWindow" style="height: 200px; top:100px; background-color: #141414a9;">
@@ -95,30 +93,23 @@ function validateSessionID(){
 		}
 	else {
 		//TV, main stream only
-		document.getElementById("popupWindow").style.display="none";
-		
-		document.getElementById("mainIFrame").style.top="0px";
-		document.getElementById("mainIFrame").style.width="100%";
-		document.getElementById("mainIFrame").style.height="100%";
-		document.getElementById("mainIFrame").style.display="inline-block";
-
-		document.getElementById("mainIFrame").allow = "autoplay;camera;microphone;fullscreen;picture-in-picture;display-capture;allow-same-origin;allow-forms;allow-modals;allow-scripts;";
-		document.getElementById("mainIFrame").src = "https://remotepixels.github.io/remotepixels.app/?room=RPXL_"+sessionFile+
+		//document.getElementById("mainIFrame").allow = "autoplay;camera;microphone;fullscreen;picture-in-picture;display-capture;allow-same-origin;allow-forms;allow-modals;allow-scripts;";
+		location.replace("https://remotepixels.github.io/remotepixels.app/?room=RPXL_"+sessionFile+
 				"&broadcast"+	//show only directors feed
 				"&label=TV"+ //sets label to guests name they entered earlier
 				//"&solo"+	//solos view only show the master stream
-				//"&minipreview"+
-				"&nopreview"+
+				"&minipreview"+
+				//"&nopreview"+
 				//"&showlabels"+	//show the usernames
-				//"&quality=1"+	//set camera quality to lowest possible, about 720p
-				"&webcam"+	//disables screenshare use &webcam2 to show share your camera screen
+				"&quality=3"+	//set camera quality to lowest possible, about 720p
+				"&webcam=1"+	//disables screenshare use &webcam2 to show share your camera screen
 				"&cover"+	//make video cover space
 				//"&videobitrate=100"+
 				"&vdo=1"+	//auto select camera
 				//"&rounded=100"+	//makes videos round
-				"&mirror=2"+	//mirrors guest videos
+				//"&mirror=2"+	//mirrors guest videos
 				//"&viewwidth=160&viewheight=90"+	//sets incoming video to px size (very low res)
-				//"&safemode"+	//loads camera in simplist way
+				"&safemode"+	//loads camera in simplist way
 				//"&st=6"+	//show audio only sources as coloured circles with first letter of name
 				//"&meterstyle=2"+	//round highlight over person talking
 				"&hh"+	//hide vdo ninja header
@@ -128,16 +119,18 @@ function validateSessionID(){
 				"&nsb"+	//hide speaker button
 				"&nohub"+	//hide hangup button
 				"&hidehome"+	//hide vdo ninja home page
-				//"&transparent"+	//makes bg transparent
+				"&transparent"+	//makes bg transparent
 				"&hidetranslate"+	//hides translate menu
 				"&darkmode"+	//
 				"&disablehotkeys"+	//no hotkeys
 				"&nocontrols"+	//hides video player controls
-				"&showlist=0"+	//show hidden guest list
+				"&waitimage=https%3A%2F%2Frpxl.app%2Fimages%2FnosignalHD.png"+
+				"&chroma=121212"+
+				//"&showlist=0"+	//show hidden guest list
 				//"&animate"+	//videos animate around when people join or leave
 				"&cleanoutput"+	//remove all interface bits
 				"&css=https%3A%2F%2Frpxl.app%2Fstyles%2Fninjatv.css"+	//load style sheet
-				""; 
+				""); 
 			return false;
 	}
 }
