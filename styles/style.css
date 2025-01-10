@@ -538,22 +538,22 @@ input[type=text]:focus {
 		}
 	.siteMainIcon {
 		top: 80px;
-		left: 40px;
+		left: 20px;
 		height: 60px;
 		width: 60px;
 		}
 	.siteTitle {
 		font-size: 60px;
 		top: 70px;
-		left: 70px;
+		left: 30px;
 		}
 	.siteSubTitle {
-		left: 40px;
-		font-size:40px;
+		left: 20px;
+		font-size:35px;
         font-weight: 400;
 		top: 60px;
 		line-height: 130%;
-		letter-spacing: 1px;
+		letter-spacing: 0px;
 		}
 	h2 {
 
