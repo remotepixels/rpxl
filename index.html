@@ -549,6 +549,7 @@ function validateStageName(){
 				"&scale=100"+	//do not scale video
 				//"&chroma=121212"+
 				"&transparent"+	//makes bg transparent
+				"&preloadbitrate=-1"+	//preloads the video, might not be necessary as only use scene 1
 				"&buffer=500"+	//adds a xms buffer
 				"&showlist=0"+	//hides the hidden viewr list
 				""; 
@@ -584,6 +585,7 @@ function validateStageName(){
 				"&label="+encodedUserName+ //sets label to guests name they entered earlier
 				//"&showlabels"+	//show the usernames
 				//"&quality=3"+	//set camera quality to lowest possible, about 360p
+				"&mobile"+	//sets for mobile devices (no video etc)
 				"&webcam"+	//disables screenshare use &webcam2 to show share your camera screen
 				//"&cover"+	//make video cover space
 				//"&videobitrate=100"+
@@ -610,12 +612,13 @@ function validateStageName(){
 				//"&disablehotkeys"+	//no hotkeys
 				"&nocontrols"+	//hides video player controls
 				"&showlist=1"+	//show hidden guest list
+				"&waitimage=https%3A%2F%2Frpxl.app%2Fimages%2FnosignalHD.png"+
 				//"&animate"+	//videos animate around when people join or leave
 				"&css=https%3A%2F%2Frpxl.app%2Fstyles%2Fninjamobile.css"+	//load style sheet
 			""; 
 
 				var iframe = document.createElement("iframe");
-				iframe.allow = "autoplay;camera;microphone;allowfullscreen='0';allow-same-origin;allow-forms;allow-modals;allow-scripts;";
+				iframe.allow = "autoplay;camera;microphone;allow-same-origin;allow-forms;allow-modals;allow-scripts;";
 				iframe.src = mainFeed;
 				var iframeContainer = document.createElement("div");
 				iframeContainer.appendChild(iframe);
