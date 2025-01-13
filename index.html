@@ -581,7 +581,7 @@ function validateStageName(){
 			document.getElementById("mainIFrame").style.display="inline-block";
 
 			let mainFeed = "https://remotepixels.github.io/remotepixels.app/?room=RPXL_"+sessionFile+
-				"&broadcast"+	//show only directors feed
+				//"&broadcast"+	//show only directors feed
 				"&label="+encodedUserName+ //sets label to guests name they entered earlier
 				//"&showlabels"+	//show the usernames
 				//"&quality=3"+	//set camera quality to lowest possible, about 360p
@@ -618,7 +618,7 @@ function validateStageName(){
 			""; 
 
 				var iframe = document.createElement("iframe");
-				iframe.allow = "autoplay;camera;microphone;allow-same-origin;allow-forms;allow-modals;allow-scripts;";
+				iframe.allow = "autoplay;camera;microphone;allow-same-origin;allow-forms;allow-modals;allow-scripts;playsInline;";
 				iframe.src = mainFeed;
 				var iframeContainer = document.createElement("div");
 				iframeContainer.appendChild(iframe);
