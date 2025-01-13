@@ -556,7 +556,7 @@ function validateStageName(){
 
 			//create the chat iframe
 			var iframe = document.createElement("iframe");
-			iframe.allow = "autoplay;camera;microphone;fullscreen;picture-in-picture;display-capture;allow-same-origin;allow-forms;allow-modals;allow-scripts;";
+			iframe.allow = "autoplay;camera;microphone;fullscreen;picture-in-picture;display-capture;";
 			iframe.src = chatFeed;
 			var iframeContainer = document.createElement("div");
 			iframeContainer.appendChild(iframe);
@@ -607,7 +607,8 @@ function validateStageName(){
 				"&hidetranslate"+	//hides translate menu
 				"&darkmode"+	//
 				"&buffer=500"+
-				"&scale=100"+	//do not scale video
+				"&preloadbitrate=-1"+	//preloads the video, might not be necessary as only use scene 1
+				//"&scale=100"+	//do not scale video
 				//"&queue"+
 				//"&disablehotkeys"+	//no hotkeys
 				"&nocontrols"+	//hides video player controls
@@ -618,7 +619,7 @@ function validateStageName(){
 			""; 
 
 				var iframe = document.createElement("iframe");
-				iframe.allow = "autoplay;camera;microphone;allow-same-origin;allow-forms;allow-modals;allow-scripts;playsInline;";
+				iframe.allow = "autoplay;camera;microphone;picture-in-picture;display-capture;";
 				iframe.src = mainFeed;
 				var iframeContainer = document.createElement("div");
 				iframeContainer.appendChild(iframe);

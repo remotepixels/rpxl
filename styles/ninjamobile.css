@@ -444,3 +444,11 @@ i.las.la-chevron-right {
 button:hover {
 	background-color: #20f!important;
 }
+
+.container_holder_video {
+	display: inline!important;
+	width:100%!important;
+	height:100%!important;
+	margin:0px!important;
+	top: 5%!important;
+}
