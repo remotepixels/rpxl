@@ -227,10 +227,6 @@ iframe {
 	top: 60px;
 	left: 5px;
 	background-color: #121212;
-	background-size: 30%;
-	background-image: url("../images/nosignal.png");
-	background-repeat: no-repeat;
-	background-position: center;
 	display: block;
 	z-index: 0;
 }
@@ -622,6 +618,6 @@ input[type=text]:focus {
 		height:1600px!important;
 	}
 	.popupGroup {
-		scale:0.7;
+		scale:0.7!important;
 	}
 }

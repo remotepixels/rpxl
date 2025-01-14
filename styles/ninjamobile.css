@@ -447,6 +447,7 @@ button:hover {
 
 .container_holder_video {
 	display: inline!important;
+	display: -webkit-inline-box!important;
 	width:100%!important;
 	height:100%!important;
 	margin:0px!important;

@@ -501,12 +501,12 @@ function validateStageName(){
 		document.getElementById("clientLink").style.display = "block";
 		document.getElementById("sessionLink").style.display = "inline-block";
 
-		if (mobile == 0) {
+		if (mobile == 1) {
 			document.getElementById("chatIFrame").style.display="inline-block";
 			document.getElementById("mainIFrame").style.display="inline-block";
 			
 			//set sources for chat frame
-			let chatFeed = "https://remotepixels.github.io/remotepixels.app/?room=RPXL_"+sessionFile+
+			let chatFeed = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
 				"&exclude=RPXL_"+sessionFile+"_Main_Feed"+	//do not show the main feed
 				"&label="+encodedUserName+ //sets label to guests name they entered earlier
 				"&showlabels"+	//show the usernames
@@ -534,12 +534,13 @@ function validateStageName(){
 				"&disablehotkeys"+	//no hotkeys
 				"&nocontrols"+	//hides video player controls
 				"&showlist=0"+	//show hidden guest list
+				"&queue"+ 	//guests must be allowed in by director
 				"&animate"+	//videos animate around when people join or leave
 				"&css=https%3A%2F%2Frpxl.app%2Fstyles%2Fninjachat.css"+	//load style sheet
 			""; 
 
 			//set sources for main frame
-			var mainFeed = "https://remotepixels.github.io/remotepixels.app/?room=RPXL_"+sessionFile+
+			var mainFeed = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
 				"&view=RPXL_"+sessionFile+"_Main_Feed"+ //shows only the directors main feed on left
 				"&solo"+	//solos view only show the master stream
 				"&cleanoutput"+	//remove all interface bits
@@ -547,6 +548,7 @@ function validateStageName(){
 				"&cv"+	//clean viewer
 				"&videobitrate=50000"+ //server limited but hey, ask for as much as possible
 				"&scale=100"+	//do not scale video
+				"&queue"+ 	//guests must be allowed in by director
 				//"&chroma=121212"+
 				"&transparent"+	//makes bg transparent
 				"&preloadbitrate=-1"+	//preloads the video, might not be necessary as only use scene 1
@@ -577,10 +579,10 @@ function validateStageName(){
 			document.getElementById("mainIFrame").style.top="0px";
 			document.getElementById("subNav").style.display = "none";
 			document.getElementById("mainIFrame").style.width="100%";
-			document.getElementById("mainIFrame").style.height="100%";
-			document.getElementById("mainIFrame").style.display="inline-block";
+			document.getElementById("mainIFrame").style.height="100vh";
+			document.getElementById("mainIFrame").style.display="inline";
 
-			let mainFeed = "https://remotepixels.github.io/remotepixels.app/?room=RPXL_"+sessionFile+
+			let mainFeed = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
 				//"&broadcast"+	//show only directors feed
 				"&label="+encodedUserName+ //sets label to guests name they entered earlier
 				//"&showlabels"+	//show the usernames
@@ -609,7 +611,7 @@ function validateStageName(){
 				"&buffer=500"+
 				"&preloadbitrate=-1"+	//preloads the video, might not be necessary as only use scene 1
 				//"&scale=100"+	//do not scale video
-				//"&queue"+
+				"&queue"+
 				//"&disablehotkeys"+	//no hotkeys
 				"&nocontrols"+	//hides video player controls
 				"&showlist=1"+	//show hidden guest list
@@ -618,13 +620,13 @@ function validateStageName(){
 				"&css=https%3A%2F%2Frpxl.app%2Fstyles%2Fninjamobile.css"+	//load style sheet
 			""; 
 
-				var iframe = document.createElement("iframe");
-				iframe.allow = "autoplay;camera;microphone;picture-in-picture;display-capture;";
-				iframe.src = mainFeed;
-				var iframeContainer = document.createElement("div");
-				iframeContainer.appendChild(iframe);
-				document.getElementById("mainIFrame").appendChild(iframeContainer);
-		}
+			var iframe = document.createElement("iframe");
+			iframe.allow = "autoplay;camera;microphone;picture-in-picture;display-capture;";
+			iframe.src = mainFeed;
+			var iframeContainer = document.createElement("div");
+			iframeContainer.appendChild(iframe);
+			document.getElementById("mainIFrame").appendChild(iframeContainer);
+    	}	
 		return false;
 	}
 }

@@ -262,7 +262,7 @@ function validateStageName(){
 
 		//set sources for main frame
 		document.getElementById("inset_window").allow = "autoplay;camera;microphone;fullscreen;picture-in-picture;display-capture;";
-		document.getElementById("inset_window").src = "https://remotepixels.github.io/remotepixels.app/?director=RPXL_"+sessionFile+
+		document.getElementById("inset_window").src = "https://vdo.rpxl.app/?director=RPXL_"+sessionFile+
 		"&label="+encodedUserName+	//sets livestream as label for director connection
 		"&codirector="+sessionFile+	//join as codirector
 		"&hidehome"+	//hide vdo ninja homepage	
@@ -270,14 +270,14 @@ function validateStageName(){
 		"&quality=3"+	//set camera quality to lowest possible, about 360p
 		"&webcam"+	//disables screenshare use &webcam2 to show share your camera screen
 		"&cover"+	//make video cover space
-		"&videobitrate=100"+
+		"&videobitrate=300"+
 		"&ad=1"+	//autoselect audio device
 		"&vdo=1"+	//auto select camera
 		"&mirror=2"+	//mirrors guest videos
 		"&viewwidth=160&viewheight=90"+	//sets incoming video to px size (very low res)
 		"&safemode"+	//loads camera in simplist way
 		"&st=6"+	//show audio only sources as coloured circles with first letter of name
-		"&meterstyle=2"+	//round highlight over person talking
+		//"&meterstyle=2"+	//round highlight over person talking
 		"&preview"+	//forces self preview for clients
 		"&showdirector"+	//shows director in scenes
 		"&novice"+	//simplyfy director layout

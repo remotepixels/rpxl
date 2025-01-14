@@ -280,7 +280,7 @@ function validateSessionID(){
 
 		//vdo ninja configuration and startup
 		document.getElementById("inset_window").allow = "autoplay;camera;microphone;fullscreen;picture-in-picture;display-capture;";
-		document.getElementById("inset_window").src = "https://remotepixels.github.io/remotepixels.app/?director=RPXL_"+sessionFile+
+		document.getElementById("inset_window").src = "https://vdo.rpxl.app/?director=RPXL_"+sessionFile+
 		"&push=RPXL_"+sessionFile+"_Main_Feed"+
 		"&rampuptime=6000"+	//ramp up time of 6 seconds
 		"&label=Server"+	//sets livestream as label for director connection
@@ -304,7 +304,7 @@ function validateSessionID(){
 		"&nohub"+	//hide hangup button
 		"&nsb"+	//hide speaker button
 		"&hidetranslate"+	//hide translate
-		"&signalmeter"+	//add signal meter
+		"&signalmeter"+	//add signal meter to each guest
 		"&agc=0"+	//turns off auto gain control
 		"&denoise=0"+	//turns off denoiser
 		"&ab=128"+	//constant audio bitrate of 24kbps
