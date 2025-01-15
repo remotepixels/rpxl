@@ -507,8 +507,7 @@ function validateStageName(){
 			
 			//set sources for chat frame
 			let chatFeed = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
-				//"&exclude=RPXL_"+sessionFile+"_Main_Feed"+	//do not show the main feed
-				"&include=RPXL_"+sessionFile+"_Main_Feed"+
+				"&exclude=RPXL_"+sessionFile+"_Main_Feed"+	//do not show the main feed
 				//"&showall"+
 				"&label="+encodedUserName+ //sets label to guests name they entered earlier
 				"&showlabels"+	//show the usernames
@@ -539,13 +538,13 @@ function validateStageName(){
 				//"&queue"+ 	//guests must be allowed in by director
 				"&animate"+	//videos animate around when people join or leave
 				//"&tips"+
-				"&js=https%3A%2F%2Frpxl.app%2Fscripts%2Fninjachat.js"+
+				//"&js=https%3A%2F%2Frpxl.app%2Fscripts%2Fninjachat.js"+
 				"&css=https%3A%2F%2Frpxl.app%2Fstyles%2Fninjachat.css"+	//load style sheet
 			""; 
 
 			//set sources for main frame
 			var mainFeed = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
-				//"&view=RPXL_"+sessionFile+"_Main_Feed"+ //shows only the directors main feed on left
+				"&view=RPXL_"+sessionFile+"_Main_Feed"+ //shows only the directors main feed on left
 				"&broadcast"+
 				"&solo"+	//solos view only show the master stream
 				"&cleanoutput"+	//remove all interface bits
