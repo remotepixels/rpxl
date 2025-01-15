@@ -1,1 +1,1 @@
-let element = document.body.querySelector('.element[data-id="RPXL_"]')
+alert("Javascript loaded");
