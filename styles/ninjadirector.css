@@ -1,9 +1,8 @@
 #header {
 	width: 100%;
-	padding: 5px;
+	padding: 10px;
 	background-color: #191919;
 	color: #FFF;
-	-webkit-app-region: drag;
 	}
 .las.la-window-minimize{
 		display:none;
