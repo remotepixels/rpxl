@@ -290,7 +290,7 @@
 				<div class="askNamePopupContent" id="askNamePopupContent" style="animation: 300ms ease-out fadeIn; display: none;">
 					<div class="popupTitle">Enter your name</div><p></p>
 					<form id="stageName" name="stageName" onsubmit="return validateStageName()" method="post" required="">
-						<input class="enterStageName" type="text" maxlength="11" name="enterStageName">
+						<input class="enterStageName" type="text" maxlength="9" name="enterStageName">
 						<br>
 						<div style="position: relative; padding: 20px; border-radius: 10px; width: 260px; left: 12px; margin-top: 10px; margin-bottom: 10px;">
 							<div class="popupTitle">
@@ -541,7 +541,8 @@ function validateStageName(){
 
 			//set sources for main frame
 			var mainFeed = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
-				"&view=RPXL_"+sessionFile+"_Main_Feed"+ //shows only the directors main feed on left
+				//"&view=RPXL_"+sessionFile+"_Main_Feed"+ //shows only the directors main feed on left
+				"&broadcast"+
 				"&solo"+	//solos view only show the master stream
 				"&cleanoutput"+	//remove all interface bits
 				"&hideplaybutton"+	//hides big play button if autoplay is disabled
@@ -610,7 +611,7 @@ function validateStageName(){
 				"&hidetranslate"+	//hides translate menu
 				"&darkmode"+	//
 				"&buffer=500"+	//adds a xms buffer
-				//"&preloadbitrate=-1"+	//preloads the video, might not be necessary as only use scene 1
+				"&preloadbitrate=-1"+	//preloads the video, might not be necessary as only use scene 1
 				//"&scale=100"+	//do not scale video
 				//"&queue"+
 				//"&disablehotkeys"+	//no hotkeys

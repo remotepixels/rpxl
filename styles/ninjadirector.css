@@ -1,6 +1,6 @@
 #header {
 	width: 100%;
-	padding: 10px;
+	padding: 10px!important;
 	background-color: #191919;
 	color: #FFF;
 	}
@@ -23,6 +23,8 @@
 .las.la-external-link-alt{
 		display:none;
 	}
+
+/*flips director video the correct way*/
 #videoContainer_director {
 	transform: scaleX(-1);
 	-webkit-transform: scaleX(-1);
