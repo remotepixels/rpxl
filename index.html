@@ -507,7 +507,8 @@ function validateStageName(){
 			
 			//set sources for chat frame
 			let chatFeed = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
-				"&exclude=RPXL_"+sessionFile+"_Main_Feed"+	//do not show the main feed
+				//"&exclude=RPXL_"+sessionFile+"_Main_Feed"+	//do not show the main feed
+				//"&showall"+
 				"&label="+encodedUserName+ //sets label to guests name they entered earlier
 				"&showlabels"+	//show the usernames
 				"&quality=3"+	//set camera quality to lowest possible, about 360p
@@ -516,7 +517,7 @@ function validateStageName(){
 				"&videobitrate=100"+
 				"&vdo=1"+	//auto select camera
 				"&rounded=100"+	//makes videos round
-				"&mirror=2"+	//mirrors guest videos
+				//"&mirror=2"+	//mirrors guest videos
 				"&viewwidth=160&viewheight=90"+	//sets incoming video to px size (very low res)
 				"&safemode"+	//loads camera in simplist way
 				"&st=6"+	//show audio only sources as coloured circles with first letter of name
@@ -536,6 +537,8 @@ function validateStageName(){
 				"&showlist=0"+	//show hidden guest list
 				//"&queue"+ 	//guests must be allowed in by director
 				"&animate"+	//videos animate around when people join or leave
+				"&tips"+
+				"&js=https%3A%2F%2Frpxl.app%2Fscripts%2Fchat.js"
 				"&css=https%3A%2F%2Frpxl.app%2Fstyles%2Fninjachat.css"+	//load style sheet
 			""; 
 
