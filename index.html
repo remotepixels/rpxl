@@ -501,7 +501,7 @@ function validateStageName(){
 		document.getElementById("clientLink").style.display = "block";
 		document.getElementById("sessionLink").style.display = "inline-block";
 
-		if (mobile == 1) {
+		if (mobile == 0) {
 			document.getElementById("chatIFrame").style.display="inline-block";
 			document.getElementById("mainIFrame").style.display="inline-block";
 			
@@ -534,7 +534,7 @@ function validateStageName(){
 				"&disablehotkeys"+	//no hotkeys
 				"&nocontrols"+	//hides video player controls
 				"&showlist=0"+	//show hidden guest list
-				"&queue"+ 	//guests must be allowed in by director
+				//"&queue"+ 	//guests must be allowed in by director
 				"&animate"+	//videos animate around when people join or leave
 				"&css=https%3A%2F%2Frpxl.app%2Fstyles%2Fninjachat.css"+	//load style sheet
 			""; 
@@ -548,10 +548,11 @@ function validateStageName(){
 				"&cv"+	//clean viewer
 				"&videobitrate=50000"+ //server limited but hey, ask for as much as possible
 				"&scale=100"+	//do not scale video
-				"&queue"+ 	//guests must be allowed in by director
+				//"&queue"+ 	//guests must be allowed in by director
 				//"&chroma=121212"+
 				"&transparent"+	//makes bg transparent
 				"&preloadbitrate=-1"+	//preloads the video, might not be necessary as only use scene 1
+				"&waitimage=https%3A%2F%2Frpxl.app%2Fimages%2FnosignalHD.png"+
 				"&buffer=500"+	//adds a xms buffer
 				"&showlist=0"+	//hides the hidden viewr list
 				""; 
@@ -572,7 +573,7 @@ function validateStageName(){
 				var iframeContainer = document.createElement("div");
 				iframeContainer.appendChild(iframe);
 				document.getElementById("mainIFrame").appendChild(iframeContainer);
-				},3000);
+				},1000);
 			}
 		else {
 			//if we are on tablet or mobile device, load a different set of options
@@ -580,7 +581,7 @@ function validateStageName(){
 			document.getElementById("subNav").style.display = "none";
 			document.getElementById("mainIFrame").style.width="100%";
 			document.getElementById("mainIFrame").style.height="100vh";
-			document.getElementById("mainIFrame").style.display="inline";
+			document.getElementById("mainIFrame").style.display="inline-block";
 
 			let mainFeed = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
 				//"&broadcast"+	//show only directors feed
@@ -611,7 +612,7 @@ function validateStageName(){
 				"&buffer=500"+
 				"&preloadbitrate=-1"+	//preloads the video, might not be necessary as only use scene 1
 				//"&scale=100"+	//do not scale video
-				"&queue"+
+				//"&queue"+
 				//"&disablehotkeys"+	//no hotkeys
 				"&nocontrols"+	//hides video player controls
 				"&showlist=1"+	//show hidden guest list
