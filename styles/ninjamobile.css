@@ -449,6 +449,6 @@ button:hover {
 	display: inline!important;
 	display: -webkit-inline-box!important;
 	width:100%!important;
-	height:100%!important;
+	height:100vh!important;
 	margin:0px!important;
 }
