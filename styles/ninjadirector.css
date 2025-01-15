@@ -24,7 +24,9 @@
 .las.la-external-link-alt{
 		display:none;
 	}
-
+#videosource {
+	transform: scaleX(-1)!important;
+}
 	
 /* main control bar customizations */
 #subControlButtons {
