@@ -24,8 +24,9 @@
 .las.la-external-link-alt{
 		display:none;
 	}
-#videosource {
-	transform: scaleX(-1)!important;
+#videoContainer_director {
+	transform: scaleX(-1);
+	-webkit-transform: scaleX(-1);
 }
 	
 /* main control bar customizations */
