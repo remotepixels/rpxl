@@ -446,3 +446,7 @@ i.las.la-chevron-right {
 	background-color: #6633ff!important;
 	color: white!important;
 }
+
+:is(div) :has([data-sid="RPXL_Main_Feed"]){
+	display:none;
+}
