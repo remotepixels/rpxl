@@ -35,10 +35,12 @@
 }
 .addWebcamWindow {
 	position: absolute;
-	right: 10px;
+	right: 0px;
 	top: 60px;
-	width: 30%;
-	height: 100%;
+	margin-right:0px;
+	padding-left:5px;
+	padding-right:0px;
+	height: calc(100% - 60px);
 	background-color: #121212;
 	display:none;
 }

@@ -37,8 +37,8 @@
 			</div>
 		</div>
 		<div id="clock" class="clockDuration"></div>
-		<div id="addWebcam" class="addWebcam" onclick="addWebcam()">
-			<div id="webcamSymbols" class="material-symbols-outlined">video_camera_front</div>
+		<div id="addWebcam" class="addWebcam" name="addWebcam">
+			<div id="addWebcam" class="material-symbols-outlined">video_camera_front</div>
 		</div>
 	</div>
     
@@ -46,26 +46,7 @@
 	<!--load blank iframe, will be replaced with directors room when loged in-->
 	<iframe title="directorroom" class="directorroom" name="directorroom" id="directorroom" allowfullscreen=false></iframe>
 	<iframe title="addWebcamWindow" class="addWebcamWindow" name="addWebcamWindow" id="addWebcamWindow" allowfullscreen=false></iframe>
-	<!--
-	<div title="addWebcamWindow" class="addWebcamWindow" name="addWebcamWindow" id="addWebcamWindow">
-		<div class="askNamePopupContent" id="askNamePopupContent">
-			<div class="subtext" id="subtext" style="margin: unset;">
-				This alllows you to add yourself via a webcam to the stream while keeping the main stream separate.
-				You will be able to mute yourself and the main stream independantly, and clients will see you as a participant.
-				<p></p>
-				WARNING! Do not select the same source as the Main Stream as this will create feedback and other issues.
-			</div>
-			<p></p>
-			<div class="popupTitle">Enter your name</div>
-			<p></p>
-			<form id="stageName" name="stageName" onsubmit="return validateStageName()" method="post" required="">
-				<input class="enterStageName" type="text" maxlength="11" name="enterStageName" value="" style="margin-top:20px; margin-bottom: 20px;">
-				<p></p>
-				<input type="submit" value="Add Webcam" class="button">                            
-			</form>
-			</div>
-		</div>
--->
+
 	<!--darken screen for popups-->
 	<div class="blackout" id="blackout" style="display: block;">			
 		<!--popup window, draws the popup window-->
@@ -95,15 +76,6 @@
 					<hr style="position: relative;width:300px; left:-20px; color: rgb(50, 50, 50);">
 					<!--
 					<p></p>
-					Webcam <sup>2</sup>
-					<input type="hidden" id="webcam" value="0">
-					<input type="button" name="button" id="webcamEnable" class="multiSelectBlock" style="border-top-left-radius: 20px; border-bottom-left-radius: 20px; left:135px;" value="On">
-					<input type="button" name="button" id="webcamDisable" class="multiSelectBlock multiSelectBlockHighlighted" style="border-top-right-radius: 20px; border-bottom-right-radius: 20px; left:135px;" value="Off">
-					<p></p>
-					<div id="nameField" style="display: none;">Your name 
-						<input type="text" maxlength="12" name="name" value="Editor" class="streamerName" style="left:100px;">
-					</div>
-					<p></p>
 					Queue <sup>3</sup>
 					<input type="hidden" id="queue" value="0">
 					<input type="button" name="button" id="queueOn" class="multiSelectBlock" style="border-top-left-radius: 20px; border-bottom-left-radius: 20px; left: 162px;" value="On">
@@ -122,46 +94,6 @@
 					</div>
 				</form>
 			</div>
-
-			<!--popup window help--> 
-			<!--
-			<div id="mobileWarningPopupContent" style="animation: 300ms ease-out fadeIn; display: block;">
-				<div class="popupTitle" style="width:445px;">
-					Help
-					<p></p>
-				</div>
-				<div style="font-size: 16px;">
-				The Stream ID is a randomly generated code but this can be edited manually. 
-				Avoid using simple, easy to guess stream ID's (such as 12346), as a stranger could potentially guess the ID and enter the session. 
-				<p></p>
-				Resolution<br>
-				If the stream is breaking up or stuttering, then 720P is recommended. This will depend on the number of clients, and your machine and internet configuration.
-				<p></p>
-				Quality<br>
-				Sets the maximum possible Mbps of the stream, approximately : High (20Mbps), Medium (10Mbps), Low (5Mbps).
-				<p></p>
-				<!--
-				<hr>
-				The following parameters are optional.
-				<p></p>
-				Webcam<br>
-				Allows you to connect as client with a webcam in addition to creating the main stream. 
-				If you do not enable this option you can sill talk to guests by selecting multiple audio sources for the main stream, such as an NDI audio source for the footage and your Microphone.
-				<p></p>
-				Your name <br>
-				If you do select to connect via the webcam you can enter your name that will be displayed with your camera.
-				<p></p>
-				Queue<br>
-				By enabling the queue you will have to manually add every client that joins.
-				<p></p>
-				Additional<br>
-				You can also use the assist portal https://rpxl.app/assist if you have off loaded the stream creation to a separate machine, you will be able to manage the session as if on the streaming machine.
-				<br>
-				Note: If you have enabled the queue you will have to add yourself first, or you will not be able to manage users, see files or the main stream.
-				
-				</div>-->
-			</div> 
-
 
 			<!--popup window content : warning if on mobile device--> 
 			<div id="mobileWarningPopupContent" style="animation: 300ms ease-out fadeIn; display: none;">
@@ -264,20 +196,7 @@ if (event.target.name === "button") {
 		document.forms["sessionIDCode"]["quality"].value = "5000";	
 	}
 
-/*	if (event.target.id == "webcamEnable") {
-		webcamEnable.classList.add("multiSelectBlockHighlighted");
-		webcamDisable.classList.remove("multiSelectBlockHighlighted");
-		document.getElementById("nameField").style.display = "inline-block";
-		document.getElementById("popupWindow").style.height = "600px";
-		document.forms["sessionIDCode"]["webcam"].value = "1";	
-	}
-	if (event.target.id == "webcamDisable") {
-		webcamEnable.classList.remove("multiSelectBlockHighlighted");
-		webcamDisable.classList.add("multiSelectBlockHighlighted");
-		document.getElementById("nameField").style.display = "none";
-		document.getElementById("popupWindow").style.height = "540px";
-		document.forms["sessionIDCode"]["webcam"].value = "";	
-	}
+/*	
 	if (event.target.id == "queueOn") {
 		queueOn.classList.add("multiSelectBlockHighlighted");
 		queueOff.classList.remove("multiSelectBlockHighlighted");
@@ -295,6 +214,22 @@ if (event.target.id == "sessionLink") {
 	navigator.clipboard.writeText(urlLink);
 	}
 
+if (event.target.id == "addWebcam") {
+	let popup = document.getElementById('directorroom');
+
+	if (popup.style.width == '100%') {
+		document.getElementById("directorroom").style.transition =" all 0.2s linear 0s";
+		document.getElementById("addWebcamWindow").style.transition =" all 0.2s linear 0s";
+
+		document.getElementById("addWebcamWindow").style.display ="block"
+		document.getElementById("addWebcamWindow").style.width ="20%"
+		document.getElementById("directorroom").style.width ="80%"
+	} 
+	else {
+		document.getElementById("directorroom").style.width ="100%"
+		document.getElementById("addWebcamWindow").style.width ="0px"
+	}
+	}
 });
 
 //check if an URL parameter is sent and prefill the session ID field
@@ -377,19 +312,15 @@ function validateSessionID(){
 		document.getElementById("directorroom").allow = "autoplay;camera;microphone;fullscreen;picture-in-picture;display-capture;";
 		document.getElementById("directorroom").src = "https://vdo.rpxl.app/?director=RPXL_"+sessionFile+
 		"&push=RPXL_Main_Stream"+
-		//"&permaid=RPXL_Main_Feed"+
 		"&rampuptime=6000"+	//ramp up time of 6 seconds
 		"&label=Server"+	//sets livestream as label for director connection
 		"&hidehome"+	//hide vdo ninja homepage	
 		"&director"+	//join as director
 		"&preview"+	//forces self preview for clients
 		"&showdirector"+	//shows director interface
-		//"&device=1"+	//select default audio and video device
 		"&wc"+	//disables screenshare use &webcam2 to show share your camera screen
 		"&novice"+	//simplyfy director layout
 		"&hidesolo"+	//hide solo links
-		//"&chatbutton=0"+	//no chat button
-		//"&mirror=2"+	//mirrors guest videos but not local videos
 		"&notify"+	// notify when people join
 		"&ovb="+document.forms["sessionIDCode"]["quality"].value+	//outbound video bitrate for main (obs stream)
 		"&trb=30000"+	//total room bit rate
@@ -411,27 +342,20 @@ function validateSessionID(){
 		"&css=https%3A%2F%2Frpxl.app%2Fstyles%2Fninjadirector.css"+	//css
 		"";
 
+		//create webcam 
 		setTimeout(function(){
 			document.getElementById("addWebcamWindow").allow = "autoplay;camera;microphone;fullscreen;picture-in-picture;display-capture;";
 			document.getElementById("addWebcamWindow").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
 				"&exclude=RPXL_Main_Stream"+	//do not show the main feed
-				"&permaid=Operator"+
-				"&nomic"+
-				"&novideo"+
+				"&permaid=RPXL652729"+
 				"&chatbutton=0"+
-				//"&showall"+
-				//"&nodirectoraudio"+ //do play show in user area
-				//"&nodirectorvideo"+
-				//"&labelsuggestion=Edit"	//sets label to guests name they entered earlier
-				//"&clean"+
-				//"&showlabels"+	//show the usernames
+				"&view=RPXL652729"+
 				"&quality=3"+	//set camera quality to lowest possible, about 360p
 				"&webcam"+	//disables screenshare use &webcam2 to show share your camera screen
 				"&cover"+	//make video cover space
 				"&videobitrate=100"+
 				"&vdo=1"+	//auto select camera
-				//"&rounded=100"+	//makes videos round
-				//"&mirror=2"+	//mirrors guest videos
+				"&rounded=10"+	//makes videos round
 				"&viewwidth=160&viewheight=90"+	//sets incoming video to px size (very low res)
 				"&safemode"+	//loads camera in simplist way
 				"&st=6"+	//show audio only sources as coloured circles with first letter of name
@@ -449,10 +373,8 @@ function validateSessionID(){
 				"&disablehotkeys"+	//no hotkeys
 				"&nocontrols"+	//hides video player controls
 				"&showlist=0"+	//show hidden guest list
+				//"&chroma=121212"+
 				//"&queue"+ 	//guests must be allowed in by director
-				//"&animate"+	//videos animate around when people join or leave
-				//"&tips"+
-				//"&js=https%3A%2F%2Frpxl.app%2Fscripts%2Fninjawebcam.js"+
 				"&css=https%3A%2F%2Frpxl.app%2Fstyles%2Fninjawebcam.css"+	//load style sheet
 			""; 
 		},1000);
@@ -462,90 +384,4 @@ function validateSessionID(){
 	return false;
 } 
 
-
-
-
-
-
-
-function addWebcam() {
-	let popup = document.getElementById('directorroom');
-
-	if (popup.style.width == '100%') {
-		document.getElementById("directorroom").style.transition =" all 0.2s linear 0s";
-		document.getElementById("addWebcamWindow").style.transition =" all 0.2s linear 0s";
-
-		document.getElementById("addWebcamWindow").style.display ="block"
-		document.getElementById("addWebcamWindow").style.width ="30%"
-		document.getElementById("directorroom").style.width ="70%"
-	} 
-	else {
-		document.getElementById("directorroom").style.width ="100%"
-		document.getElementById("addWebcamWindow").style.width ="0px"
-	}
-}
-
-
-function validateStageName(){
-	let varstageName = document.forms ["stageName"]["enterStageName"].value;
-	//if they try to submit an empty name shake the box and highlight the stage name field
-	if (!varstageName) {								
-		addWebcamWindow.style.animation = "shake 500ms";
-		setTimeout ( function () {addWebcamWindow.style.animation = "none"; document.forms["stageName"]["enterStageName"].focus(); }, 300);  
-		return false;
-		}
-	//encode the name entered to a URI to escape any odd characters set cookie for next 24 hours
-	else {
-		let uri = document.forms ["stageName"]["enterStageName"].value;		
-		let encodedUserName = encodeURIComponent(uri);     
-
-		//set sources for chat frame
-		let chatFeed = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
-			"&exclude=RPXL_Main_Stream"+	//do not show the main feed
-			//"&showall"+
-			//"&nodirectoraudio"+ //do play show in user area
-			//"&nodirectorvideo"+
-			"&label="+encodedUserName+ //sets label to guests name they entered earlier
-			"&showlabels"+	//show the usernames
-			"&quality=3"+	//set camera quality to lowest possible, about 360p
-			"&webcam"+	//disables screenshare use &webcam2 to show share your camera screen
-			"&cover"+	//make video cover space
-			"&videobitrate=100"+
-			"&vdo=1"+	//auto select camera
-			"&rounded=100"+	//makes videos round
-			//"&mirror=2"+	//mirrors guest videos
-			"&viewwidth=160&viewheight=90"+	//sets incoming video to px size (very low res)
-			"&safemode"+	//loads camera in simplist way
-			"&st=6"+	//show audio only sources as coloured circles with first letter of name
-			"&meterstyle=2"+	//round highlight over person talking
-			"&hh"+	//hide vdo ninja header
-			"&ee"+	//easy exit
-			"&cv"+	//clean viewer
-			"&hpb"+	//hide play button
-			"&nsb"+	//hide speaker button
-			"&nohub"+	//hide hangup button
-			"&hidehome"+	//hide vdo ninja home page
-			"&transparent"+	//makes bg transparent
-			"&hidetranslate"+	//hides translate menu
-			"&darkmode"+	//
-			"&disablehotkeys"+	//no hotkeys
-			"&nocontrols"+	//hides video player controls
-			"&showlist=0"+	//show hidden guest list
-			//"&queue"+ 	//guests must be allowed in by director
-			"&animate"+	//videos animate around when people join or leave
-			//"&tips"+
-			//"&js=https%3A%2F%2Frpxl.app%2Fscripts%2Fninjachat.js"+
-			//"&css=https%3A%2F%2Frpxl.app%2Fstyles%2Fninjachat.css"+	//load style sheet
-		""; 
-
-		//create the chat iframe
-		var iframe = document.createElement("iframe");
-		iframe.allow = "autoplay;camera;microphone;fullscreen;picture-in-picture;display-capture;";
-		iframe.src = chatFeed;
-		var iframeContainer = document.createElement("div");
-		iframeContainer.appendChild(iframe);
-		document.getElementById("addWebcamWindow").appendChild(iframeContainer);
-	}
-	return false;
-}
 </script>
