@@ -24,6 +24,24 @@
 		display:none;
 	}
 
+#container_director { 
+	outline-offset: 2px; 
+	outline: 3px solid darkred; 
+}
+#press2talk {
+	font-size: 14px!important;
+	colour: white;
+	font-weight: 400;
+	padding-left:20px;
+	padding-right:20px;
+	}
+#press2talk:hover {
+	background-color: #454545;
+	border: solid 1px white;
+	}
+.la-headset {
+	display: none!important;
+}
 /*flips director video the correct way*/
 #videoContainer_director {
 	transform: scaleX(-1);

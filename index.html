@@ -32,7 +32,7 @@
 
 <!-- top navbar -->
 	<div class="topnav" id="topnav">
-        <div id="joinSession" class="joinSession" onclick="clickLiveSession()">Join a live session</div>
+        <div id="joinSession" class="joinSession" onclick="clickLiveSession()">Join a live stream</div>
 	</div>
 
 	<div id="subNav"  class="topnav" style="background-color: #191919 ;display: none;">
@@ -273,8 +273,8 @@
 				
 				<!--popup window content : live session ID--> 
 				<div id="sessionIDpopupContent">	
-					<div class="popupTitle" style="width:445px;">
-						Enter live session ID
+					<div class="popupTitle" style="width:445px; padding-bottom:20px;">
+						Enter live stream ID
 						<p></p>
 					</div>
 					<form id="sessionIDCode" name="sessionIDCode" onsubmit="return checkSessionFile()" method="post" required="">
@@ -288,23 +288,17 @@
 				 
 				<!--popup window content : ask for a username--> 
 				<div class="askNamePopupContent" id="askNamePopupContent" style="animation: 300ms ease-out fadeIn; display: none;">
-					<div class="popupTitle">Enter your name</div><p></p>
+					<div class="popupTitle">Enter your name</div>
+					<p></p>
 					<form id="stageName" name="stageName" onsubmit="return validateStageName()" method="post" required="">
-						<input class="enterStageName" type="text" maxlength="9" name="enterStageName">
+						<input class="enterStageName" type="text" maxlength="11" name="enterStageName">
 						<br>
-						<div style="position: relative; padding: 20px; border-radius: 10px; width: 260px; left: 12px; margin-top: 10px; margin-bottom: 10px;">
-							<div class="popupTitle">
-								Important!
-							</div>
-							<br>
-							<div class="subtext" id="subtext">
-								Your browser may prompt you for microphone and camera access.
-								<p></p>
-								If you deny access other participants will not be able to hear or see you.
-								</p><p>
-								You can modify microphone and camera settings later via the settings gear.
-							</div> 
-						</div> 
+						<div class="subtext" id="subtext">
+							Your browser may prompt you for microphone and camera access.
+							<p></p>
+							To talk to others during the session you must select ALLOW.
+							You can mute or turn off your camera at any time during the sesssion.
+						</div>
 						<input type="submit" value="Join" class="button">                            
 					</form>
 					</div>
@@ -437,9 +431,9 @@ function checkSessionFile () {
 //		document.getElementById("sessionLink").value = +sessionFile;	
 		
 		askNamePopupContent.style.animation = "fadeIn 300ms ease-out";
-		popupWindow.style.height = "420px";
-		popupWindow.style.width = "320px";
-		popupWindow.style.left = "calc(50% - 190px)";
+		//popupWindow.style.height = "360px";
+		//popupWindow.style.width = "420px";
+		//popupWindow.style.left = "calc(50% - 190px)";
 		askNamePopupContent.style.display = "block";
 		document.forms["stageName"]["enterStageName"].value = cookieStoredName;
 		document.forms["stageName"]["enterStageName"].focus()
@@ -507,7 +501,7 @@ function validateStageName(){
 			
 			//set sources for chat frame
 			let chatFeed = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
-				//"&exclude=RPXL_"+sessionFile+"_Main_Feed"+	//do not show the main feed
+				//"&exclude=RPXL_Main_Stream"+	//do not show the main feed
 				//"&showall"+
 				"&nodirectoraudio"+ //do play show in user area
 				"&nodirectorvideo"+
@@ -546,7 +540,7 @@ function validateStageName(){
 
 			//set sources for main frame
 			var mainFeed = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
-				"&view=RPXL_Main_Feed"+ //shows only the directors main feed on left
+				"&view=RPXL_Main_Stream"+ //shows only the directors main feed on left
 				"&broadcast"+
 				"&solo"+	//solos view only show the master stream
 				"&cleanoutput"+	//remove all interface bits
@@ -624,6 +618,7 @@ function validateStageName(){
 				"&showlist=1"+	//show hidden guest list
 				"&waitimage=https%3A%2F%2Frpxl.app%2Fimages%2FnosignalHD.png"+
 				//"&animate"+	//videos animate around when people join or leave
+				"&js=https%3A%2F%2Frpxl.app%2Fscripts%2Fninjachat.js"+
 				"&css=https%3A%2F%2Frpxl.app%2Fstyles%2Fninjamobile.css"+	//load style sheet
 			""; 
 

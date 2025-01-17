@@ -39,7 +39,7 @@
 		
 	<!--popup window, draws the popup window-->
 	<div class="popupWindow" id="popupWindow" style="height: 200px; top:100px; background-color: #141414a9;">
-			<div style="position: absolute; width:460px; height: 30px; font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 30px; color:gainsboro;text-align: center;">Join live session :</div>
+			<div style="position: absolute; width:460px; height: 30px; font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 30px; color:gainsboro;text-align: center;">Join live stream :</div>
 			<div style="position: absolute; top: 100px; display: inline-block!important; width: 300px; ">
 				<form id="sessionIDCode" name="sessionIDCode" onsubmit="return validateSessionID()" method="post" required="" style="position: relative; display: inline-block;">
 					<input type="text" tabindex="1" name="sessionIDInput" id="sessionIDInput" maxlength="6" onkeypress="return onlyAlphabets(event,this);" oninput="this.value = this.value.toUpperCase()" style="text-transform: uppercase; font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 60px; color:#fff;background-color: #141414; width:300px; border-radius: 10px; border: 2px solid grey; padding: 20px; justify-content: center; align-items: center; text-align: center;">
@@ -105,7 +105,7 @@ function validateSessionID(){
 
 		document.getElementById("mainIFrame").allow = "autoplay;camera;microphone;fullscreen;picture-in-picture;display-capture;";
 		document.getElementById("mainIFrame").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
-				"&view=RPXL_"+sessionFile+"_Main_Feed"+ //shows only the directors main feed on left
+				"&view=RPXL_Main_Stream"+ //shows only the directors main feed on left
 				"&solo"+	//solos view only show the master stream
 				"&cleanoutput"+	//remove all interface bits
 				"&hideplaybutton"+	//hides big play button if autoplay is disabled
