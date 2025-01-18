@@ -54,6 +54,19 @@
 </html>
 
 <script type="text/javascript"> 
+
+//check if an URL parameter is sent and prefill the session ID field
+//var sessionFile;
+let query = location.search;
+let sessionIDURL = query.slice(1);
+
+if  ((sessionIDURL != 0) && (sessionIDURL.length == 6)) {
+	let sessionIDUp = sessionIDURL.toUpperCase();
+	let	sessionFile = encodeURIComponent(sessionIDUp); 
+	document.forms["sessionIDCode"]["sessionIDInput"].value = sessionFile;	
+	validateSessionID();
+	}         
+
 //move caret to focus on inbut of session ID 
 //document.forms["sessionIDCode"]["sessionIDInput"].focus();
 document.getElementById("sessionIDInput").focus();
@@ -103,7 +116,7 @@ function validateSessionID(){
 		document.getElementById("mainIFrame").style.height="100%";
 		document.getElementById("mainIFrame").style.display="inline-block";
 
-		document.getElementById("mainIFrame").allow = "autoplay;camera;microphone;fullscreen;picture-in-picture;display-capture;";
+		document.getElementById("mainIFrame").allow = "autoplay;picture-in-picture;";
 		document.getElementById("mainIFrame").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
 				"&view=RPXL_Main_Stream"+ //shows only the directors main feed on left
 				"&solo"+	//solos view only show the master stream

@@ -31,9 +31,11 @@
 		<img src="../icons/android-chrome-192x192.png" class="siteIcon" id="siteIcon" style="opacity:0.3;"/>
 		<div class="ninjaIcon"><a href="https://vdo.ninja" target="_blank" class="vdoninjatext">Powered by<br>VDO.NINJA</a></div>
 		<div class="clientLink" id="clientLink">
-			Client link : 
 			<div id="sessionLink" class="sessionLink" value="https://rpxl.app" alt="Copy to clipboard">
-				<img src="../images/copy.png" width="20" height="20" value="https://rpxl.app">
+
+			</div>
+			<div id="tvLink" class="sessionLink" value="https://rpxl.app" alt="Copy to clipboard">
+
 			</div>
 		</div>
 		<div id="clock" class="clockDuration"></div>
@@ -214,6 +216,11 @@ if (event.target.id == "sessionLink") {
 	navigator.clipboard.writeText(urlLink);
 	}
 
+if (event.target.id == "tvLink") {
+	let urlLink = document.getElementById("tvLink").value;
+	navigator.clipboard.writeText(urlLink);
+	}
+
 if (event.target.id == "addWebcam") {
 	let popup = document.getElementById('directorroom');
 
@@ -284,7 +291,8 @@ function validateSessionID(){
 		blackout.style.animation = "fadeOut 300ms";
 		setTimeout ( function () {blackout.style.animation = "none"; blackout.style.display = "none";}, 300);
 
-		document.getElementById("sessionLink").innerHTML = ("https://rpxl.app/?"+sessionFile+"<img src='../images/copy.png' width='20' height='20' id='sessionLink' class='sessionLink'>");
+		document.getElementById("sessionLink").innerHTML = ("Client Link: <a href=https://rpxl.app/?"+sessionFile+"><img src='../images/copy.png' width='20' height='20' id='sessionLink' class='sessionLink'></a>");
+		document.getElementById("tvLink").innerHTML = ("TV: <a href=https://rpxl.app/tv/?"+sessionFile+"><img src='../images/copy.png' width='20' height='20' id='sessionLink' class='sessionLink'></a>");
 		document.getElementById("sessionLink").value = "https://rpxl.app/?"+sessionFile;	
 		document.getElementById("sessionLink").style.display = "inline-block";
 		//document.getElementById("clientLink").style.display = "block";
