@@ -52,8 +52,9 @@
 	border-radius: 10px;
 }
 #headphonesDiv {
-	padding: 4 4 4 11px;
+	padding: 4px 4px 4px 11px;
 	border-radius: 10px;  
+
 }
 .startupWarning {
     display: none!important;
@@ -64,8 +65,8 @@
 #subControlButtons {
 	display: inline-flex!important;
 	position: fixed!important;
-	bottom: 0px!important;
-	right: 0px!important;
+	bottom: 10px!important;
+	right: 10px!important;
 	height: 60px!important;
 	width: 60px!important;
 	min-width: 30px!important;
@@ -192,6 +193,7 @@ i.las.la-chevron-right {
 	background-color:gainsboro!important;
 	border:0px!important;
 	color: #000000!important;
+
 }
 #audioMenu2 {
 	border-radius:10px!important;

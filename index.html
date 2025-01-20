@@ -24,6 +24,7 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=tv" />
 
 	<link rel="stylesheet" href="styles/style.css">
 </head>
@@ -38,14 +39,14 @@
 	<div id="subNav"  class="topnav" style="background-color: #191919 ;display: none;">
 		<img src="icons/android-chrome-192x192.png" class="siteIcon" id="siteIcon"/>
 		<div class="ninjaIcon"><a href="https://vdo.ninja" target="_blank" class="vdoninjatext">Powered by<br>VDO.NINJA</a></div>
-		<div class="clientLink" id="clientLink" style="right: 230px; top:16px;">Session ID : <div id="sessionLink" class="sessionLink" value="https://rpxl.app"></div></div>
+		<div class="clientLink" id="clientLink" style="top:16px;">Session ID : <div id="sessionLink" class="sessionLink" value="https://rpxl.app"></div></div>
 		<div id="clock" class="clock" style="left: calc(100% - 240px);"></div>	
 		<div id="exitSession" class="exitSession" onclick="leave()">Leave</div>
 	</div>
 
 	<!--frames for chat and live stream-->
-	<div title="chatIFrame" id="chatIFrame" class="chatIFrame" style="display:none"></div>
-	<div title="mainIFrame" id="mainIFrame" class="mainIFrame" style="display:none"></div>
+	<iframe title="chatIFrame" class="chatIFrame" name="chatIFrame" id="chatIFrame" allowfullscreen=false style="display:none"></iframe>
+	<iframe title="mainIFrame" class="mainIFrame" name="mainIFrame" id="mainIFrame" allowfullscreen=false style="display:none"></iframe>
 
     <div id="siteHeader" class="siteHeader">
         <img src="icons/android-chrome-192x192.png" class="siteMainIcon"/>
@@ -500,8 +501,9 @@ function validateStageName(){
 			document.getElementById("mainIFrame").style.display="inline-block";
 			
 			//set sources for chat frame
-			let chatFeed = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
-				//"&exclude=RPXL_Main_Stream"+	//do not show the main feed
+			document.getElementById("chatIFrame").allow = "autoplay;camera;microphone;";
+			document.getElementById("chatIFrame").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
+				//"&exclude=Main_Stream_"+	//do not show the main feed
 				//"&showall"+
 				"&nodirectoraudio"+ //do play show in user area
 				"&nodirectorvideo"+
@@ -539,8 +541,10 @@ function validateStageName(){
 			""; 
 
 			//set sources for main frame
-			var mainFeed = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
-				"&view=RPXL_Main_Stream"+ //shows only the directors main feed on left
+			setTimeout(function(){
+			document.getElementById("mainIFrame").allow = "autoplay;";
+			document.getElementById("mainIFrame").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
+				"&view=Main_Stream_"+sessionFile+ //shows only the directors main feed on left
 				"&broadcast"+
 				"&solo"+	//solos view only show the master stream
 				"&cleanoutput"+	//remove all interface bits
@@ -556,25 +560,8 @@ function validateStageName(){
 				"&buffer=500"+	//adds a xms buffer
 				"&showlist=0"+	//hides the hidden viewr list
 				""; 
-
-			//create the chat iframe
-			var iframe = document.createElement("iframe");
-			iframe.allow = "autoplay;camera;microphone;fullscreen;picture-in-picture;display-capture;";
-			iframe.src = chatFeed;
-			var iframeContainer = document.createElement("div");
-			iframeContainer.appendChild(iframe);
-			document.getElementById("chatIFrame").appendChild(iframeContainer);
-
-			//create the main stream frame (have to pause for a few secs)
-			setTimeout(function(){
-				var iframe = document.createElement("iframe");
-				iframe.allow = "autoplay;camera;microphone;fullscreen;picture-in-picture;display-capture;";
-				iframe.src = mainFeed;
-				var iframeContainer = document.createElement("div");
-				iframeContainer.appendChild(iframe);
-				document.getElementById("mainIFrame").appendChild(iframeContainer);
-				},1000);
-			}
+			},1000);
+		}
 		else {
 			//if we are on tablet or mobile device, load a different set of options
 			document.getElementById("mainIFrame").style.top="0px";
@@ -583,7 +570,8 @@ function validateStageName(){
 			document.getElementById("mainIFrame").style.height="100vh";
 			document.getElementById("mainIFrame").style.display="inline-block";
 
-			let mainFeed = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
+			document.getElementById("mainIFrame").allow = "autoplay;camera;microphone;";
+			document.getElementById("mainIFrame").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
 				"&broadcast"+	//show only directors feed
 				"&label="+encodedUserName+ //sets label to guests name they entered earlier
 				//"&showlabels"+	//show the usernames
@@ -621,13 +609,6 @@ function validateStageName(){
 				"&js=https%3A%2F%2Frpxl.app%2Fscripts%2Fninjachat.js"+
 				"&css=https%3A%2F%2Frpxl.app%2Fstyles%2Fninjamobile.css"+	//load style sheet
 			""; 
-
-			var iframe = document.createElement("iframe");
-			iframe.allow = "autoplay;camera;microphone;picture-in-picture;display-capture;";
-			iframe.src = mainFeed;
-			var iframeContainer = document.createElement("div");
-			iframeContainer.appendChild(iframe);
-			document.getElementById("mainIFrame").appendChild(iframeContainer);
     	}	
 		return false;
 	}

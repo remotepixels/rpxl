@@ -386,7 +386,7 @@ i.las.la-chevron-right {
 }
 
 /*special to hide main feed in users list*/
-:is(div) :has([data-sid="RPXL_Main_Feed"]){
+:is(div) :has([data-sid^=Main_Stream]){
 	display:none!important;
 }
 

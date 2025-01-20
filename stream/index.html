@@ -21,32 +21,27 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=video_camera_front" />
 
 	<link rel="stylesheet" href="../styles/style.css">
 </head>
     
 <body>
 	<div class="topnav" id="subNav">
-		<img src="../icons/android-chrome-192x192.png" class="siteIcon" id="siteIcon" style="opacity:0.3;"/>
-		<div class="ninjaIcon"><a href="https://vdo.ninja" target="_blank" class="vdoninjatext">Powered by<br>VDO.NINJA</a></div>
+		<img src="../icons/android-chrome-192x192.png" class="siteIcon" id="siteIcon"/>
+		<div class="ninjaIcon"><a href="https://vdo.ninja" target="_blank">Powered by<br>VDO.NINJA</a></div>
 		<div class="clientLink" id="clientLink">
-			<div id="sessionLink" class="sessionLink" value="https://rpxl.app" alt="Copy to clipboard">
-
-			</div>
-			<div id="tvLink" class="sessionLink" value="https://rpxl.app" alt="Copy to clipboard">
-
-			</div>
+			<span id="sessionLink" class="sessionLink" value="https://rpxl.app" alt="Copy to clipboard"></span>
+			<img src="../images/tv.png" width="20" height="20" alt="No chat back option" style="margin-left: 20px;" id="tvLink" class="sessionLink" value="https://rpxl.app">
+			<span id="clock" class="clockDuration"></span>
 		</div>
-		<div id="clock" class="clockDuration"></div>
-		<div id="addWebcam" class="addWebcam" name="addWebcam">
-			<div id="addWebcam" class="material-symbols-outlined">video_camera_front</div>
+		<div id="addWebcam" class="addWebcam">
+			<img src="../images/present.png" width="20" height="20" alt="Add Webcam" id="addWebcam">
 		</div>
 	</div>
     
 		
 	<!--load blank iframe, will be replaced with directors room when loged in-->
-	<iframe title="directorroom" class="directorroom" name="directorroom" id="directorroom" allowfullscreen=false></iframe>
+	<iframe title="directorroom" class="directorroom" name="directorroom" id="directorroom" allowfullscreen=false style="width:100%;"></iframe>
 	<iframe title="addWebcamWindow" class="addWebcamWindow" name="addWebcamWindow" id="addWebcamWindow" allowfullscreen=false></iframe>
 
 	<!--darken screen for popups-->
@@ -167,50 +162,51 @@ function getTimeSpentOnSite(){
 
 //menu options select and set values
 window.addEventListener("click", function (event) {
-if (event.target.name === "button") {
-	if (event.target.id == "res1080") {
-		res1080.classList.add("multiSelectBlockHighlighted");
-		res720.classList.remove("multiSelectBlockHighlighted");
-		document.forms["sessionIDCode"]["resolution"].value = "0";	
-	}
-	if (event.target.id == "res720") {
-		res1080.classList.remove("multiSelectBlockHighlighted");
-		res720.classList.add("multiSelectBlockHighlighted");
-		document.forms["sessionIDCode"]["resolution"].value = "1";	
-	}
+	if (event.target.name === "button") {
+		if (event.target.id == "res1080") {
+			res1080.classList.add("multiSelectBlockHighlighted");
+			res720.classList.remove("multiSelectBlockHighlighted");
+			document.forms["sessionIDCode"]["resolution"].value = "0";	
+		}
+		if (event.target.id == "res720") {
+			res1080.classList.remove("multiSelectBlockHighlighted");
+			res720.classList.add("multiSelectBlockHighlighted");
+			document.forms["sessionIDCode"]["resolution"].value = "1";	
+		}
 
-	if (event.target.id == "qualityHigh") {
-		qualityHigh.classList.add("multiSelectBlockHighlighted");
-		qualityMedium.classList.remove("multiSelectBlockHighlighted");
-		qualityLow.classList.remove("multiSelectBlockHighlighted");
-		document.forms["sessionIDCode"]["quality"].value = "20000";	
-	}
-	if (event.target.id == "qualityMedium") {
-		qualityHigh.classList.remove("multiSelectBlockHighlighted");
-		qualityMedium.classList.add("multiSelectBlockHighlighted");
-		qualityLow.classList.remove("multiSelectBlockHighlighted");
-		document.forms["sessionIDCode"]["quality"].value = "10000";	
-	}
-	if (event.target.id == "qualityLow") {
-		qualityHigh.classList.remove("multiSelectBlockHighlighted");
-		qualityMedium.classList.remove("multiSelectBlockHighlighted");
-		qualityLow.classList.add("multiSelectBlockHighlighted");
-		document.forms["sessionIDCode"]["quality"].value = "5000";	
-	}
+		if (event.target.id == "qualityHigh") {
+			qualityHigh.classList.add("multiSelectBlockHighlighted");
+			qualityMedium.classList.remove("multiSelectBlockHighlighted");
+			qualityLow.classList.remove("multiSelectBlockHighlighted");
+			document.forms["sessionIDCode"]["quality"].value = "20000";	
+		}
+		if (event.target.id == "qualityMedium") {
+			qualityHigh.classList.remove("multiSelectBlockHighlighted");
+			qualityMedium.classList.add("multiSelectBlockHighlighted");
+			qualityLow.classList.remove("multiSelectBlockHighlighted");
+			document.forms["sessionIDCode"]["quality"].value = "10000";	
+		}
+		if (event.target.id == "qualityLow") {
+			qualityHigh.classList.remove("multiSelectBlockHighlighted");
+			qualityMedium.classList.remove("multiSelectBlockHighlighted");
+			qualityLow.classList.add("multiSelectBlockHighlighted");
+			document.forms["sessionIDCode"]["quality"].value = "5000";	
+		}
 
-/*	
-	if (event.target.id == "queueOn") {
-		queueOn.classList.add("multiSelectBlockHighlighted");
-		queueOff.classList.remove("multiSelectBlockHighlighted");
-		document.forms["sessionIDCode"]["queue"].value = "&queue";	
-	}
-	if (event.target.id == "queueOff") {
-		queueOn.classList.remove("multiSelectBlockHighlighted");
-		queueOff.classList.add("multiSelectBlockHighlighted");
-		document.forms["sessionIDCode"]["queue"].value = "";	
-	}
+		/*	
+		if (event.target.id == "queueOn") {
+			queueOn.classList.add("multiSelectBlockHighlighted");
+			queueOff.classList.remove("multiSelectBlockHighlighted");
+			document.forms["sessionIDCode"]["queue"].value = "&queue";	
+		}
+		if (event.target.id == "queueOff") {
+			queueOn.classList.remove("multiSelectBlockHighlighted");
+			queueOff.classList.add("multiSelectBlockHighlighted");
+			document.forms["sessionIDCode"]["queue"].value = "";	
+		}
 		*/
-}
+	}
+
 if (event.target.id == "sessionLink") {
 	let urlLink = document.getElementById("sessionLink").value;
 	navigator.clipboard.writeText(urlLink);
@@ -228,15 +224,19 @@ if (event.target.id == "addWebcam") {
 		document.getElementById("directorroom").style.transition =" all 0.2s linear 0s";
 		document.getElementById("addWebcamWindow").style.transition =" all 0.2s linear 0s";
 
-		document.getElementById("addWebcamWindow").style.display ="block"
-		document.getElementById("addWebcamWindow").style.width ="20%"
-		document.getElementById("directorroom").style.width ="80%"
+		document.getElementById("addWebcamWindow").style.display="block";
+		document.getElementById("addWebcamWindow").style.width="20%";
+		document.getElementById("directorroom").style.width="80%";
+		document.getElementById("addWebcam").style.opacity="1";
 	} 
 	else {
-		document.getElementById("directorroom").style.width ="100%"
-		document.getElementById("addWebcamWindow").style.width ="0px"
+		document.getElementById("directorroom").style.width="100%";
+		document.getElementById("addWebcamWindow").style.width="0px";
+		document.getElementById("addWebcam").style.opacity="0.3";
+		}
 	}
-	}
+
+
 });
 
 //check if an URL parameter is sent and prefill the session ID field
@@ -291,11 +291,10 @@ function validateSessionID(){
 		blackout.style.animation = "fadeOut 300ms";
 		setTimeout ( function () {blackout.style.animation = "none"; blackout.style.display = "none";}, 300);
 
-		document.getElementById("sessionLink").innerHTML = ("Client Link: <a href=https://rpxl.app/?"+sessionFile+"><img src='../images/copy.png' width='20' height='20' id='sessionLink' class='sessionLink'></a>");
-		document.getElementById("tvLink").innerHTML = ("TV: <a href=https://rpxl.app/tv/?"+sessionFile+"><img src='../images/copy.png' width='20' height='20' id='sessionLink' class='sessionLink'></a>");
+		document.getElementById("sessionLink").innerHTML = ("https:/rpxl.app/"+sessionFile+" <img src='../images/copy.png' width='20' height='20' id='sessionLink'>");
+
 		document.getElementById("sessionLink").value = "https://rpxl.app/?"+sessionFile;	
-		document.getElementById("sessionLink").style.display = "inline-block";
-		//document.getElementById("clientLink").style.display = "block";
+		document.getElementById("tvLink").value = "https://rpxl.app/tv/?"+sessionFile;	
 
 		//start session duration counter
 		let timerStart = Date.now();
@@ -313,13 +312,13 @@ function validateSessionID(){
 			minutes = (minutes < 10) ? "0" + minutes : minutes;
 			seconds = (seconds < 10) ? "0" + seconds : seconds;
 			
-			document.getElementById("clock").innerHTML = ( "Duration : " +hours + ":" +minutes+ ":" +seconds);
+			document.getElementById("clock").innerHTML = (hours+":"+minutes+":"+seconds);
 			},1000);
 
 		//vdo ninja configuration and startup
 		document.getElementById("directorroom").allow = "autoplay;camera;microphone;fullscreen;picture-in-picture;display-capture;";
 		document.getElementById("directorroom").src = "https://vdo.rpxl.app/?director=RPXL_"+sessionFile+
-		"&push=RPXL_Main_Stream"+
+		"&push=Main_Stream_"+sessionFile+
 		"&rampuptime=6000"+	//ramp up time of 6 seconds
 		"&label=Server"+	//sets livestream as label for director connection
 		"&hidehome"+	//hide vdo ninja homepage	
@@ -350,14 +349,14 @@ function validateSessionID(){
 		"&css=https%3A%2F%2Frpxl.app%2Fstyles%2Fninjadirector.css"+	//css
 		"";
 
-		//create webcam 
+		//create webcam
 		setTimeout(function(){
 			document.getElementById("addWebcamWindow").allow = "autoplay;camera;microphone;fullscreen;picture-in-picture;display-capture;";
 			document.getElementById("addWebcamWindow").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
-				"&exclude=RPXL_Main_Stream"+	//do not show the main feed
-				"&permaid=RPXL652729"+
+				"&exclude=Main_Stream_"+sessionFile+	//do not show the main feed
+				"&permaid=RPXL_"+sessionFile+
 				"&chatbutton=0"+
-				"&view=RPXL652729"+
+				"&view=RPXL_"+sessionFile+
 				"&quality=3"+	//set camera quality to lowest possible, about 360p
 				"&webcam"+	//disables screenshare use &webcam2 to show share your camera screen
 				"&cover"+	//make video cover space
