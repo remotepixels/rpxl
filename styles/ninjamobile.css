@@ -295,6 +295,16 @@ i.las.la-chevron-right {
     
 }
 
+/*main video feed*/
+
+.container_holder_video {
+    position: absolute!important;
+    top:unset!important;
+    bottom: 20px!important;
+}
+
+
+/*users*/
 #miniTaskBar {
     top:0px;
     margin:5px 20px;
@@ -354,7 +364,7 @@ i.las.la-chevron-right {
 
 }
 
-
+/*notification of file */
 .las.la-comment-alt:before{
     content: "\f15b";
 	color:#424242;
@@ -393,62 +403,81 @@ i.las.la-chevron-right {
 	background-color: #fff!important;
 }
 
-#popOutChat{
-	display: none;
-}
-
+/*chat or files popup box*/
 #chatModule{
-		position:fixed;
-		top:10px;
-		left:30px;
-		min-height:110px;
-		max-height:90vh;
-		overflow:auto;
-
+	border-radius:10px;
+	background-color: #2a2a2a;
+	box-shadow: 0px 0px 20px 0px black;
+	z-index:5;
+	top:0px;
+	left:0px;
+	bottom:auto;
+	overflow:hidden;
 }
+
+.chat-header {
+	display:none;
+    padding: 10px;
+    background-color: #2a2a2a;
+    border-radius:10px;
+    justify-content: space-between;
+    align-items: center;
+    cursor: move;
+    color: white;
+}
+
+.chat-input-area {
+    display: none;
+}
+
+#closeChat {
+    cursor: pointer;
+    text-align: center;
+	text-transform: uppercase;
+	text-size-adjust:20%;
+	font-weight: 900!important;
+    color: #646464;
+    margin: 0px;
+    cursor: pointer;
+    padding: 3px 8px;
+    background-color: black;
+    border-radius: 50%;
+    border: solid 2px #646464;
+}
+
+#chatNotification {
+    display:none!important;
+    background-color: #fff!important;
+}
+
 
 #chatBody{
-    position:relative;
-    top:0px;
+	position:relative;
+	top:0px;
 	padding: 0px;
 	border-radius: 10px;
 	overflow-y: auto;
 	overflow-wrap: anywhere;
-}
-#chatInput { 
-    display:none;
-}
-.chatBarInputButton {
-    display:none;
 }
 .inMessage {
 	background-color: #dcdcdca3 !important;
 	color: #000;
 	border-radius: 10px;
 	padding: 10px;
-	margin: 10px;
-	box-shadow: 0px 0px 10px 3px black;
+	margin: 10px 5px;	
 }
+
 [data-button-type="clear"] {
-	display:none;
+  display:none;
 }
+
 [data-button-type="download"] {
+	position:relative;
+	left:-100px;
+	top:0px;
+	border-radius:10px;
+	font-size:16px;
 	font-weight: bold; 
-    padding:5 10 5 10px;
+    padding:3 10 3 10px;
     margin: 5 5 0 100px;
-}
-[data-translate="upload-chat"] {
-	display:none;
-}
-
-button:hover {
-	background-color: #20f!important;
-}
-
-.container_holder_video {
-	display: inline!important;
-	display: -webkit-inline-box!important;
-	width:100%!important;
-	height:100vh!important;
-	margin:0px!important;
 }
