@@ -496,7 +496,8 @@ function validateStageName(){
 		document.getElementById("clientLink").style.display = "block";
 		document.getElementById("sessionLink").style.display = "inline-block";
 
-		if (mobile == 1) {
+		//if we are on desktop, load the chat and main frame
+		if (mobile == 0) {
 			document.getElementById("chatIFrame").style.display="inline-block";
 			document.getElementById("mainIFrame").style.display="inline-block";
 			
