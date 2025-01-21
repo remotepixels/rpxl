@@ -244,3 +244,60 @@ i.las.la-chevron-right {
 	background-color: #6633ff!important;
 	color: white!important;
 	}
+
+
+/*chat and chat box*/
+.las.la-comment-alt:before{
+    content: "\f15b";
+	color:#424242;
+}
+
+.las.la-comment-dots:before {
+	content: "\f56d";
+}
+.la-comments:before {
+	content: "\f56d";
+	color:#fff;
+	background-color: #20f!important;
+	border-radius:30px;
+	outline-style:solid;
+	outline-width:11px;
+	outline-color:#20f;
+
+}
+.notification {
+	display: inline-block!important;
+	color: #fff;
+	background-color: #fff!important;
+
+}
+
+#chatbutton:hover {
+	border-color:#000000!important;
+	background-color:#121314!important;
+	opacity: 1!important;
+	scale: 100%!important;
+
+}
+
+#chatNotification {
+	display:none!important;
+	background-color: #fff!important;
+}
+
+#popOutChat {
+	display:none!important;
+}
+
+#closeChat {
+	font: Arial Black;
+	/* font-size: 2em!important; */
+	position: relative;
+	color: gainsboro;
+	background-color: color(srgb 0.1169 0.1215 0.1345);
+	border-radius: 20px;
+	padding: 10px;
+	margin: 0px;
+	left: 10px;
+	top: -10px;
+}

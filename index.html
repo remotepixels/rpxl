@@ -492,7 +492,7 @@ function validateStageName(){
 		if (mobile == 1) {
 			document.getElementById("chatIFrame").style.display="inline-block";
 			document.getElementById("mainIFrame").style.display="inline-block";
-			
+
 			//set sources for chat frame
 			document.getElementById("chatIFrame").allow = "autoplay;camera;microphone;";
 			document.getElementById("chatIFrame").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
@@ -557,11 +557,18 @@ function validateStageName(){
 		}
 		else {
 			//if we are on tablet or mobile device, load a different set of options
-			document.getElementById("mainIFrame").style.top="10px";
+
 			document.getElementById("subNav").style.display = "none";
 
 			document.getElementById("mainIFrame").style.width="100%";
 			document.getElementById("mainIFrame").style.height="100%";
+			document.getElementById("mainIFrame").style.top="0px";
+			document.getElementById("mainIFrame").style.left="0px";
+
+			document.getElementById("chatIFrame").style.top="-2px";
+			document.getElementById("chatIFrame").style.height="4px";
+
+			document.getElementById("chatIFrame").style.display = "inline-block";
 			document.getElementById("mainIFrame").style.display="inline-block";
 
 			document.getElementById("mainIFrame").allow = "autoplay;camera;microphone;";
