@@ -30,7 +30,7 @@
 }
 #press2talk {
 	font-size: 14px!important;
-	colour: white;
+	color: white;
 	font-weight: 400;
 	padding-left:20px;
 	padding-right:20px;
@@ -291,13 +291,14 @@ i.las.la-chevron-right {
 
 #closeChat {
 	font: Arial Black;
-	/* font-size: 2em!important; */
+    font-size: 16px;
+    font-weight: 900;
 	position: relative;
 	color: gainsboro;
-	background-color: color(srgb 0.1169 0.1215 0.1345);
+    border: 2px solid gainsboro ;
 	border-radius: 20px;
-	padding: 10px;
+	padding: 2px 7px 4px 7px;
 	margin: 0px;
-	left: 10px;
-	top: -10px;
+	left: 5px;
+	top: -2px;
 }
