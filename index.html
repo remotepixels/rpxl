@@ -200,38 +200,30 @@
 			</div>
 
             <div style="position: relative; display: inline; left: 10px; vertical-align: top;">
-				<img src="images/vdoninja.png" width="200" height="200" class="creditIcon">
+				<img src="images/vdoninja.png" width="200" height="200" class="creditIcon" onclick="window.location = 'https://vdo.ninja/'">
 			</div>
         </div>
 
-        <div id="about" class="about" style="height:1300px;">
+
+        <div id="startSession" class="startSession" style="height:450px;">
             <p>&nbsp;</p>
             <h3>
-				Good to know.</h3>
+				Ready, set, stream.</h3>
             </h3>
             <p>&nbsp;</p>
-            Not having a central server to manage connections and encoding introduces some benefits and some limitations when using the application.
-            <p></p>
-            Most importantly your host PC must be able to encode and transmit the video in real time while you are working , we recommend offloading this function to another separate machine from your edit workstation, although this may not be necessary depending on your hardware configuration.
-			<p></p>
-            Every extra client that connects will increase the load on the hosts workstation, with a modern system and GPU, rooms of about twenty people should be doable, but more than that will put considerable strain on the host. We have tested up to a dozen guests with moderate hardware and have not run in to issues, though your mileage may vary.
-            <p></p>
-            This application is not optimised for broadcasting to hundreds of viewers at a time, although vdo.ninja does have a mesh-cast option for this scenario we've chosen not to implement it as it adds an unnecessary delay to the main feed.
-            <p></p>
-            As all Guests are connecting directly we strongly recommend using wired ethernet for your host, and if possible, your clients. Wifi has inherit latency issues which can disrupt stream. If clients are on the same internal network, data will be sent directly over LAN and not through the internet to those clients, wich helps reduce the load on your internet connection.
-			<p></p>
-            Keep in mind that any files you share will no longer be available once you as host, disconnect from the session, if you wish to share files for later review then a third party service will be required. Also, a separate stream is created for every client that downloads the file from you, this can very quickly saturate your internet connection if say a dozen clients are trying to download a 10GB file from you.
-            <p></p>
-            RPXL uses the browsers built in camera capture capability, how you get from your edit software to the browser is up to you, but we recommend ndi tools from vizrt. You can also use hdmi to usb capture devices that report as a webcam to the browser. However be aware that some of these do introduce a colour shift as they sometimes apply a LUT over the captured footage which may already have a LUT applied from your edit software for monitoring.
-			<p></p>
-            Occasionally, in stricter corporate environments, admins may have blocked access to the clients camera or microphone, although this seems to have been relaxed in the last few years, it can create a situation where the client connection is refused because the browser blocks access to the camera or microphone, adjusting the permissions setting for your browser should fix this, and a quick google search should resolve the issue.
-            <p></p>
-			As the primary streamer be aware that if you re-use Session ID's (the 6 digit alpha alpha-numeric code), a client from the previous session may be able to re-join if they know when you are broadcasting, this can work to your benefit if you want to continue an earlier session but potentially a client from a previous session could join a new session if the same code is reused.			<p></p>
-            If creating a Session ID manually, avoid simple codes such as 123456 or ABCDEF, as these can be easily guessed, and you may have unwanted guests join the session.
-            <p></p>
-            At the moment the guest queue is disabled so anyone knowing the Session ID can join, you can isolate, disconnect and monitor guests using the monitoring or server console but if you wish to manually approve every client connecting, you can add &queue to the end of the session ID in the URL you send them.			<p></p>
-		</div>
+			<div style="position: relative; display: inline-block; width:calc(100% - 350px)" class="creditText">
+				Start your stream right now.
+				<p></p>
+				No signups, no account, no fees.
+				<p></p>
+				Simply click the button and stream.
+				<p></p>
+			</div>
 
+            <div >
+				<span class="startSessionIcon" onclick="window.location = 'https://rpxl.app/stream/'")>Start streaming now!</span>
+			</div>
+        </div>
     </div>
 
 	<div id="footer" class="footer">
@@ -497,7 +489,7 @@ function validateStageName(){
 		document.getElementById("sessionLink").style.display = "inline-block";
 
 		//if we are on desktop, load the chat and main frame
-		if (mobile == 0) {
+		if (mobile == 1) {
 			document.getElementById("chatIFrame").style.display="inline-block";
 			document.getElementById("mainIFrame").style.display="inline-block";
 			
@@ -565,10 +557,11 @@ function validateStageName(){
 		}
 		else {
 			//if we are on tablet or mobile device, load a different set of options
-			document.getElementById("mainIFrame").style.top="0px";
+			document.getElementById("mainIFrame").style.top="10px";
 			document.getElementById("subNav").style.display = "none";
+
 			document.getElementById("mainIFrame").style.width="100%";
-			document.getElementById("mainIFrame").style.height="100vh";
+			document.getElementById("mainIFrame").style.height="100%";
 			document.getElementById("mainIFrame").style.display="inline-block";
 
 			document.getElementById("mainIFrame").allow = "autoplay;camera;microphone;";

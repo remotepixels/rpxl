@@ -65,13 +65,32 @@ body {
 	border: 2px solid gainsboro;
 	background: #2b2b2bb3;
 	cursor: pointer;
-
 	}
 .joinSession:hover {
 	background-color: dodgerblue;
 	border: 2px solid dodgerblue;
 	}	
-
+.startSessionIcon {
+		position: relative; 
+		display: inline-block;  
+		left: 460px; 
+		top: -100px; 
+		text-align: center;
+		width: 205px;
+		margin: 10px;
+		color: #ffffff;
+		text-decoration: none;
+		border-radius: 20px;
+		padding: 8px 2px 8px 3px;
+		border: 2px solid gainsboro;
+		background: #2b2b2bb3;
+		cursor: pointer;
+		scale:1.7;
+	}
+.startSessionIcon:hover {
+	background-color: dodgerblue;
+	border: 2px solid dodgerblue;
+	}	
 .exitSession {
 	position: absolute;
 	text-align: center;
@@ -456,6 +475,8 @@ input[type=text]:focus {
         box-shadow: 0 0 0 50px rgba(200, 60, 60, 0);
     }
 }
+
+/*popup for session ID and username*/
 .streamerName {
 	position: relative;
 	display: inline;
@@ -582,7 +603,19 @@ input[type=text]:focus {
 	.creditIcon {
 		width:150px;
 		height: 150px;
+		cursor: pointer;
 		}
+	.startSession {
+		height:400px!important;
+	}
+	.startSessionIcon {
+		left: 60px;
+		top: 40px;
+	}
+	.startSessionIcon:hover {
+		background-color: dodgerblue;
+		border: 2px solid dodgerblue;
+		}	
 	.about {
 		height: 1200px!important;
 		}
@@ -674,7 +707,19 @@ input[type=text]:focus {
 	.creditIcon {
 		width: 80px;
 		height: 80px;
+		cursor: pointer;
 	}
+	.startSession {
+		height:400px!important;
+	}
+	.startSessionIcon {
+		left: 60px;
+		top: 40px;
+	}
+	.startSessionIcon:hover {
+		background-color: dodgerblue;
+		border: 2px solid dodgerblue;
+		}	
 	.about {
 		height:1600px!important;
 	}
