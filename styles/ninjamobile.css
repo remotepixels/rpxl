@@ -437,9 +437,8 @@ i.las.la-chevron-right {
     cursor: pointer;
     text-align: center;
     text-transform: uppercase;
-    text-size-adjust:20%;
     font-weight: 900!important;
-    color: #646464;
+    color: gainsboro;
     margin: 0px;
     cursor: pointer;
     padding: 4px 7.5px;
