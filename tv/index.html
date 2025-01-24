@@ -123,43 +123,42 @@ function validateSessionID(){
 		document.getElementById("mainIFrame").allow = "autoplay; fullscreen; picture-in-picture;";
 		document.getElementById("mainIFrame").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
 				"&broadcast"+	//show only directors feed
-				//"&view=Main_Stream_"+sessionFile+ //shows only the directors main feed on left
 				"&solo"+	//solos view only show the master stream
 				"&cleanoutput"+	//remove all interface bits
 				"&hideplaybutton"+	//hides big play button if autoplay is disabled
 				"&cv"+	//clean viewer
 				"&videobitrate=50000"+ //server limited but hey, ask for as much as possible
 				"&scale=100"+	//do not scale video
-				//"&chroma=121212"+
 				"&transparent"+	//makes bg transparent
 				"&buffer=500"+	//adds a xms buffer
 				"&showlist=0"+	//hides the hidden viewr list
-				//"&as"+
-				"&waitimage=https%3A%2F%2Frpxl.app%2Fimages%2Fclicktoplay.png"+
 				"&favicon=https%3A%2F%2Frpxl.app%2Ficons/favicon.ico"+
 				""; 
 			return false;
 	}
 }
 /*
-
+				"&view=Main_Stream_"+sessionFile+ //shows only the directors main feed on left
+				"&chroma=121212"+
+				"&as"+
+				"&waitimage=https%3A%2F%2Frpxl.app%2Fimages%2Fclicktoplay.png"+
 				"&broadcast"+	//show only directors feed
 				"&label=TV"+ //sets label to guests name they entered earlier
-				//"&solo"+	//solos view only show the master stream
-				//"&minipreview"+
-				//"&nopreview"+
-				//"&showlabels"+	//show the usernames
-				//"&quality=3"+	//set camera quality to lowest possible, about 720p
+				"&solo"+	//solos view only show the master stream
+				"&minipreview"+
+				"&nopreview"+
+				"&showlabels"+	//show the usernames
+				"&quality=3"+	//set camera quality to lowest possible, about 720p
 				"&webcam=0"+	//disables screenshare use &webcam2 to show share your camera screen
 				"&cover"+	//make video cover space
-				//"&videobitrate=100"+
+				"&videobitrate=100"+
 				"&vdo=0"+	//auto select camera
-				//"&rounded=100"+	//makes videos round
-				//"&mirror=2"+	//mirrors guest videos
-				//"&viewwidth=160&viewheight=90"+	//sets incoming video to px size (very low res)
-				//"&safemode"+	//loads camera in simplist way
-				//"&st=6"+	//show audio only sources as coloured circles with first letter of name
-				//"&meterstyle=2"+	//round highlight over person talking
+				"&rounded=100"+	//makes videos round
+				"&mirror=2"+	//mirrors guest videos
+				"&viewwidth=160&viewheight=90"+	//sets incoming video to px size (very low res)
+				"&safemode"+	//loads camera in simplist way
+				"&st=6"+	//show audio only sources as coloured circles with first letter of name
+				"&meterstyle=2"+	//round highlight over person talking
 				"&hh"+	//hide vdo ninja header
 				"&ee"+	//easy exit
 				"&cv"+	//clean viewer
@@ -174,8 +173,8 @@ function validateSessionID(){
 				"&nocontrols"+	//hides video player controls
 				"&waitimage=https%3A%2F%2Frpxl.app%2Fimages%2FnosignalHD.png"+
 				"&chroma=121212"+
-				//"&showlist=0"+	//show hidden guest list
-				//"&animate"+	//videos animate around when people join or leave
+				"&showlist=0"+	//show hidden guest list
+				"&animate"+	//videos animate around when people join or leave
 				"&cleanoutput"+	//remove all interface bits
 				"&favicon=https%3A%2F%2Frpxl.app%2Ficons/favicon.ico"+
 
