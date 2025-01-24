@@ -35,7 +35,7 @@
 	}
 </style>
 
-<body style="background-image: url('../images/header.jpg'); background-attachment: scroll; background-repeat: no-repeat;background-position: right bottom;background-size: cover;">	
+<body id="body" style="background-image: url('../images/header.jpg'); background-attachment: scroll; background-repeat: no-repeat;background-position: right bottom;background-size: cover;">	
 		
 	<!--popup window, draws the popup window-->
 	<div class="popupWindow" id="popupWindow" style="height: 200px; top:100px; background-color: #141414a9;">
@@ -111,7 +111,7 @@ function validateSessionID(){
 		//document.getElementById("mainIFrame").allow = "autoplay;camera;microphone;fullscreen;picture-in-picture;display-capture;";
 
 		window.scrollTo(0, -1);
-		
+
 		document.getElementById("popupWindow").style.display="none";
 		document.getElementById("body").style.backgroundImage="none";
 		
@@ -124,7 +124,7 @@ function validateSessionID(){
 		document.getElementById("mainIFrame").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
 				"&broadcast"+	//show only directors feed
 				//"&view=Main_Stream_"+sessionFile+ //shows only the directors main feed on left
-				//"&solo"+	//solos view only show the master stream
+				"&solo"+	//solos view only show the master stream
 				"&cleanoutput"+	//remove all interface bits
 				"&hideplaybutton"+	//hides big play button if autoplay is disabled
 				"&cv"+	//clean viewer
