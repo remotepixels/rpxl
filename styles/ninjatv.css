@@ -81,3 +81,25 @@
     top:5px!important;
     opacity:0.5
 }
+
+.container_holder_video {
+    width:100%!important;
+    height:100%!important;
+    max-height: 100%!important;
+    }
+
+.holder {
+    position: relative!important;
+    left:unset!important;
+    top:unset!important;
+    
+    width:100%!important;
+    height:calc(100% - 10px)!important;
+    height:calc(100% - 10px)!important;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    
+    }
+.tile {
+    max-height: 100%!important;
+}
