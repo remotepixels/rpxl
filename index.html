@@ -45,8 +45,8 @@
 	</div>
 
 	<!--frames for chat and live stream-->
-	<iframe title="chatIFrame" class="chatIFrame" name="chatIFrame" id="chatIFrame" allowfullscreen=false style="display:none"></iframe>
-	<iframe title="mainIFrame" class="mainIFrame" name="mainIFrame" id="mainIFrame" allowfullscreen=false style="display:none"></iframe>
+	<iframe title="chatIFrame" class="chatIFrame" name="chatIFrame" id="chatIFrame" style="display:none"></iframe>
+	<iframe title="mainIFrame" class="mainIFrame" name="mainIFrame" id="mainIFrame" style="display:none"></iframe>
 
     <div id="siteHeader" class="siteHeader">
         <img src="icons/android-chrome-192x192.png" class="siteMainIcon"/>
@@ -506,7 +506,7 @@ function validateStageName(){
 				"&label="+encodedUserName+ //sets label to guests name they entered earlier
 				"&showlabels"+	//show the usernames
 				"&quality=3"+	//set camera quality to lowest possible, about 360p
-				"&webcam"+	//disables screenshare use &webcam2 to show share your camera screen
+				"&webcam=2"+	//disables screenshare use &webcam2 to show share your camera screen
 				"&cover"+	//make video cover space
 				"&videobitrate=100"+
 				"&vdo=1"+	//auto select camera
@@ -530,7 +530,7 @@ function validateStageName(){
 				"&disablehotkeys"+	//no hotkeys
 				"&nocontrols"+	//hides video player controls
 				"&showlist=0"+	//show hidden guest list
-				"&queue"+ 	//guests must be allowed in by director
+				//"&queue"+ 	//guests must be allowed in by director
 				"&animate"+	//videos animate around when people join or leave
 				//"&tips"+
 				"&js=https%3A%2F%2Frpxl.app%2Fscripts%2Fninjachat.js"+
@@ -541,16 +541,12 @@ function validateStageName(){
 			setTimeout(function(){
 			document.getElementById("mainIFrame").allow = "autoplay;";
 			document.getElementById("mainIFrame").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
-				//"&view=Main_Stream_"+sessionFile+ //shows only the directors main feed on left
-				//"&broadcast"+
+				"&broadcast"+ 	//show only directors feed
 				"&solo"+	//solos view only show the master stream
 				"&cleanoutput"+	//remove all interface bits
 				"&hideplaybutton"+	//hides big play button if autoplay is disabled
 				"&cv"+	//clean viewer
 				"&videobitrate=50000"+ //server limited but hey, ask for as much as possible
-				//"&scale=100"+	//do not scale video
-				//"&queue"+ 	//guests must be allowed in by director
-				//"&chroma=121212"+
 				"&transparent"+	//makes bg transparent
 				"&preloadbitrate=-1"+	//preloads the video, might not be necessary as only use scene 1
 				"&waitimage=https%3A%2F%2Frpxl.app%2Fimages%2FnosignalHD.png"+
