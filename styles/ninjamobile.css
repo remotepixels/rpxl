@@ -73,21 +73,21 @@
 	
 /* main control bar customizations */
 #subControlButtons {
-	right:0px;
-    width:70px;
-    bottom:50px;
-    min-width:70px!important;
-	border-color:grey;
-	padding:5px;
-	transform: translate(0px,0px)!important;
-	opacity:1;
-	-webkit-backdrop-filter: blur(20px)! important;
-	backdrop-filter: blur(20px)! important;
-	background-color: #121212c4;
-	box-shadow: 0px 0px #00000000;
-	cursor: default! important;
-
-	}
+    position: absolute;
+    right: 0px !important;
+    width: 70px;
+    bottom: 20px !important;
+    min-width: 70px !important;
+    border-color: grey;
+    padding: 5px;
+    transform: translate(0px, 0px) !important;
+    opacity: 1;
+    -webkit-backdrop-filter: blur(20px) ! important;
+    backdrop-filter: blur(20px) ! important;
+    background-color: #121212c4;
+    box-shadow: 0px 0px #00000000;
+    cursor: default ! important;
+}
 #subControlButtons div {
 	border-radius: 50px!important;
     }
@@ -269,6 +269,11 @@ i.las.la-chevron-right {
     display:none!important;
     
 }
+.pulsate {
+    box-shadow: 0 0 0 0 rgba(14, 19, 26, 1);
+    transform: scale(1);
+    animation: pulse 2s 3;
+}
 
 /*main video feed*/
 
@@ -308,29 +313,28 @@ i.las.la-chevron-right {
     top: 30px;
     font-size:55px;
 }
-
 #connectUsers {
-	float: right;
-	display: none;
-	height:200px;
-	position: absolute;
-	max-width: 400px;
-	min-width: 205px;
-	max-height: 85%;
-	background-color: #08090e;
-	z-index: 5;
-	padding: 15px;
-	right: 20px;
-	top: 30px;
-	box-shadow: 0px 0px!important;
-	border-radius: 10px;
-	border: 2px solid dargrey;
-	opacity: 1;
-	color: white;
+    float: right;
+    display: none;
+    height: 180px;
+    position: absolute;
+    max-width: 400px;
+    min-width: 205px;
+    max-height: 85%;
+    background-color: #08090e;
+    z-index: 5;
+    padding: 15px;
+    right: 20px;
+    top: 20px;
+    box-shadow: 0px 0px !important;
+    border-radius: 10px;
+    border: 2px solid dargrey;
+    opacity: 1;
+    color: white;
     overflow: auto;
-	-webkit-backdrop-filter: blur(20px);
-	backdrop-filter: blur(20px);
-	background-color: #121212c4;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    background-color: #121212c4;
 }
 #hideusers {
 	font: Arial Black;
@@ -400,21 +404,21 @@ i.las.la-chevron-right {
 }
 
 /*chat or files popup box*/
-#chatModule{
-	border-radius:10px;
-	background-color: #2a2a2a;
-	box-shadow: 0px 0px 20px 0px black;
-	z-index:5;
-	top:10px;
-	left:50px;
-	bottom:auto;
-	overflow:hidden;
+#chatModule {
+    border-radius: 10px;
+    background-color: #2a2a2a;
+    box-shadow: 0px 0px 20px 0px black;
+    z-index: 5;
+    top: 10px !important;
+    left: 50px !important;
+    bottom: auto;
+    overflow: hidden;
 }
 
 .chat-header {
-	display:none;
     padding: 10px;
     background-color: #2a2a2a;
+    color: #2a2a2a!important;
     border-radius:10px;
     justify-content: space-between;
     align-items: center;
@@ -425,17 +429,20 @@ i.las.la-chevron-right {
 .chat-input-area {
     display: none;
 }
+#popOutChat {
+	display:none;
+}
 
 #closeChat {
     cursor: pointer;
     text-align: center;
-	text-transform: uppercase;
-	text-size-adjust:20%;
-	font-weight: 900!important;
+    text-transform: uppercase;
+    text-size-adjust:20%;
+    font-weight: 900!important;
     color: #646464;
     margin: 0px;
     cursor: pointer;
-    padding: 3px 8px;
+    padding: 4px 7.5px;
     background-color: black;
     border-radius: 50%;
     border: solid 2px #646464;
@@ -476,4 +483,11 @@ i.las.la-chevron-right {
 	font-weight: bold; 
     padding:3 10 3 10px;
     margin: 5 5 0 100px;
+}
+
+@media only screen and (max-width: 500px) {
+    #chatModule {
+        left: 10px !important;
+        width: 390px !important;
+    }
 }

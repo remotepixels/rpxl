@@ -541,9 +541,9 @@ function validateStageName(){
 			setTimeout(function(){
 			document.getElementById("mainIFrame").allow = "autoplay;";
 			document.getElementById("mainIFrame").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
-				"&view=Main_Stream_"+sessionFile+ //shows only the directors main feed on left
+				//"&view=Main_Stream_"+sessionFile+ //shows only the directors main feed on left
 				//"&broadcast"+
-				//"&solo"+	//solos view only show the master stream
+				"&solo"+	//solos view only show the master stream
 				"&cleanoutput"+	//remove all interface bits
 				"&hideplaybutton"+	//hides big play button if autoplay is disabled
 				"&cv"+	//clean viewer
@@ -578,6 +578,7 @@ function validateStageName(){
 			document.getElementById("mainIFrame").allow = "autoplay;camera;microphone;";
 			document.getElementById("mainIFrame").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
 				"&broadcast"+	//show only directors feed
+				//"&showall"+
 				"&label="+encodedUserName+ //sets label to guests name they entered earlier
 				//"&showlabels"+	//show the usernames
 				//"&quality=3"+	//set camera quality to lowest possible, about 360p
