@@ -111,7 +111,9 @@ function validateSessionID(){
 		//document.getElementById("mainIFrame").allow = "autoplay;camera;microphone;fullscreen;picture-in-picture;display-capture;";
 
 		document.getElementById("popupWindow").style.display="none";
-		document.getElementById("body").style.backgroundImage="../images/clicktoplay.png";
+		document.getElementById("body").style.backgroundPosition="center";
+		document.getElementById("body").style.backgroundSize="contain";
+		document.getElementById("body").style.backgroundImage="url('../images/clicktoplay.png')";
 		
 		document.getElementById("mainIFrame").style.top="0px";
 		document.getElementById("mainIFrame").style.width="100%";
