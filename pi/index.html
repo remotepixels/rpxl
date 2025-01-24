@@ -59,74 +59,35 @@
 </body>
 </html>
 
-<script type="text/javascript">  
-//popup live session window if the live button is clicked
-function clickLiveSession() {
-	blackout.style.animation = "fadeIn 500ms ease-out";
-	blackout.style.display = "block";
-	setTimeout(function () { blackout.style.animation = "none";}, 300);
-        document.forms["sessionIDCode"]["sessionIDInput"].focus();
-	}
-  			
-//hide live session window when user clicks off
-function fadeOutPopup() {
-	blackout.style.animation = "fadeOut 300ms ease-out";
-	setTimeout(function () { blackout.style.animation = "none"; blackout.style.display = "none"; }, 300);
-	}
 
-//cookie bits
-//read cookie username value
-function getCookie(cname) {
-	let name = cname + "=";
-	let decodedCookie = decodeURIComponent(document.cookie);
-	let ca = decodedCookie.split(';');
-	for(let i = 0; i < ca.length; i++) {
-		let c = ca[i];
-		while (c.charAt(0) == ' ') {
-			c = c.substring(1);
-			}
-		if (c.indexOf(name) == 0) {
-			return c.substring(name.length, c.length);
-			}
-		}
-  	return "";
-	}
-
-//check if an URL parameter is supplied
-//if there is clean the string and check the file
+<script type="text/javascript"> 
+//check if an URL parameter is sent and prefill the session ID field
+//var sessionFile;
 let query = location.search;
 let sessionIDURL = query.slice(1);
-let sessionIDUp = sessionIDURL.toUpperCase();
-let	sessionFile = encodeURIComponent(sessionIDUp); 
 
-if  ((sessionFile != 0) && (sessionFile.length == 6)) {
-	document.forms ["sessionIDCode"]["sessionIDInput"].value = sessionFile;	
-	blackout.style.display = "block";
-	checkSessionFile ();
-	}  
+if  ((sessionIDURL != 0) && (sessionIDURL.length == 6)) {
+	let sessionIDUp = sessionIDURL.toUpperCase();
+	let	sessionFile = encodeURIComponent(sessionIDUp); 
+	document.forms["sessionIDCode"]["sessionIDInput"].value = sessionFile;	
+	validateSessionID();
+	}         
 
-//clock for top right of window
-//clock check if and add zero in front of numbers < 10
-function startTime() {
-	const today = new Date();
-        let h = today.getHours();
-        let m = today.getMinutes();
-	        let s = today.getSeconds();
-        m = checkTime(m);
-	    h = checkTime(h);
-		    s = checkTime(s);
-        document.getElementById('clock').innerHTML =  h + ":" + m + ":" +s ;
-        setTimeout(startTime, 1000);
-	}
-function checkTime(i) {
-        if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
-        return i;
-        }    
-    
+//move caret to focus on inbut of session ID 
+//document.forms["sessionIDCode"]["sessionIDInput"].focus();
+document.getElementById("sessionIDInput").focus();
+
+//submit session ID if user hits enter key
+let inputSessionID = document.getElementById("sessionIDInput");
+inputSessionID.addEventListener("keypress", function(event) {
+	if (event.key === "Enter") {
+		event.preventDefault();
+		document.getElementById("submitSessionID").click();
+		}
+	});
+
+
 //Session ID field entry, force upper caase, restrict to alpha-numeric
-const input = document.querySelector('[autocomplete=one-time-code');
-input.addEventListener('input', () => input.style.setProperty('--_otp-digit', input.selectionStart));
-
 function onlyAlphabets(e, t) {
 	var regexp = new RegExp(/^[a-zA-Z0-9]*$/);
 	if (window.event) {
@@ -138,125 +99,87 @@ function onlyAlphabets(e, t) {
 	var test = regexp.test(String.fromCharCode(keynum));
 	return test;
 	}
+   
+//validates the session ID when the user submits
+function validateSessionID(){
+	let sessionEnc = document.forms ["sessionIDCode"]["sessionIDInput"].value;
+	let	sessionFile = encodeURIComponent(sessionEnc); //encode submitted value to escape any funny characters
 
-//submit session ID if user hits enter key
-let inputSessionID = document.getElementById("sessionIDInput");
-inputSessionID.addEventListener("keypress", function(event) {
-	if (event.key === "Enter") {
-		event.preventDefault();
-		document.getElementById("submitSessionID").click();
-		}
-	});
-	
-//checks the sessionID input is 6 characters long after encoding and auto fills username if cookie exists (been here in last 24 hours)
-function checkSessionFile () {	
-	let v1 = document.forms ["sessionIDCode"]["sessionIDInput"].value;
-	let cookieStoredName = "";
-
-	sessionFile = encodeURIComponent(v1); 
-	let user = getCookie("username");
-	if (user != "") {
-		cookieStoredName = user;
-	}
-
-	if  ((sessionFile != 0) && (sessionFile.length == 6)) {
-		sessionIDpopupContent.style.animation = "none";
-		sessionIDpopupContent.style.display = "none";
-
-		document.getElementById("sessionLink").innerHTML = sessionFile;
-//		document.getElementById("sessionLink").value = +sessionFile;	
-		
-		askNamePopupContent.style.animation = "fadeIn 300ms ease-out";
-		//popupWindow.style.height = "360px";
-		//popupWindow.style.width = "420px";
-		//popupWindow.style.left = "calc(50% - 190px)";
-		askNamePopupContent.style.display = "block";
-		document.forms["stageName"]["enterStageName"].value = cookieStoredName;
-		document.forms["stageName"]["enterStageName"].focus()
-		return false;
-	}
-	else {
+	//if there are less or more or less than 6 characters shake the box and clear it
+	if (sessionFile.length != 6) {
 		popupWindow.style.animation = "shake 500ms";
-		setTimeout ( function () {popupWindow.style.animation = "none"; document.forms["stageName"]["enterStageName"].focus(); }, 300); 
+		setTimeout ( function () {popupWindow.style.animation = "none"; document.getElementById("sessionIDCode").reset();}, 300);
 		document.forms["sessionIDCode"]["sessionIDInput"].focus();
 		return false;
-	}
-}
-	  
-//if the session id checks out when user enters a name
-//check the username (stagename), make sure it isn't empty, then clean up the string
-//set a cookie and start the session
-function validateStageName(){
-	let varstageName = document.forms ["stageName"]["enterStageName"].value;
-	//if they try to submit an empty name shake the box and highlight the stage name field
-	if (!varstageName) {								
-		popupWindow.style.animation = "shake 500ms";
-		setTimeout ( function () {popupWindow.style.animation = "none"; document.forms["stageName"]["enterStageName"].focus(); }, 300);  
-		return false;
 		}
-	//encode the name entered to a URI to escape any odd characters set cookie for next 24 hours
 	else {
-		//check if on mobile device
-		let mobile = false;
-		//ipad pro workaround, not really working at moment
-		if ('ontouchstart' in window || (window?.DocumentTouch && document instanceof DocumentTouch)) {
-			mobile = true;
-		}
-		//usual mobile detection
-		if (navigator.userAgent.match(/Android/i)
-			|| navigator.userAgent.match(/webOS/i)
-			|| navigator.userAgent.match(/iPhone/i)
-			|| navigator.userAgent.match(/iPad/i)
-			|| navigator.userAgent.match(/iPod/i)
-			|| navigator.userAgent.match(/BlackBerry/i)
-			|| navigator.userAgent.match(/Windows Phone/i)) {
-			mobile = true;
-		} else {
-			mobile = false;
-		}
-		let uri = document.forms ["stageName"]["enterStageName"].value;		
-		let encodedUserName = encodeURIComponent(uri);     
-		let expires = "expires=" + (new Date(Date.now() + 86400*1000).toUTCString());
-		document.cookie = "username=" + encodedUserName + ";" + expires + ";path=/";
+		//TV, main stream only
+		//document.getElementById("mainIFrame").allow = "autoplay;camera;microphone;fullscreen;picture-in-picture;display-capture;";
 
-		//swap navigation bars, add clock and load vdoninja
-		startTime ();
+		document.getElementById("popupWindow").style.display="none";
+		document.getElementById("body").style.backgroundPosition="center";
+		document.getElementById("body").style.backgroundSize="contain";
+		document.getElementById("body").style.backgroundImage="url('../images/nosignalHD.png')";
+		
+		document.getElementById("mainIFrame").style.top="0px";
+		document.getElementById("mainIFrame").style.width="100%";
+		document.getElementById("mainIFrame").style.height="100%";
+		document.getElementById("mainIFrame").style.display="inline-block";
 
-		blackout.style.display = "none";
-		document.getElementById("topnav").style.display = "none";
-		document.getElementById("siteHeader").style.display = "none";
-		document.getElementById("textBG").style.display = "none";
-		document.getElementById("footer").style.display = "none";
-		document.getElementById("subNav").style.display = "block";
-		document.getElementById("clientLink").style.display = "block";
-		document.getElementById("sessionLink").style.display = "inline-block";
-
-
-		//if we are on desktop, load the chat and main frame
-
-
-		if (mobile == 0) {
-			document.getElementById("chatIFrame").style.display="inline-block";
-			document.getElementById("mainIFrame").style.display="inline-block";
-
-			//set sources for chat frame
-			document.getElementById("chatIFrame").allow = "autoplay;camera;microphone;";
-			document.getElementById("chatIFrame").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
-				//"&exclude=Main_Stream_"+	//do not show the main feed
-				//"&showall"+
-				"&nodirectoraudio"+ //do play show in user area
-				"&nodirectorvideo"+
-				"&label="+encodedUserName+ //sets label to guests name they entered earlier
-				"&showlabels"+	//show the usernames
-				"&quality=3"+	//set camera quality to lowest possible, about 360p
+		document.getElementById("mainIFrame").allow = "autoplay; fullscreen; picture-in-picture; camera; microphone;";
+		document.getElementById("mainIFrame").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
+				"&label=RPXL_PI01"+
+				"&broadcast"+	//show only directors feed
+				//"&solo"+	//no login options, solos stream
+				"&minipreview"+
+				"&autostart"+
+				"&scale=50"+	//do not scale video
+				"&quality=3"+	//set camera quality to lowest possible, about 720p
 				"&webcam=2"+	//disables screenshare use &webcam2 to show share your camera screen
 				"&cover"+	//make video cover space
 				"&videobitrate=100"+
-				"&vdo=1"+	//auto select camera
-				"&rounded=100"+	//makes videos round
-				//"&mirror=2"+	//mirrors guest videos
-				"&scale=25"+	//scales peoples video to 25%
+				"&videodevice=1"+	//auto select camera
+				"&audiodevice=1"+	//auto select audio
+				//"&rounded=100"+	//makes videos round
+				"&mirror=2"+	//mirrors guest videos
 				//"&viewwidth=160&viewheight=90"+	//sets incoming video to px size (very low res)
+				"&safemode"+	//loads camera in simplist way
+				//"&st=6"+	//show audio only sources as coloured circles with first letter of name
+				//"&meterstyle=2"+	//round highlight over person talking
+				"&cleanoutput"+	//remove all interface bits
+				"&hideplaybutton"+	//hides big play button if autoplay is disabled
+				"&cv"+	//clean viewer
+				"&videobitrate=50000"+ //server limited but hey, ask for as much as possible
+				"&scale=100"+	//do not scale video
+				"&transparent"+	//makes bg transparent
+				"&buffer=500"+	//adds a xms buffer
+				"&showlist=0"+	//hides the hidden viewr list
+				"&favicon=https%3A%2F%2Frpxl.app%2Ficons/favicon.ico"+
+				//"&js=https%3A%2F%2Frpxl.app%2Fscripts%2Fninjapi.js"+
+				"&css=https%3A%2F%2Frpxl.app%2Fstyles%2Fninjapi.css"+
+				""; 
+			return false;
+	}
+}
+/*
+				"&view=Main_Stream_"+sessionFile+ //shows only the directors main feed on left
+				"&chroma=121212"+
+				"&as"+
+				"&waitimage=https%3A%2F%2Frpxl.app%2Fimages%2Fclicktoplay.png"+
+				"&broadcast"+	//show only directors feed
+				"&label=TV"+ //sets label to guests name they entered earlier
+				"&solo"+	//no login options, solos stream
+				"&minipreview"+
+				"&nopreview"+
+				"&showlabels"+	//show the usernames
+				"&quality=3"+	//set camera quality to lowest possible, about 720p
+				"&webcam=0"+	//disables screenshare use &webcam2 to show share your camera screen
+				"&cover"+	//make video cover space
+				"&videobitrate=100"+
+				"&vdo=0"+	//auto select camera
+				"&rounded=100"+	//makes videos round
+				"&mirror=2"+	//mirrors guest videos
+				"&viewwidth=160&viewheight=90"+	//sets incoming video to px size (very low res)
 				"&safemode"+	//loads camera in simplist way
 				"&st=6"+	//show audio only sources as coloured circles with first letter of name
 				"&meterstyle=2"+	//round highlight over person talking
@@ -272,107 +195,15 @@ function validateStageName(){
 				"&darkmode"+	//
 				"&disablehotkeys"+	//no hotkeys
 				"&nocontrols"+	//hides video player controls
+				"&waitimage=https%3A%2F%2Frpxl.app%2Fimages%2FnosignalHD.png"+
+				"&chroma=121212"+
 				"&showlist=0"+	//show hidden guest list
-				//"&queue"+ 	//guests must be allowed in by director
 				"&animate"+	//videos animate around when people join or leave
-				//"&tips"+
-				"&js=https%3A%2F%2Frpxl.app%2Fscripts%2Fninjachat.js"+
-				"&css=https%3A%2F%2Frpxl.app%2Fstyles%2Fninjachat.css"+	//load style sheet
-			""; 
-
-			//set sources for main frame
-			setTimeout(function(){
-			document.getElementById("mainIFrame").allow = "autoplay;";
-			document.getElementById("mainIFrame").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
-				"&broadcast"+ 	//show only directors feed
-				"&solo"+	//no login options, solos stream
 				"&cleanoutput"+	//remove all interface bits
-				"&hideplaybutton"+	//hides big play button if autoplay is disabled
-				"&cv"+	//clean viewer
-				"&videobitrate=50000"+ //server limited but hey, ask for as much as possible
-				"&transparent"+	//makes bg transparent
-				"&preloadbitrate=-1"+	//preloads the video, might not be necessary as only use scene 1
-				"&waitimage=https%3A%2F%2Frpxl.app%2Fimages%2FnosignalHD.png"+
-				"&buffer=500"+	//adds a xms buffer
-				"&showlist=0"+	//hides the hidden viewr list
-				""; 
-			},1000);
-		}
-		else {
-			//if we are on tablet or mobile device, load a different set of options
+				"&favicon=https%3A%2F%2Frpxl.app%2Ficons/favicon.ico"+
 
-			document.getElementById("subNav").style.display = "none";
+				*/
 
-			document.getElementById("mainIFrame").style.width="100%";
-			document.getElementById("mainIFrame").style.height="100%";
-			document.getElementById("mainIFrame").style.top="0px";
-			document.getElementById("mainIFrame").style.left="0px";
 
-			document.getElementById("chatIFrame").style.top="-2px";
-			document.getElementById("chatIFrame").style.height="4px";
 
-			document.getElementById("chatIFrame").style.display = "inline-block";
-			document.getElementById("mainIFrame").style.display="inline-block";
-
-			document.getElementById("mainIFrame").allow = "autoplay;camera;microphone;";
-			document.getElementById("mainIFrame").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
-				//"&cleanoutput"+
-				//"&view=Main_Stream_"+sessionFile+ 
-				"&broadcast="+ 	//show only directors feed
-				"&label="+encodedUserName+ //sets label to guests name they entered earlier
-				//"&showlabels"+	//show the usernames
-				//"&quality=3"+	//set camera quality to lowest possible, about 360p
-				"&mobile"+	//sets for mobile devices (no video etc)
-				"&webcam"+	//disables screenshare use &webcam2 to show share your camera screen
-				//"&cover"+	//make video cover space
-				//"&videobitrate=100"+
-				"&vdo=0"+	//join without camera
-				//"&rounded=100"+	//makes videos round
-				//"&mirror=2"+	//mirrors guest videos
-				//"&viewwidth=160&viewheight=90"+	//sets incoming video to px size (very low res)
-				//"&safemode"+	//loads camera in simplist way
-				//"&st=6"+	//show audio only sources as coloured circles with first letter of name
-				//"&meterstyle=2"+	//round highlight over person talking
-				"&hh"+	//hide vdo ninja header
-				"&ee"+	//easy exit
-				"&cv"+	//clean viewer
-				"&hpb"+	//hide play button
-				"&nsb"+	//hide speaker button
-				"&nohub"+	//hide hangup button
-				"&hidehome"+	//hide vdo ninja home page
-				"&transparent"+	//makes bg transparent
-				"&hidetranslate"+	//hides translate menu
-				"&darkmode"+	//
-				"&buffer=500"+	//adds a xms buffer
-				"&preloadbitrate=-1"+	//preloads the video, might not be necessary as only use scene 1
-				//"&scale=100"+	//do not scale video
-				//"&queue"+
-				//"&disablehotkeys"+	//no hotkeys
-				"&nocontrols"+	//hides video player controls
-				"&showlist=1"+	//show hidden guest list
-				"&waitimage=https%3A%2F%2Frpxl.app%2Fimages%2FnosignalHD.png"+
-				//"&animate"+	//videos animate around when people join or leave
-				"&js=https%3A%2F%2Frpxl.app%2Fscripts%2Fninjamobile.js"+
-				"&css=https%3A%2F%2Frpxl.app%2Fstyles%2Fninjamobile.css"+	//load style sheet
-			""; 
-    	}	
-		return false;
-	}
-}
-function leave () {
-		//reset site to as first arrived
-		let frame = document.getElementById("mainIFrame");
-		frame.parentNode.removeChild(frame);
-		
-		frame = document.getElementById("chatIFrame");
-		frame.parentNode.removeChild(frame);
-
-		document.getElementById("topnav").style.display = "block";
-		document.getElementById("siteHeader").style.display = "block";
-		document.getElementById("textBG").style.display = "block";
-		document.getElementById("footer").style.display = "block";
-
-		document.getElementById("subNav").style.display = "none";
-		document.getElementById("clientLink").style.display = "none";
-}
 </script>
