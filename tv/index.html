@@ -123,7 +123,7 @@ function validateSessionID(){
 		document.getElementById("mainIFrame").allow = "autoplay; fullscreen; picture-in-picture;";
 		document.getElementById("mainIFrame").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
 				"&broadcast"+	//show only directors feed
-				//"&solo"+	//solos view only show the master stream
+				"&solo"+	//no login options, solos stream
 				"&cleanoutput"+	//remove all interface bits
 				"&hideplaybutton"+	//hides big play button if autoplay is disabled
 				"&cv"+	//clean viewer
@@ -144,7 +144,7 @@ function validateSessionID(){
 				"&waitimage=https%3A%2F%2Frpxl.app%2Fimages%2Fclicktoplay.png"+
 				"&broadcast"+	//show only directors feed
 				"&label=TV"+ //sets label to guests name they entered earlier
-				"&solo"+	//solos view only show the master stream
+				"&solo"+	//no login options, solos stream
 				"&minipreview"+
 				"&nopreview"+
 				"&showlabels"+	//show the usernames
