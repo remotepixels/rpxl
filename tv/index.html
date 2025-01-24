@@ -110,10 +110,8 @@ function validateSessionID(){
 		//TV, main stream only
 		//document.getElementById("mainIFrame").allow = "autoplay;camera;microphone;fullscreen;picture-in-picture;display-capture;";
 
-		window.scrollTo(0, -1);
-
 		document.getElementById("popupWindow").style.display="none";
-		document.getElementById("body").style.backgroundImage="none";
+		document.getElementById("body").style.backgroundImage="../images/clicktoplay.png";
 		
 		document.getElementById("mainIFrame").style.top="0px";
 		document.getElementById("mainIFrame").style.width="100%";
@@ -130,12 +128,12 @@ function validateSessionID(){
 				"&cv"+	//clean viewer
 				"&videobitrate=50000"+ //server limited but hey, ask for as much as possible
 				"&scale=100"+	//do not scale video
-				"&chroma=121212"+
+				//"&chroma=121212"+
 				//"&transparent"+	//makes bg transparent
 				"&buffer=500"+	//adds a xms buffer
 				"&showlist=0"+	//hides the hidden viewr list
 				//"&as"+
-				"&waitimage=https%3A%2F%2Frpxl.app%2Fimages%2Fclicktoplay.png"+
+				//"&waitimage=https%3A%2F%2Frpxl.app%2Fimages%2Fclicktoplay.png"+
 				"&favicon=https%3A%2F%2Frpxl.app%2Ficons/favicon.ico"+
 				""; 
 			return false;
