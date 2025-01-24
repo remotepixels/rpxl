@@ -109,7 +109,11 @@ function validateSessionID(){
 	else {
 		//TV, main stream only
 		//document.getElementById("mainIFrame").allow = "autoplay;camera;microphone;fullscreen;picture-in-picture;display-capture;";
+
+		window.scrollTo(0, -1);
+		
 		document.getElementById("popupWindow").style.display="none";
+		document.getElementById("body").style.backgroundImage="none";
 		
 		document.getElementById("mainIFrame").style.top="0px";
 		document.getElementById("mainIFrame").style.width="100%";
@@ -118,8 +122,9 @@ function validateSessionID(){
 
 		document.getElementById("mainIFrame").allow = "autoplay;picture-in-picture;";
 		document.getElementById("mainIFrame").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
-				"&view=Main_Stream_"+sessionFile+ //shows only the directors main feed on left
-				"&solo"+	//solos view only show the master stream
+				"&broadcast"+	//show only directors feed
+				//"&view=Main_Stream_"+sessionFile+ //shows only the directors main feed on left
+				//"&solo"+	//solos view only show the master stream
 				"&cleanoutput"+	//remove all interface bits
 				"&hideplaybutton"+	//hides big play button if autoplay is disabled
 				"&cv"+	//clean viewer
@@ -130,7 +135,7 @@ function validateSessionID(){
 				"&buffer=500"+	//adds a xms buffer
 				"&showlist=0"+	//hides the hidden viewr list
 				//"&as"+
-				"&waitimage=https%3A%2F%2Frpxl.app%2Fimages%2FnosignalHD.png"+
+				"&waitimage=https%3A%2F%2Frpxl.app%2Fimages%2Fclicktoplay.png"+
 				"&favicon=https%3A%2F%2Frpxl.app%2Ficons/favicon.ico"+
 				""; 
 			return false;
