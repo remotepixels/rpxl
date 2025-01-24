@@ -577,12 +577,14 @@ function validateStageName(){
 
 			document.getElementById("mainIFrame").allow = "autoplay;camera;microphone;";
 			document.getElementById("mainIFrame").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
-				"&broadcast"+	//show only directors feed
+				//"&cleanoutput"+
+				//"&view=Main_Stream_"+sessionFile+ 
+				"&broadcast=Main_Stream_"+sessionFile+ 	//show only directors feed
 				//"&showall"+
 				"&label="+encodedUserName+ //sets label to guests name they entered earlier
 				//"&showlabels"+	//show the usernames
 				//"&quality=3"+	//set camera quality to lowest possible, about 360p
-				"&mobile"+	//sets for mobile devices (no video etc)
+				//"&mobile"+	//sets for mobile devices (no video etc)
 				"&webcam"+	//disables screenshare use &webcam2 to show share your camera screen
 				//"&cover"+	//make video cover space
 				//"&videobitrate=100"+
@@ -595,7 +597,7 @@ function validateStageName(){
 				//"&meterstyle=2"+	//round highlight over person talking
 				"&hh"+	//hide vdo ninja header
 				"&ee"+	//easy exit
-				"&cv"+	//clean viewer
+				//"&cv"+	//clean viewer
 				"&hpb"+	//hide play button
 				"&nsb"+	//hide speaker button
 				"&nohub"+	//hide hangup button

@@ -27,6 +27,6 @@ setTimeout(
     var node;
     while (node = walker.nextNode()) {
       node.nodeValue = node.nodeValue.replace(/Not Visible/, 'Connected');
-      node.nodeValue = node.nodeValue.replace(/Do you trust them\?/, '');
+      //node.nodeValue = node.nodeValue.replace(/Do you trust them\?/, '');
     }
   }, 50);
