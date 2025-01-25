@@ -64,22 +64,25 @@
 
 /*customize mini self preview not currently used*/
 #minipreview {
-    height: 100px!important;
+	display:none;
+ /*   height: 100px!important;
     width: 100px!important;
     left: calc(100% - 115px)!important;
     top: 15px!important; 
     border-radius: 100px;
     overflow: hidden;
-    opacity: 1;
+    opacity: 1;*/
 }
 
 #videosource {
     scale:1.7;
 }
 .togglePreview {
+	display:none;
+	/*
     left:calc(100% - 35px);
     top:5px!important;
-    opacity:0.5
+    opacity:0.5*/
 }
 
 .container_holder_video {
