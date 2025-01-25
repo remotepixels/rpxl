@@ -1,10 +1,13 @@
+
 /*camera selection screen customizations */
 .darktheme .card {
 	background-color:#0d0d0d!important;
 }
+
 .container-inner {
 	background-color: #0d0d0d!important;
 }
+
 .previewWebcam {
 	width: 240px;
 	height: 240px;
@@ -31,6 +34,7 @@
 	margin: 20px;
 	padding: 10px 50px;
 	border-radius: 10px;
+	border: 0px;
 }
 #videoMenu {
 	padding: 8px 8px 8px 10px;
@@ -55,54 +59,426 @@
 #headphonesDiv {
 	width: 450px;
 	padding: 4 4 4 11px;
-	border-radius: 10px;
-    
+	border-radius: 10px;  
 }
 .startupWarning {
     display: none!important;
 }
 
-/*customize mini self preview not currently used*/
-#minipreview {
-	display:none;
- /*   height: 100px!important;
-    width: 100px!important;
-    left: calc(100% - 115px)!important;
-    top: 15px!important; 
-    border-radius: 100px;
-    overflow: hidden;
-    opacity: 1;*/
+
+/*	main control bar custimisations	*/
+#subControlButtons {
+	display: inline-flex!important;
+	position: fixed!important;
+	top: calc(100% - 105px)!important;
+	left: calc(100% - 105px)!important;
+	height: 100px!important;
+	width: 100px!important;
+	min-width: 30px!important;
+	min-height: 30px!important;
+	cursor: default!important;
+	box-shadow: 0 0!important;
+	transform: translate(0px,0px)!important;
+}
+#subControlButtons div {
+	width: 45px!important;
+	height: 45px!important;
+	margin: 2px!important;
+	padding: 0px!important;
+	border-radius: 40px!important;
+	border: #525252 1px solid!important;
+	opacity: 0.5;
 }
 
-#videosource {
-    scale:1.7;
+#subControlButtons div:hover {
+	background-color: #4f4f4f;
+	border: #b7b7b7 1px solid!important;
+	color: white!important;
+	opacity: 1;
+	scale: 110%;
+
 }
-.togglePreview {
-	display:none;
-	/*
-    left:calc(100% - 35px);
-    top:5px!important;
-    opacity:0.5*/
+#flipcamerabutton {
+	display:none!important;
+}
+.toggleSize {
+    font-size: 28px!important;
+	padding:0 0 0 0px;
+    color: gainsboro;
+}
+.toggleSize:hover{
+	    color: #ffffff!important;
+}
+.raisedHand {
+    background-color: #3100c3 !important;
+}	
+
+.las.la-comment-alt:before{
+    content: "\f15b";
+	color:#424242;
+}
+.las.la-comment-dots:before {
+        content: "\f56d";
+}
+.la-comments:before {
+	content: "\f56d";
+    color:#fff;
+    background-color: #20f!important;
+    border-radius:30px;
+    padding:10px!important;
+    border: #b7b7b7 1px solid!important;
+}
+.notification {
+    display: inline-block!important;
+    color: #fff;
+    background-color: #fff!important;
+    
 }
 
-.container_holder_video {
-    width:100%!important;
-    height:100%!important;
-    max-height: 100%!important;
-    }
+#chatbutton:hover {
+    border-color:#000000!important;
+	background-color:#121314!important;
+	opacity: 1!important;
+	scale: 100%!important;
+    padding:10px!important;
+}
+.pulsate {
+    box-shadow: 0 0 0 0 rgba(14, 19, 26, 1);
+    transform: scale(1);
+    animation: pulse 1s 5;
+}
+#mutevideobutton {
+	display:none!important;
+}
 
+#mutebutton {
+	display:none!important;
+}
+/*settings button color change*/
+.brown {
+    background-color: #20f!important;
+	}
+button:hover {
+	background-color: #20f!important;
+}
+
+/*	hide fullscreen icons	*/
+.fullwindowButton {
+    display: none !important;
+}
+.fullwindowButtonimg {
+    display: none !important;
+}
+
+/*	hide right click context menu	*/
+.context-menu--active {
+    display: none !important;
+}
+
+/*	customize user preview and display including signal and mute icons	*/
 .holder {
-    position: relative!important;
-    left:unset!important;
-    top:unset!important;
-    
-    width:100%!important;
-    height:calc(100% - 10px)!important;
-    height:calc(100% - 10px)!important;
-    margin-top: 10px;
-    padding-bottom: 10px;
-    
-    }
-.tile {
-    max-height: 100%!important;
+	position: relative!important;
+	width: 80px!important;
+	height: 80px!important;
+	object-fit: cover;
+	overflow: visible;
+	display: inline-block;
+	align-items: center;
+	justify-content: center;
+	margin: 0;
+	border-radius: 50px!important;
+	border-width: 2px!important;
+	border-color: grey!important;
+	border-style: solid;
+	top:4px!important;
+	left:9px!important;
+
 }
+.container_holder_video {	
+	display:block!important;
+	position:relative!important;
+	width:100px!important;
+	left:calc(100% - 102px)!important;
+	height:110px!important;
+	margin-top:2px!important;
+	top: -2px!important;
+	transition: opacity 20ms!important;
+	opacity:0.6;
+	border-radius:10px!important;
+	border-width: 1px!important;
+	border-color: #80808000!important;
+	border-style: solid;
+
+}
+.container_holder_video:hover {
+	background-color: #ffffff0f!important;
+	border-radius:10px!important;
+	opacity:1;
+	border-width: 1px!important;
+	border-color: #80808054!important;
+	border-style: solid;
+	}
+video {
+	transition: opacity .25s ease-in-out;
+	-moz-transition: opacity .25s ease-in-out;
+	-webkit-transition: opacity .25s ease-in-out;
+	pointer-events: auto;
+	background-color: transparent;
+	/* border: 10px; */
+	padding:0px;
+	margin: 0px;
+	height: 0px;
+	user-select:none;
+	overflow:hidden!important;
+	border-radius:100px!important;
+	-webkit-user-select: none; /* Chrome/Safari */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+ */
+	-webkit-tap-highlight-color:transparent;
+	outline-style:none;
+	border-style:solid!important;
+	background-size: 100px;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.video-label{
+	display:block!important;
+	position: absolute!important;
+	left:-12!important;
+	font: 14px Arial!important; 
+	font-weight: 100!important; 
+	width:100!important;
+	text-align: center!important;
+	top:82px!important;
+	background:#00000000!important;
+	padding-top:0px!important;
+	white-space: nowrap;
+	opacity:1;
+}
+.video-mute-state {
+scale:1.3;
+    top: 2;
+    right: 2;
+    position: absolute;
+    color: #e0e0e0;
+    border-radius: 20px;
+	border:1px;
+	border-style:solid;
+    background-color: #840000;
+    padding: 2px 2px 2px 2px;
+    z-index: 2;
+	box-shadow: 0px 0px 10px rgb(0 0 0);
+}
+.video-meter-2{
+	padding:0;
+	display:block;
+	width:100%;
+	height:100%;
+	min-width:10px;
+	min-height:10px;
+	top: 0;
+	right: 0;
+	background-color:unset;
+	background-image: radial-gradient(#ffffff00 0%, #ffffff 100%);
+	position:absolute;
+	border-radius: 50px;
+	pointer-events:none;
+	border: 1px #757575 solid;
+	z-Index: 2;
+	transition-property: opacity;
+	transition-duration: 0.5s;
+
+}
+.signal-meter{
+	width: 26px;
+	height: 26px;
+	position: absolute;
+	left: 0px;
+	padding:2px;
+	top: 62px;
+	border-radius: 50px;
+	pointer-events:none;
+	border: 1px #00555e solid;
+	background-color: #000000;
+	font-size: 20px;
+	color:#3d3d3d!important;
+	overflow:hidden;
+	z-index: 5;
+	cursor: help;
+}
+
+/*	customize setting menu flyout	*/
+#advancedOptionsGeneral {
+	display:none!important;
+}
+#popupSelector_user_settings {
+	display:none!important;
+}
+#canvas {
+		border-radius:0px!important;	
+}
+#popupSelector {
+	-webkit-backdrop-filter: blur(15px);
+	backdrop-filter: blur(10px);
+	background:#dcdcdc9c!important;
+	z-index:996!important;
+	/* width: 450px!important; */
+	padding:0 10 0 20px;
+	box-shadow: 0px 0px 20px #00000082;
+	overflow: auto;
+}
+.toggleSettings {
+	margin-left: 0px;
+	margin-top: 0px;
+	Width: 200px;
+	height: 40px;
+	background-color: gainsboro!important;
+	border: 0px;
+	color: #000000!important;
+	text-align: center;
+	text-decoration: none;
+	border-radius:10px;
+	font: 14px Arial;
+	font-weight: regular!
+}
+.toggleSettings:hover {
+	background-color: #6633ff!important;
+	color: white!important;
+}
+i.las.la-chevron-right {
+	display:none!important;
+}
+.title { 
+	margin:0 0 10 0;
+}
+#videoMenu3 {
+	border-radius:10px!important;
+	background-color:gainsboro!important;
+	border:0px!important;
+	color: #000000!important;
+}
+#videoSource3 {
+	width:415px;
+	background-color:white;
+}
+#audioSource3 {
+	background-color:white!important;
+}
+#outputSource3 {
+	background-color:white!important;
+	width:100%;
+}
+#headphonesDiv3 {
+	border-radius:10px!important;
+	background-color:gainsboro!important;
+	border:0px!important;
+	color: #000000!important;
+}
+#audioMenu2 {
+	border-radius:10px!important;
+	background-color:gainsboro!important;
+	border:0px!important;
+	color: #000000!important;
+}
+.testtonebutton {
+	FONT-WEIGHT: 400;
+    position: relative;
+    padding: 2px 10px 2px 10px !important;
+    margin: 10 12 0 10px!important;
+    border-radius: 5px!important;
+    top: -1px!important;
+	color:black!important;
+	background-color:gainsboro!important;
+}
+.testtonebutton:hover{
+	background-color: #6633ff!important;
+	color: white!important;
+}
+
+/*special to hide main feed in users list*/
+:is(div) :has([data-sid^=Main_Stream]){
+	display:none!important;
+}
+
+/*chat or files popup box*/
+#chatModule {
+    border-radius: 10px;
+    background-color: #2a2a2a;
+    box-shadow: 0px 0px 20px 0px black;
+    z-index: 5;
+    top: 10px !important;
+    left: 10px !important;
+    bottom: auto;
+    overflow: hidden;
+}
+
+.chat-header {
+    padding: 10px;
+    background-color: #2a2a2a;
+    color: #2a2a2a!important;
+    border-radius:10px;
+    justify-content: space-between;
+    align-items: center;
+    cursor: move;
+    color: white;
+}
+
+.chat-input-area {
+    display: none;
+}
+#popOutChat {
+	display:none;
+}
+
+#closeChat {
+    cursor: pointer;
+    text-align: center;
+    text-transform: uppercase;
+    text-size-adjust:20%;
+    font-weight: 900!important;
+    color: #646464;
+    margin: 0px;
+    cursor: pointer;
+    padding: 4px 7.5px;
+    background-color: black;
+    border-radius: 50%;
+    border: solid 2px #646464;
+}
+
+#chatNotification {
+    display:none!important;
+    background-color: #fff!important;
+}
+
+
+#chatBody{
+	position:relative;
+	top:0px;
+	padding: 0px;
+	border-radius: 10px;
+	overflow-y: auto;
+	overflow-wrap: anywhere;
+}
+.inMessage {
+	background-color: #dcdcdca3 !important;
+	color: #000;
+	border-radius: 10px;
+	padding: 10px;
+	margin: 10px 5px;	
+}
+
+[data-button-type="clear"] {
+  display:none;
+}
+
+[data-button-type="download"] {
+	position:relative;
+	left:-100px;
+	top:0px;
+	border-radius:10px;
+	font-size:16px;
+	font-weight: bold; 
+    padding:3 10 3 10px;
+    margin: 5 5 0 100px;
+}
+
