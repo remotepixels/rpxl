@@ -68,17 +68,21 @@
 
 /*	main control bar custimisations	*/
 #subControlButtons {
-	display: inline-flex!important;
+	/* display: none; */
+	scale: 1.25;
 	position: fixed!important;
-	top: calc(100% - 105px)!important;
-	left: calc(100% - 105px)!important;
-	height: 100px!important;
-	width: 100px!important;
+	top: calc(100% - 80px)!important;
+	left: calc(100% - 80px)!important;
+	height: 40px!important;
+	width: 40px!important;
 	min-width: 30px!important;
 	min-height: 30px!important;
+	border-radius: 50px;
+	border: 0px;
 	cursor: default!important;
 	box-shadow: 0 0!important;
 	transform: translate(0px,0px)!important;
+
 }
 #subControlButtons div {
 	width: 45px!important;
@@ -178,11 +182,11 @@ button:hover {
 /*	customize user preview and display including signal and mute icons	*/
 .holder {
 	position: relative!important;
-	width: 80px!important;
-	height: 80px!important;
+	/* width: 80px!important; */
+	/* height: 80px!important; */
 	object-fit: cover;
 	overflow: visible;
-	display: inline-block;
+	/* display: inline-block; */
 	align-items: center;
 	justify-content: center;
 	margin: 0;
@@ -190,34 +194,35 @@ button:hover {
 	border-width: 2px!important;
 	border-color: grey!important;
 	border-style: solid;
-	top:4px!important;
-	left:9px!important;
+	/* top: 4px!important; */
+	/* left: 9px!important; */
 
 }
-.container_holder_video {	
-	display:block!important;
-	position:relative!important;
-	width:100px!important;
-	left:calc(100% - 102px)!important;
-	height:110px!important;
-	margin-top:2px!important;
-	top: -2px!important;
-	transition: opacity 20ms!important;
-	opacity:0.6;
-	border-radius:10px!important;
-	border-width: 1px!important;
-	border-color: #80808000!important;
-	border-style: solid;
+.container_holder_video {
+	/* display: block!important; */
+	/* position: relative!important; */
+	width: 90px!important;
+	left: calc(100% - 105px)!important;
+	height: 90px!important;
+	margin-top: 2px!important;
+	top: 5px!important;
+	/* transition: opacity 20ms!important; */
+	/* opacity: 0.6; */
+	border-radius: 100px!important;
+	/* border-width: 1px!important; */
+	/* border-color: #80808000!important; */
+	/* border-style: solid; */
 
 }
 .container_holder_video:hover {
-	background-color: #ffffff0f!important;
-	border-radius:10px!important;
-	opacity:1;
-	border-width: 1px!important;
-	border-color: #80808054!important;
-	border-style: solid;
-	}
+	/* background-color: #ffffff0f!important; */
+	/* border-radius: 10px!important; */
+	/* opacity: 1; */
+	/* border-width: 1px!important; */
+	/* border-color: #80808054!important; */
+	/* border-style: solid; */
+
+}
 video {
 	transition: opacity .25s ease-in-out;
 	-moz-transition: opacity .25s ease-in-out;
