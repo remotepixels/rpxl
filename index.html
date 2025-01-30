@@ -487,7 +487,7 @@ function validateStageName(){
 		document.getElementById("footer").style.display = "none";
 
 		//if we are on desktop, load the chat and main frame
-		if (mobile == 1) {
+		if (mobile == 0) {
 			document.getElementById("subNav").style.display = "block";
 			document.getElementById("clientLink").style.display = "block";
 			document.getElementById("sessionLink").style.display = "inline-block";
@@ -574,13 +574,14 @@ function validateStageName(){
 			
 			document.getElementById("chatIFrame").allow = "autoplay; camera; microphone;";
 			document.getElementById("chatIFrame").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
-				"&nodirectoraudio"+ //do play show in user area
+				"&broadcast"+ 	//show only directors feed
+				"&nodirectoraudio"+ 
 				"&nodirectorvideo"+
 				"&label="+encodedUserName+ //sets label to guests name they entered earlier
 				"&mobile"+	//sets for mobile devices (no video etc)
 				"&webcam"+	//disables screenshare use &webcam2 to show share your camera screen
-				"&vdo=0"+	//auto select camera
-				"&rounded=10"+	//makes videos round
+				"&vdo=0"+	//remove camera option, microphone only
+				//"&rounded=10"+	//makes videos round
 				"&safemode"+	//loads camera in simplist way
 				"&hh"+	//hide vdo ninja header
 				"&ee"+	//easy exit
@@ -598,6 +599,7 @@ function validateStageName(){
 				"&js=https%3A%2F%2Frpxl.app%2Fscripts%2Fninjamobile.js"+
 				"&css=https%3A%2F%2Frpxl.app%2Fstyles%2Fninjamobile.css"+	//load style sheet
 			""; 
+
 			//set sources for main frame
 			setTimeout(function(){
 			document.getElementById("mainIFrame").allow = "autoplay;";
@@ -607,7 +609,7 @@ function validateStageName(){
 				"&cleanoutput"+	//remove all interface bits
 				"&hideplaybutton"+	//hides big play button if autoplay is disabled
 				"&cv"+	//clean viewer
-				"&videobitrate=50000"+ //server limited but hey, ask for as much as possible
+				"&videobitrate=5000"+ //server limited but hey, ask for as much as possible
 				"&transparent"+	//makes bg transparent
 				"&preloadbitrate=-1"+	//preloads the video, might not be necessary as only use scene 1
 				"&waitimage=https%3A%2F%2Frpxl.app%2Fimages%2FnosignalHD.png"+
