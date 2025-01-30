@@ -30,8 +30,8 @@
 </head>
     
 <body>
-<div id="navbar" style="navbar">
-    <a href="#create">Create a room</a>
+<div id="navbar" class="navbar">
+    <a href="#create">Create a session</a>
     <p></p>
     <a href="#start">Start the stream</a>
     <p></p>
@@ -41,9 +41,11 @@
     <p></p>
     <a href="#chat">Chat & file uploads</a>
     <p></p>
-    <a href="#presenting">Presenting</a>
+    <a href="#present">Presenting</a>
     <p></p>
     <a href="#guests">Guests</a>
+    <p></p>
+    <a href="#adv">Advanced options</a>
     <p></p>
     <a href="#misc">Misc</a>
 </div>
@@ -51,13 +53,13 @@
 <div id="create" class="content">
     <h1>General Information</h1>
     <p>
-        This application has been tested on Chrome, Firefox and Safari, we however recommend Chrome as this appears to be the most stable.
+        This application has been tested on Chrome, Firefox and Safari, we recommend Chrome as this appears to be the most stable.
     </p>
     <p>
         The streaming page is only for desktop browsers, mobile browsers and ipads will not work. However streams can be viewed on most desktop and mobile devices.
     </p>
     <p>
-        This application can only create streams from sources available to your browser, such as a webcam, display capture device that presents itself as a webcam, or a virtual camera source such as NDI or OBS Virtual camera.
+        This application can only create streams from sources available to your browser, such as a webcam, display capture device, or a virtual camera source such as <a href=https://ndi.video/ target="_blank">NDI</a> or <a href="https://obsproject.com" target="_blank">OBS</a> Virtual camera.
     </p>
     <p>
         You must allow your browser to access your webcam and microphone to use this application, see your browser settings if you are not prompted after creating the room.
@@ -65,11 +67,11 @@
 </div>
 
 <div id="create" class="content">
-    <h1>Creating a room</h1>
+    <h1>Creating a session</h1>
     <p></p>
     <img src="images/help-1-create.png" alt="Create Stream">
     <p>
-        When you first access the stream page you have some basic options for creating the room.
+        When you first access the stream page you have some basic options for creating the session.
     </p>
     <span class="point">1</span>
     <span class="h2">Room ID</span>
@@ -95,36 +97,36 @@
             These are the maximum settings that will be allowed, if users have a poor connection or your machine is overloaded the stream will adjust accordingly.
         </p>
         <p class="pointItem">
-            As all encoding is done on your host machine be aware that more clients can lead to more processing on your side. If the stream starts to lose sync or frames are being dropped then try a lower setting.
+            As all encoding is done on your host machine, be aware that more clients can lead to more processing on your side. If the stream starts to lose sync or frames are being dropped then try a lower setting.
         </p>
         <p class="pointItem">
             These settings can be adjusted during the session.
         </p>
         <p></p>
         <p class="pointItem">
-            Resolutions currently supported are 1080p and 720p, 4k is not supported at this time.
+            Resolutions currently supported are 1080p and 720p, 4k is available in the advanced setting menu but is not recommended.
         </p>
         <p class="pointItem">
-            Quality is the bitrate of the stream, higher quality will require more bandwidth and processing power.
+            Quality is the bitrate of the stream, higher quality will provide smoother playback but require more bandwidth and processing power.
         </p>
         <p class="pointItem">
             Settings are equaivalent to High, 20Mbps, Medium, 10Mbps, Low, 5Mbps.
         </p>
     <p></p>
-    Clicking Create will generate the room and take you to the main screen.
+    Clicking Create will setup the session and take you to the main screen where you can start the stream.
     <p></p>
 </div>
 
 <div id="start" class="content">
     <h1>Starting the main stream</h1>
     <img src="images/help-2-start.png" alt="Start Stream">
-    <p>Once you have created your room you will then be presented with the main interface of the application.</p>
+    <p>Once you have created your session you will then be presented with the main interface of the application.</p>
     <p>Here you will be able to change stream settings, view and control clients and send chat messages or files.</p>
     <p>The main interface.</p>
     <span class="point">1</span>
     <span class="h2">Client link</span>
         <p class="pointItem">
-            This is the ID of the room you created earlier.
+            This is the ID of the session you created earlier.
         </p>
         <p class="pointItem">
             Clients who recieve this link will be asked to join with their camera and microphone too view the stream and will be able to chat to other participants in the room.
@@ -151,7 +153,7 @@
     <span class="point">3</span>
     <span class="h2">Session duration</span>
             <p class="pointItem">
-            Shows the time since the room was created.
+            Shows the time since the session was started.
         </p>
         <p></p>
     <span class="point">4</span>
@@ -177,7 +179,7 @@
     <h1>Main Interface</h1>
     <img src="images/help-3-main.png" alt="Main interface">
     <p>Once you have created the main stream, the full toolbar will appear as well as the viewer (7).</p>
-    <span class="point">6</span>
+    <span class="point">1</span>
     <span class="h2">Main toolbar</span>
     <p class="pointItem">
             This is the main toolbar for the stream for the room. 
@@ -206,17 +208,12 @@
         <p></p>
         <img src="images/help-icon-settings.png" alt="Settings Icon" class="navbarItem">
         <span class="navbarItemDesc">
-            Allows you to change the settings of the main stream.<br>
+            Allows you to change the most common settings for main stream.<br>
             See the <a href="#settings">settings</a> section for more details.
         </span>
         <p></p>
-        <img src="images/help-icon-stop.png" alt="Stop Icon" class="navbarItem">
-        <span class="navbarItemDesc">
-            This will stop the main stream for all participants in the room.<br>
-            You can restart the main stream but this has been known to cause issues with some clients.
-        </span>
         <p></p>
-    <span class="point">7</span>
+    <span class="point">2</span>
     <span class="h2">Viewer</span>
     <p class="pointItem">
         Preview of the main stream, it is always highlighted in red.
@@ -225,7 +222,7 @@
         The options are slightly different than those for guests.
     </p>
     <p class="pointItem">
-        Audio and video settings buttons, these will bring up more detailed options than the settings on the main toolbar.<br>
+        Audio and video settings buttons, these will bring up advanced settings.<br>
     </p>
     <p></p>
     See <a href="#settings">settings</a> for details on how to configure the main stream.
@@ -236,56 +233,46 @@
     <h1>Main stream settings</h1>
     <img src="images/help-4-settings.png" alt="Settings">
     <p>Clicking the gear icon on the main toolbar or clicking the audio and video settings buttons bellow the preview will bring up the settings pane for the main stream.</p>
-    <ol>
-        <li value="8"><h2>Video source</h2>
-            <p>
-                Selects the video source for the main stream.<br>
-                Normally this would be a capture device, such as a HDMI to USB adapter, a virtual NDI Camera or a direct stream for your software if supported.<br>
-                We recommend using NDI tools, as it's free and seems to offer the best color fidilety. Some of the cheaper HDMI to USB capture devices can sometimes apply a second color LUT over your footage, changing colour balance and saturation.<br>
-                What you use is up to you but it must present itself to the browser as a webcam source, so a modern capture card such as those from Blackmagic or AJA will not work.
-            </p>
-        </li>
-        <li><h2>Audio Source(s)</h2>
-            <p>
-                Selects the audio source for the main stream.<br>
-                Normally this would be a capture device, such as a HDMI to USB adapter, a virtual NDI Camera or a direct stream for your software if supported.<br>
-                You can select more than one source by SHIFT clicking on the sources.<br>
-                This will allow you to add you microphone to an NDI source and the application will mix them together.<br>
-                This is useful if you want to chat to clients but not be visible as a participant, however you will not be able to control the volume of the main stram and your microphone separately.<br>
-                A better solution is to join as a presenter as discussed later.
-            </p>
-            <p>
-                The audio output source allows you to select a different output source if you wish, though the system default is used.
-            </p>
-            <p>
-                <h3>Additional Video Options</h3>
-                Other options that may be available are Aspect ratio for the streams, width and height in pixels and frame rate.<br>
-                We recommend using 16:9 aspect ratio, 1920x1080 or 1280x720 resolution and 30 frames per second for compatibility, but other formats are supported.
-            </p>
-            <p>
-                <h3>Additional Audio Options</h3>
-                Other options that may be available under audio are:<br>
-                A master gain control to adjust the volume of the main stream.<br>
-                Noise gating, this will remove any audio below a certain threshold, useful for removing background noise.<br>
-                Auto gain control, this will adjust the volume of the main stream automatically, useful for when the presenter is moving around.<br>
-                Echo cancellation, this will remove any audio that is picked up by the microphone that is also being played through the speakers, useful for preventing feedback.<br>
-                Latency, this will adjust the delay between the audio and video, useful for when the audio is out of sync with the video.<br>
-                noise suppression, this will remove any background noise from the main stream, useful for removing background noise.<br>
-                Sample rate, this will adjust the sample rate of the main stream, useful for when the audio is out of sync with the video.<br>
-                Sample sizes, this will adjust the sample size of the main stream, useful for when the audio is out of sync with the video.<br>
-                Video isolation, this will remove any video from the main stream, useful for removing background noise.
-            </p>
-            <p>
-                Most of these settings are set to their default values and should not need to be adjusted, but if you are having issues with the stream then feel free to adjust them as needed.
-            </p>
-        </li>
-    </ol>
+    <span class="point">1</span>
+    <span class="h2">Video source</span>
+    <p class="pointItem">
+        Selects the video source for the main stream.
+    </p>
+    <p class="pointItem">
+        Normally this would be a capture device, such as a HDMI to USB adapter, a virtual NDI Camera or a direct stream for your software if supported.
+    </p>
+    <p class="pointItem">
+        We recommend using NDI tools, as it's free and seems to offer the best color fidilety. Some of the cheaper HDMI to USB capture devices can sometimes apply a second color LUT over your footage, changing colour balance and saturation.    
+    </p>
+    <p class="pointItem">
+        What you use is up to you but it must present itself to the browser as a webcam source, so a modern capture card such as those from Blackmagic or AJA will not work.   
+    </p>
+    <p></p>
+    <span class="point"2>2</span>
+    <span class="h2">Audio Source(s)</span>
+    <p class="pointItem">
+        Selects the audio source for the main stream.    
+    </p>
+    <p class="pointItem">
+        You can select more than one source by SHIFT clicking on the sources.    
+    </p>
+    <p class="pointItem">
+        This will allow you to add you microphone to an NDI source and the application will mix them together.    
+    </p>
+    <p class="pointItem">
+        This is useful if you want to chat to clients but not be visible as a participant, however you will not be able to control the volume of the main stram and your microphone separately.    
+    </p>
+    <p class="pointItem">
+        A better solution is to join as a presenter as discussed later.
+    </p>
+    <p class="pointItem">
+        The audio output source allows you to select a different output source if you wish, though the system default is used.
+    </p>
     <p></p>
 </div>
 
 <div id="chat" class="content">
     <h1>Chat and file uploads</h1>
-    <img src="images/help-5-chat.png" alt="Chat and file">
     <p>
         As the creator of the stream you can also send chat messages or files to any clients in the room.<br>
         Clicking the file or chat icon will bring up the chat window.
@@ -296,36 +283,38 @@
     <p>
         The chat window.
     </p>
-    <ol>
-        <li value="a"><h2>Close the chat window</h2>
-            <p>
+    <img src="images/help-5-chat.png" alt="Chat and file">
+    <span class="point">1</span>
+    <span class="h2">Close the chat window</span>
+    <p class="pointItem">
                Closes the chat window, you can also click and drag the top bar to reposition the window.
             </p>
-        </li>
-        <li><h2>Text input area</h2>
-            <p>
+            <p></p>
+    <span class="point">2</span>
+    <span class="h2">Text input area</span>
+    <p class="pointItem">
                 Type messages here to send to all participants in the room. You can send links to sites for reviews or other information.
             </p>
-            <p>
+            <p class="pointItem">
                 To send a message to an individual instead, use the message button under their preview. This will send a private message though they will still not be a ble to reply.
             </p>
-            <p>
+            <p class="pointItem">
                 Chats are not saved or recorded, once a session ends all messages are deleted and are not recoverable.
             </p>
-        </li>
-        <li><h2>File upload button</h2>
-            <p>
+    <span class="point">3</span>
+    <span class="h2">File upload button</span>
+    <p class="pointItem">
                 This will open the file selector allowing you to choose files to upload to the room.
             </p>
-            <p>
-                Note that a separate data stream will be created for each participant in the room as they download it, every time the download it.<br>
+            <p class="pointItem">
+                Note that a separate data stream will be created for each participant in the room as they download it, every time the download it.
+            </p> 
+            <p class="pointItem">
                 This can lead to overwhelming bandwidth usage and be cause major local drive usage so use with care.
             </p>
-            <p>
+            <p class="pointItem">
                 Links to files are ephemeral, when the stream is ended all links to files will be deleted and are not recoverable.
             </p>
-        </li>
-    </ol>
     <p></p>
 </div>
 
@@ -334,70 +323,126 @@
     <h1>Presenting</h1>
     <img src="images/help-6-present.png" alt="Presenting">
     <p>
-        To be visible to clients as a presenter you need to join the room as a guest.<br>
-        If you have offloaded the stream to a separate machine you can simply use the client link and join that way.<br>
+        To be visible to clients as a presenter you need to join the room as a guest.
+    </p>
+    <p>
+        If you have offloaded the stream to a separate machine you can simply use the client link and join that way.
+    </p>
+    <p>
         However, if you are streaming localy you will want to join as a presenter.
     </p>
-    <ol>
-        <li value="4"><h2>Presenter window</h2>
-            <p>
-               The presenter window allows you to join the chat with your webcam and microphone separate from the main stream.
-            </p>
-            <p>
-                You could open another browser or tab and join that way but this is a simpler solution that allows you to remain in the main contro room.
-            </p>
-        </li>
-        <li value="D"><h2>Presenter options</h2>
-            <p>
-                Allow you to select a separate video and audio source on your machine to present from.
-            </p>
-            <p>
-                Be careful not to select the same source as the main stream as this will cause a conflict and often stop the stream as the browser tries to connect twice to a device.
-            </p>
-            <p>
-                Also do not add your microphone to the main stream and as a presenter as this will cause feddback and echo issues
-            </p>
-        </li>
-    </ol>
+    <span class="point">1</span>
+    <span class="h2">Presenter window</span>
+    <p class="pointItem">
+        The presenter window allows you to join the chat with your webcam and microphone separate from the main stream.
+    </p>
+    <p class="pointItem">
+        You could open another browser or tab and join that way but this is a simpler solution that allows you to remain in the main contro room.
+    </p>
+    <span class="point">2</span>
+    <span class="h2">Presenter options</span>
+    <p class="pointItem">
+        Allow you to select a separate video and audio source on your machine to present from.
+    </p>
+    <p class="pointItem">
+        Be careful not to select the same source as the main stream as this will cause a conflict and often stop the stream as the browser tries to connect twice to a device.
+    </p>
+    <p class="pointItem">
+        Also do not add your microphone to the main stream and as a presenter as this will cause feddback and echo issues
+    </p>
+    <p></p>
     <p>
         Once you have chosen your settings a preview will appear and a small audio meter will be active, you can then click start and you will be added to the room.<br>
     </p>
     <p>
         Clicking the presenter icon will close the window but the webcam and microphone will remain active. You can then mute yourself or hide yourself using the controls in the main room.
     </p>
+    <p></p>
 </div>
 
 <div id="guests" class="content">
     <h1>Guests</h1>
     <img src="images/help-7-guests.png" alt="Guests">
     <p>
-        Guests will appear in the main interface besides the main stream and are not highlghted in red.
+        Guests will appear in the main interface besides the main stream. Guests are not highlghted in red.
     </p>
-    <ol>
-        <li value="E"><h2>Guest previews</h2>
-            <p>
-               A preview of the guest will appear if the have turned on their webcam.<br>
-            </p>
-            <p>
-                A green audio meter will appear next to each guest representing the volume of their microphone.<br>
-                You can lower or raise guests microphones by using the slider below their preview, this is handy for guests who are to soft or to hot in the chat.<br>
-                You can mute individual guests by cliking the mute button<br>
-            </p>
-            <p>
-                You can send messages to an individual guest by clicking the message button.<br>
-                Note that they can not respond at this time.
-            </p>
-            <p>
-                The hangup button will disconnect the guest from the room, but they will be able to rejoin using the same link.
-            </p>
-            <p>
-                The audio settings button allows you to select an alternate microphone or input source for guests to help them connect, they will be prompted that you have requested a change of audio source.
-            </p>
-            <p>
-                Similarly the video settings button allows you to select an alternate video source for guests to help them connect, they will be prompted that you have requested a change of audio source.
-            </p>
-        </li>
-    </ol>
+    <span class="point">1</span>
+    <span class="h2">Guest previews</span>
+    <p class="pointItem">
+        A preview of the guest will appear if the have turned on their webcam.
+    </p>
+    <p class="pointItem">
+        A green audio meter will appear next to each guest representing the volume of their microphone.
+    </p>
+    <p class="pointItem">
+        You can lower or raise guests microphones by using the slider below their preview, this is handy for guests who are to soft or to hot in the chat.
+    </p>
+    <p class="pointItem">
+        You can mute individual guests by cliking the mute button
+    </p>
+    <p class="pointItem">
+        You can send messages to an individual guest by clicking the message button.
+    </p>
+    <p class="pointItem">
+        Note that they can not respond at this time.
+    </p>
+    <p class="pointItem">
+        The hangup button will disconnect the guest from the room, but they will be able to rejoin using the same link.
+    </p>
+    <p class="pointItem">
+        The audio settings button allows you to select an alternate microphone or input source for guests to help them connect, they will be prompted that you have requested a change of audio source.
+    </p>
+    <p class="pointItem">
+        Similarly the video settings button allows you to select an alternate video source for guests to help them connect, they will be prompted that you have requested a change of audio source.
+    </p>
+    <p>
+        Should a guest join without a camera they will appear as a blank preview, you can still chat with them and they can still see the main stream.
+    </p>
+    <p></p>
+</div>
+
+<div id="adv" class="content" style="height:600px;">
+    <h1>Advanced options</h1>
+    <p></p>
+    <p>
+        When clicking the audio or video button under the main stram advanced options are available.
+    </p>
+    <span><img src="images/help-adv-video.png" width="300" height="607"></span>
+    <span style="position:relative; display:block; width:500px; top:-680px; left:300px;">
+        <h2>Advanced Video Options</h2>
+    <p>
+        Advanced options available are Aspect ratio. Presets include 16x9, a common format for video and 9x16, a common format for mobile video.
+    </p>
+    <p>
+        Width and height in pixels of the stream.
+    </p>
+    <p>
+        Frame rate, this will adjust the frames per second of the main stream.
+    </p>
+        We recommend using 16:9 aspect ratio, 1920x1080 or 1280x720 resolution and 30 or 25 frames per second for compatibility, but other formats are supported.
+    </p>
+    </span>
+</div>
+
+<div id="adv" class="content" style="height:600px;">
+    <span><img src="images/help-adv-audio.png" width="300" height="607"></span>
+    <span style="position:relative; display:block; width:500px; top:-680px; left:300px;">
+        <h2>Advanced Audio Options</h2>
+    <p>
+        A master gain control to adjust the volume of the main stream.
+    </p>
+    <p>
+        Noise gating, this will remove any audio below a certain threshold, useful for removing background noise.
+    </p>
+    <p>
+        Echo cancellation, this will remove any audio that is picked up by the microphone that is also being played through the speakers, useful for preventing feedback.
+    </p>
+        Sample rate, this will adjust the sample rate of the main stream, useful for when the audio is out of sync with the video.
+    </p>
+    <p>
+        Most of these settings are set to their default values and should not need to be adjusted, but if you are having issues with the stream then feel free to adjust them as needed.
+    </p>
+    </span>
 </div>
 
 <div id="misc" class="content">
@@ -424,3 +469,4 @@
 </div>
 </body>
 </html>
+

@@ -44,6 +44,13 @@
 	<iframe title="directorroom" class="directorroom" name="directorroom" id="directorroom" allowfullscreen=false style="width:100%;"></iframe>
 	<iframe title="addWebcamWindow" class="addWebcamWindow" name="addWebcamWindow" id="addWebcamWindow" allowfullscreen=false></iframe>
 
+	<!--help icon-->
+	<a href="https://rpxl.app/help.html" target="_blank">
+		<div class="button" style="position: absolute; bottom: 10px; left:10px; z-index: 100; width:40px; border-radius: 100px; opacity:0.5; text-align: center; justify-content: center; color: black; align-content: center;">
+				?
+		</div>
+	</a>
+
 	<!--darken screen for popups-->
 	<div class="blackout" id="blackout" style="display: block;">			
 		<!--popup window, draws the popup window-->
@@ -52,7 +59,7 @@
 			<!--popup window content : session setting--> 
 			<div id="sessionIDpopupContent">	
 				<div class="popupTitle" style="width:445px;">
-					Create live stream ID:
+					Create live session:
 					<p></p>
 				</div>
 				<form id="sessionIDCode" name="sessionIDCode" onsubmit="return validateSessionID()" method="post" required="">

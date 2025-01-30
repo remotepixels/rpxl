@@ -63,10 +63,7 @@ img {
     margin-bottom: 15px;
 }
 .navbarItem {
-    /* position: relative; */
-    /* display: inline-flex; */
     left: 0px;
-    /* top: 0px; */
     width: 50px;
     height: 50px;
     padding-bottom: unset;
