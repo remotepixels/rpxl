@@ -302,3 +302,24 @@ i.las.la-chevron-right {
 	left: 5px;
 	top: -2px;
 }
+
+/*viewer controls for director*/
+[data-action-type="recorder-local"] {
+	display:none!important;
+}
+
+[data-action-type="addToScene"] {
+	display:none!important;
+}
+
+[data-action-type="solo-video"] {
+	display:none!important;
+}
+
+[data-action-type="mute-scene"] {
+	display:none!important;
+}
+
+[id="hangupbutton2"] {
+	display:none!important;
+}
