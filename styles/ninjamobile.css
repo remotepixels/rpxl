@@ -276,7 +276,10 @@ i.las.la-chevron-right {
 }
 
 /*main video feed*/
-
+/*special to hide main feed in users list*/
+:is(div) :has([data-sid^=Main_Stream]){
+	display:none!important;
+}
 .container_holder_video {
     width:100%!important;
     height:100%!important;

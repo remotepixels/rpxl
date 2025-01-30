@@ -54,9 +54,8 @@
 			</div>
 	</div>   
 	
-	<div id="hideChat" style="position: absolute; top: calc(100% - 20px); left:calc(100% - 20px); width:0px; height:0px; display: inline-block; border-bottom: 10px solid white; border-left: 10px solid transparent; border-top: 10px solid transparent; border-right: 10px solid white; z-index: 99; cursor: pointer; opacity:0.3; display: none;">
-
-	</div>
+	<div id="hideChat" style="position: absolute; top: calc(100% - 20px); left:calc(100% - 20px); width:0px; height:0px; border-bottom: 10px solid white; border-left: 10px solid transparent; border-top: 10px solid transparent; border-right: 10px solid white; z-index: 99; cursor: pointer; opacity:0.3; display: none;"></div>
+	
 	<!--load blank iframe, will be replaced with directors room when loged in-->
 	<iframe title="chatIFrame" class="chatIFrame" name="chatIFrame" id="chatIFrame" style="display:none; transition: all 0.2s linear 0s;"></iframe>
 	<iframe title="mainIFrame" class="mainIFrame" name="mainIFrame" id="mainIFrame" style="display:none"></iframe>
@@ -118,13 +117,7 @@ function validateSessionID(){
 		return false;
 		}
 	else {
-		//TV, main stream only
-		//document.getElementById("mainIFrame").allow = "autoplay;camera;microphone;fullscreen;picture-in-picture;display-capture;";
-
 		document.getElementById("popupWindow").style.display="none";
-		//document.getElementById("body").style.backgroundPosition="center";
-		//document.getElementById("body").style.backgroundSize="contain";
-		//document.getElementById("body").style.backgroundImage="url('../images/nosignalHD.png')";
 		
 		document.getElementById("hideChat").style.display="inline-block";
 		document.getElementById("hideChat").addEventListener("click", function() {
