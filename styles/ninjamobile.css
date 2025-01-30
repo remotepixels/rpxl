@@ -275,11 +275,6 @@ i.las.la-chevron-right {
     animation: pulse 1s 5;
 }
 
-/*main video feed*/
-/*special to hide main feed in users list*/
-:is(div) :has([data-sid^=Main_Stream]){
-	display:none!important;
-}
 .container_holder_video {
     width:100%!important;
     height:100%!important;
@@ -301,6 +296,13 @@ i.las.la-chevron-right {
 .tile {
     max-height: 100%!important;
 }
+
+/*main video feed*/
+/*special to hide main feed in users list*/
+:is(div) :has([data-sid^=Main_Stream]){
+	display:none!important;
+}
+
 /*users*/
 #miniTaskBar {
     top:0px;
