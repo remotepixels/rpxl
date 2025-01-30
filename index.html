@@ -497,8 +497,6 @@ function validateStageName(){
 			//set sources for chat frame
 			document.getElementById("chatIFrame").allow = "autoplay; camera; microphone;";
 			document.getElementById("chatIFrame").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
-				//"&exclude=Main_Stream_"+	//do not show the main feed
-				//"&showall"+
 				"&nodirectoraudio"+ //do play show in user area
 				"&nodirectorvideo"+
 				"&label="+encodedUserName+ //sets label to guests name they entered earlier
@@ -509,9 +507,7 @@ function validateStageName(){
 				"&videobitrate=100"+
 				"&vdo=1"+	//auto select camera
 				"&rounded=100"+	//makes videos round
-				//"&mirror=2"+	//mirrors guest videos
 				"&scale=25"+	//scales peoples video to 25%
-				//"&viewwidth=160&viewheight=90"+	//sets incoming video to px size (very low res)
 				"&safemode"+	//loads camera in simplist way
 				"&st=6"+	//show audio only sources as coloured circles with first letter of name
 				"&meterstyle=2"+	//round highlight over person talking
@@ -528,9 +524,7 @@ function validateStageName(){
 				"&disablehotkeys"+	//no hotkeys
 				"&nocontrols"+	//hides video player controls
 				"&showlist=0"+	//show hidden guest list
-				//"&queue"+ 	//guests must be allowed in by director
 				"&animate"+	//videos animate around when people join or leave
-				//"&tips"+
 				"&js=https%3A%2F%2Frpxl.app%2Fscripts%2Fninjachat.js"+
 				"&css=https%3A%2F%2Frpxl.app%2Fstyles%2Fninjachat.css"+	//load style sheet
 			""; 
@@ -639,12 +633,9 @@ function leave () {
 		document.getElementById("subNav").style.display = "none";
 		document.getElementById("clientLink").style.display = "none";
 }
-</script>
 
 
-
-
-
+/*
 //"&cleanoutput"+
 //"&view=Main_Stream_"+sessionFile+ 
 "&broadcast="+ 	//show only directors feed
@@ -683,3 +674,6 @@ function leave () {
 //"&animate"+	//videos animate around when people join or leave
 "&js=https%3A%2F%2Frpxl.app%2Fscripts%2Fninjamobile.js"+
 "&css=https%3A%2F%2Frpxl.app%2Fstyles%2Fninjamobile.css"+	//load style sheet
+
+*/
+</script>
