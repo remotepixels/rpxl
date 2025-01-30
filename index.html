@@ -47,7 +47,7 @@
 	<div id="hideChat" style="position: absolute; top: calc(100% - 40px); left:calc(100% - 40px); width:0px; height:0px; border-bottom: 20px solid white; border-left: 20px solid transparent; border-top: 20px solid transparent; border-right: 20px solid white; z-index: 99; cursor: pointer; opacity:0.3; display: none;"></div>
 
 	<!--frames for chat and live stream-->
-	<iframe title="chatIFrame" class="chatIFrame" name="chatIFrame" id="chatIFrame" style="display:none"></iframe>
+	<iframe title="chatIFrame" class="chatIFrame" name="chatIFrame" id="chatIFrame" style="display:none; transition: all 0.2s linear 0s;"></iframe>
 	<iframe title="mainIFrame" class="mainIFrame" name="mainIFrame" id="mainIFrame" style="display:none"></iframe>
 
     <div id="siteHeader" class="siteHeader">
@@ -487,6 +487,7 @@ function validateStageName(){
 		document.getElementById("footer").style.display = "none";
 
 		//if we are on desktop, load the chat and main frame
+
 		if (mobile == 0) {
 			document.getElementById("subNav").style.display = "block";
 			document.getElementById("clientLink").style.display = "block";
@@ -571,18 +572,35 @@ function validateStageName(){
 			document.getElementById("chatIFrame").style.width="100%";
 			document.getElementById("chatIFrame").style.height="100%";
 			document.getElementById("chatIFrame").style.display="inline-block";
+
+			document.getElementById("chatIFrame").style.display="inline-block";
+			document.getElementById("mainIFrame").style.display="inline-block";
+		
 			
+			//set sources for chat frame
 			document.getElementById("chatIFrame").allow = "autoplay; camera; microphone;";
 			document.getElementById("chatIFrame").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
-				"&broadcast"+ 	//show only directors feed
-				"&nodirectoraudio"+ 
+			"&broadcast"+ 	//show only directors feed
+				//"&exclude=Main_Stream_"+	//do not show the main feed
+				//"&showall"+
+				"&nodirectoraudio"+ //do play show in user area
 				"&nodirectorvideo"+
 				"&label="+encodedUserName+ //sets label to guests name they entered earlier
-				"&mobile"+	//sets for mobile devices (no video etc)
+				//"&showlabels"+	//show the usernames
+				//"&quality=3"+	//set camera quality to lowest possible, about 360p
 				"&webcam"+	//disables screenshare use &webcam2 to show share your camera screen
-				"&vdo=0"+	//remove camera option, microphone only
-				//"&rounded=10"+	//makes videos round
+				"&cover"+	//make video cover space
+				//"&videobitrate=100"+
+				"&vdo=0"+	//auto select camera
+				//"&adevice=Logitech"+	//auto select audio device
+				//"&rounded=100"+	//makes videos round
+				//"&chatbutton=0"+
+				//"&mirror=2"+	//mirrors guest videos
+				//"&scale=25"+	//scales peoples video to 25%
+				//"&viewwidth=160&viewheight=90"+	//sets incoming video to px size (very low res)
 				"&safemode"+	//loads camera in simplist way
+				//"&st=6"+	//show audio only sources as coloured circles with first letter of name
+				//"&meterstyle=2"+	//round highlight over person talking
 				"&hh"+	//hide vdo ninja header
 				"&ee"+	//easy exit
 				"&cv"+	//clean viewer
@@ -596,10 +614,15 @@ function validateStageName(){
 				"&disablehotkeys"+	//no hotkeys
 				"&nocontrols"+	//hides video player controls
 				"&showlist=1"+	//show hidden guest list
-				"&js=https%3A%2F%2Frpxl.app%2Fscripts%2Fninjamobile.js"+
+				"&scale=100"+	//do not scale video
+				"&buffer=500"+	//adds a xms buffer
+				//"&queue"+ 	//guests must be allowed in by director
+				"&animate"+	//videos animate around when people join or leave
+				//"&tips"+
+				//"&js=https%3A%2F%2Frpxl.app%2Fscripts%2Fninjamobile.js"+
 				"&css=https%3A%2F%2Frpxl.app%2Fstyles%2Fninjamobile.css"+	//load style sheet
 			""; 
-
+/*
 			//set sources for main frame
 			setTimeout(function(){
 			document.getElementById("mainIFrame").allow = "autoplay;";
@@ -609,15 +632,15 @@ function validateStageName(){
 				"&cleanoutput"+	//remove all interface bits
 				"&hideplaybutton"+	//hides big play button if autoplay is disabled
 				"&cv"+	//clean viewer
-				"&videobitrate=5000"+ //server limited but hey, ask for as much as possible
+				"&videobitrate=50000"+ //server limited but hey, ask for as much as possible
 				"&transparent"+	//makes bg transparent
 				"&preloadbitrate=-1"+	//preloads the video, might not be necessary as only use scene 1
 				"&waitimage=https%3A%2F%2Frpxl.app%2Fimages%2FnosignalHD.png"+
 				"&buffer=500"+	//adds a xms buffer
 				"&showlist=0"+	//hides the hidden viewr list
 				""; 
-			},1000);
-    	}	
+			},1000);*/
+		}
 		return false;
 	}
 }

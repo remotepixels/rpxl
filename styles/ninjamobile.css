@@ -274,15 +274,26 @@ i.las.la-chevron-right {
     transform: scale(1);
     animation: pulse 1s 5;
 }
-
+/*	customize user preview and display including signal and mute icons	*/
 .container_holder_video {
-display:none!important;
+        width: 100%!important;
+        height: 100%!important;
+
     }
 
-/*main video feed*/
-/*special to hide main feed in users list*/
-:is(div) :has([data-sid^=Main_Stream]){
-	display:none!important;
+.holder {
+position: relative!important;
+left: unset!important;
+width: calc(100vh * 1.777)!important;
+margin-left: auto;
+margin-right: auto;
+height: calc(100% - 10px)!important;
+margin-top: 10px;
+padding-bottom: 10px;
+    
+    }
+.tile {
+    max-height: 100%!important;
 }
 
 /*users*/
@@ -469,11 +480,4 @@ display:none!important;
 	font-weight: bold; 
     padding:3 10 3 10px;
     margin: 5 5 0 100px;
-}
-
-@media only screen and (max-width: 500px) {
-    #chatModule {
-        left: 10px !important;
-        width: 390px !important;
-    }
 }

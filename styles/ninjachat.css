@@ -170,6 +170,11 @@ button:hover {
 }
 
 /*	customize user preview and display including signal and mute icons	*/
+/*special to hide main feed in users list*/
+:is(div) :has([data-sid^=Main_Stream]){
+	display:none!important;
+}
+
 .holder {
 	position: relative!important;
 	width: 80px!important;
@@ -389,10 +394,6 @@ i.las.la-chevron-right {
 	color: white!important;
 }
 
-/*special to hide main feed in users list*/
-:is(div) :has([data-sid^=Main_Stream]){
-	display:none!important;
-}
 
 /*chat or files popup box*/
 #chatModule {
