@@ -47,8 +47,8 @@
 	<div id="hideChat" style="position: absolute; top: calc(100% - 40px); left:calc(100% - 40px); width:0px; height:0px; border-bottom: 20px solid white; border-left: 20px solid transparent; border-top: 20px solid transparent; border-right: 20px solid white; z-index: 99; cursor: pointer; opacity:0.3; display: none;"></div>
 
 	<!--frames for chat and live stream-->
-	<iframe title="chatIFrame" class="chatIFrame" name="chatIFrame" id="chatIFrame" style="display:none; transition: all 0.2s linear 0s;"></iframe>
-	<iframe title="mainIFrame" class="mainIFrame" name="mainIFrame" id="mainIFrame" style="display:none"></iframe>
+	<iframe title="chatIFrame" class="chatIFrame" name="chatIFrame" id="chatIFrame" style="display:none;"></iframe>
+	<iframe title="mainIFrame" class="mainIFrame" name="mainIFrame" id="mainIFrame" style="display:none;"></iframe>
 
     <div id="siteHeader" class="siteHeader">
         <img src="icons/android-chrome-192x192.png" class="siteMainIcon"/>
@@ -582,14 +582,15 @@ function validateStageName(){
 			document.getElementById("chatIFrame").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
 				"&broadcast"+ 	//show only directors feed
 				"&label="+encodedUserName+ //sets label to guests name they entered earlier
+				"&mobile"+	//sets for mobile devices (no video etc)
 				"&webcam"+	//disables screenshare use &webcam2 to show share your camera screen
-				"&cover"+	//make video cover space
+				//"&cover"+	//make video cover space
 				"&vdo=0"+	//auto select camera
-				"&safemode"+	//loads camera in simplist way
+				//"&safemode"+	//loads camera in simplist way
 				"&hh"+	//hide vdo ninja header
-				"&ee"+	//easy exit
-				"&cv"+	//clean viewer
-				"&hpb"+	//hide play button
+				//"&ee"+	//easy exit
+				//"&cv"+	//clean viewer
+				//"&hpb"+	//hide play button
 				"&nsb"+	//hide speaker button
 				"&nohub"+	//hide hangup button
 				"&hidehome"+	//hide vdo ninja home page
@@ -601,10 +602,10 @@ function validateStageName(){
 				"&showlist=1"+	//show hidden guest list
 				"&scale=100"+	//do not scale video
 				"&buffer=500"+	//adds a xms buffer
-				//"&queue"+ 	//guests must be allowed in by director
-				"&animate"+	//videos animate around when people join or leave
-				//"&tips"+
-				//"&js=https%3A%2F%2Frpxl.app%2Fscripts%2Fninjamobile.js"+
+				"&buffer=500"+	//adds a xms buffer
+				"&preloadbitrate=-1"+	//preloads the video, might not be necessary as only use scene 1
+				"&waitimage=https%3A%2F%2Frpxl.app%2Fimages%2FnosignalHD.png"+
+				"&js=https%3A%2F%2Frpxl.app%2Fscripts%2Fninjamobile.js"+
 				"&css=https%3A%2F%2Frpxl.app%2Fstyles%2Fninjamobile.css"+	//load style sheet
 			""; 
 /*
