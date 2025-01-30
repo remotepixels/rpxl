@@ -563,10 +563,10 @@ function validateStageName(){
 				}
 			});
 			*/
-			document.getElementById("mainIFrame").style.top="0px";
-			document.getElementById("mainIFrame").style.width="100%";
-			document.getElementById("mainIFrame").style.height="100%";
-			document.getElementById("mainIFrame").style.display="inline-block";
+			//document.getElementById("mainIFrame").style.top="0px";
+			//document.getElementById("mainIFrame").style.width="100%";
+			//document.getElementById("mainIFrame").style.height="100%";
+			//document.getElementById("mainIFrame").style.display="inline-block";
 
 			document.getElementById("chatIFrame").style.top="0px";
 			document.getElementById("chatIFrame").style.width="100%";
@@ -574,33 +574,18 @@ function validateStageName(){
 			document.getElementById("chatIFrame").style.display="inline-block";
 
 			document.getElementById("chatIFrame").style.display="inline-block";
-			document.getElementById("mainIFrame").style.display="inline-block";
+			//document.getElementById("mainIFrame").style.display="inline-block";
 		
 			
 			//set sources for chat frame
-			document.getElementById("chatIFrame").allow = "autoplay; camera; microphone;";
+			document.getElementById("chatIFrame").allow =  "microphone;";
 			document.getElementById("chatIFrame").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
-			"&broadcast"+ 	//show only directors feed
-				//"&exclude=Main_Stream_"+	//do not show the main feed
-				//"&showall"+
-				"&nodirectoraudio"+ //do play show in user area
-				"&nodirectorvideo"+
+				"&broadcast"+ 	//show only directors feed
 				"&label="+encodedUserName+ //sets label to guests name they entered earlier
-				//"&showlabels"+	//show the usernames
-				//"&quality=3"+	//set camera quality to lowest possible, about 360p
 				"&webcam"+	//disables screenshare use &webcam2 to show share your camera screen
 				"&cover"+	//make video cover space
-				//"&videobitrate=100"+
 				"&vdo=0"+	//auto select camera
-				//"&adevice=Logitech"+	//auto select audio device
-				//"&rounded=100"+	//makes videos round
-				//"&chatbutton=0"+
-				//"&mirror=2"+	//mirrors guest videos
-				//"&scale=25"+	//scales peoples video to 25%
-				//"&viewwidth=160&viewheight=90"+	//sets incoming video to px size (very low res)
 				"&safemode"+	//loads camera in simplist way
-				//"&st=6"+	//show audio only sources as coloured circles with first letter of name
-				//"&meterstyle=2"+	//round highlight over person talking
 				"&hh"+	//hide vdo ninja header
 				"&ee"+	//easy exit
 				"&cv"+	//clean viewer
