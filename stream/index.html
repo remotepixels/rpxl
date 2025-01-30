@@ -361,7 +361,8 @@ function validateSessionID(){
 			document.getElementById("addWebcamWindow").allow = "autoplay;camera;microphone;fullscreen;picture-in-picture;display-capture;";
 			document.getElementById("addWebcamWindow").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
 				"&exclude=Main_Stream_"+sessionFile+	//do not show the main feed
-				"&permaid=RPXL_"+sessionFile+
+				//"&permaid=RPXL_"+sessionFile+
+				"&label=Editor"+	//sets webcam as label for client connection
 				"&chatbutton=0"+
 				"&view=RPXL_"+sessionFile+
 				"&quality=3"+	//set camera quality to lowest possible, about 360p

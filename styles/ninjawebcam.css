@@ -104,14 +104,6 @@
 	display:none!important;
 }
 
-/*settings button color change*/
-.brown {
-    background-color: #20f!important;
-	}
-button:hover {
-	background-color: #20f!important;
-}
-
 /*	hide fullscreen icons	*/
 .fullwindowButton {
     display: none !important;
