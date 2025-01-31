@@ -39,14 +39,14 @@ setTimeout(
   }, 500);
   */
 
-  window.addEventListener("resize", () => {
+//  window.addEventListener("resize", () => {
     const vidtag = document.querySelector("video");
-    
+
     vidtag.setAttribute("playsinline", "");
     vidtag.setAttribute("webkit-playsinline", "");
     vidtag.setAttribute("nofullscreen", "");
     vidtag.setAttribute("disablepictureinpicture", "");
     
     document.exitFullscreen();
-  });
+ // });
  
