@@ -47,8 +47,10 @@
 	<div id="hideChat" style="position: absolute; top: calc(100% - 40px); left:calc(100% - 40px); width:0px; height:0px; border-bottom: 20px solid white; border-left: 20px solid transparent; border-top: 20px solid transparent; border-right: 20px solid white; z-index: 99; cursor: pointer; opacity:0.3; display: none;"></div>
 
 	<!--frames for chat and live stream-->
-	<iframe title="chatIFrame" class="chatIFrame" name="chatIFrame" id="chatIFrame" style="display:none;"></iframe>
-	<iframe title="mainIFrame" class="mainIFrame" name="mainIFrame" id="mainIFrame" style="display:none;"></iframe>
+	<div id="frameholder">
+		<iframe title="chatIFrame" class="chatIFrame" name="chatIFrame" id="chatIFrame" style="display:none;"></iframe>
+		<iframe title="mainIFrame" class="mainIFrame" name="mainIFrame" id="mainIFrame" style="display:none;"></iframe>
+	</div>
 
     <div id="siteHeader" class="siteHeader">
         <img src="icons/android-chrome-192x192.png" class="siteMainIcon"/>
@@ -488,7 +490,7 @@ function validateStageName(){
 
 		//if we are on desktop, load the chat and main frame
 
-		if (mobile == 0) {
+		if (mobile == 1) {
 			document.getElementById("subNav").style.display = "block";
 			document.getElementById("clientLink").style.display = "block";
 			document.getElementById("sessionLink").style.display = "inline-block";
@@ -577,7 +579,7 @@ function validateStageName(){
 		
 			
 			//set sources for chat frame
-			document.getElementById("mainIFrame").allow =  "microphone;";
+			document.getElementById("mainIFrame").allow="microphone; ";
 			document.getElementById("mainIFrame").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
 				"&broadcast"+ 	//show only directors feed
 				//"&novideo"+

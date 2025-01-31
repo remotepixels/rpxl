@@ -19,7 +19,7 @@ document.body.addEventListener("click", function (evt) {
 });
 */
 
-/*
+
 setTimeout(
   function() {
     var html = document.querySelector('html');
@@ -29,6 +29,8 @@ setTimeout(
       node.nodeValue = node.nodeValue.replace(/Not Visible/, 'Connected');
       //node.nodeValue = node.nodeValue.replace(/Do you trust them\?/, '');
     }
-  }, 50);
 
-  */
+    document.exitFullscreen();
+  }, 100);
+
+ 
