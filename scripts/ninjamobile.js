@@ -1,4 +1,17 @@
 
+window.addEventListener("click", function (event) {
+    const vidtag = document.querySelector("video");
+
+    vidtag.setAttribute("playsinline", "");
+    vidtag.setAttribute("webkit-playsinline", "");
+    vidtag.setAttribute("nofullscreen", "");
+    vidtag.setAttribute("disablepictureinpicture", "");
+    
+  //  document.exitFullscreen();
+  }
+});
+
+/*
 
 const observer = new MutationObserver((mutations, obs) => {
   const videotag = document.getElementsByClassName("video");
@@ -21,7 +34,6 @@ observer.observe(document, {
 });
 
 
-/*
 older attempts
 document.getElementById("chatbutton").onclick = function() {replacething()};
 setInterval(replacething, 500);
