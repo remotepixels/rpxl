@@ -31,10 +31,10 @@ setTimeout(
       //node.nodeValue = node.nodeValue.replace(/Do you trust them\?/, '');
     }
     const vidtag = document.querySelector("video");
-    vid.setAttribute("playsinline", "");
-    vid.setAttribute("webkit-playsinline", "");
+    vidtag.setAttribute("playsinline", "");
+    vidtag.setAttribute("webkit-playsinline", "");
     
     document.exitFullscreen();
-  }, 50);
+  }, 500);
 
  
