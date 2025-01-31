@@ -553,45 +553,23 @@ function validateStageName(){
 		else {		
 			
 			//if we are on tablet or mobile device, load a different set of options
-			/*
-			document.getElementById("hideChat").style.display="inline-block";
-			document.getElementById("hideChat").addEventListener("click", function() {
-				if (document.getElementById("chatIFrame").style.display == "inline-block")
-				{
-					document.getElementById("chatIFrame").style.display = "none";
-				}
-				else {
-					document.getElementById("chatIFrame").style.display="inline-block";
-				}
-			});
-			*/
-			//document.getElementById("mainIFrame").style.top="0px";
-			//document.getElementById("mainIFrame").style.width="100%";
-			//document.getElementById("mainIFrame").style.height="100%";
-			//document.getElementById("mainIFrame").style.display="inline-block";
 
 			document.getElementById("mainIFrame").style.top="0px";
 			document.getElementById("mainIFrame").style.width="calc(100% - 5px)";
 			document.getElementById("mainIFrame").style.height="calc(100% - 5px)";
 
 			document.getElementById("mainIFrame").style.display="inline-block";
-			//document.getElementById("mainIFrame").style.display="inline-block";
 		
-			
-			//set sources for chat frame
 			document.getElementById("mainIFrame").allow="microphone; ";
 			document.getElementById("mainIFrame").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
-				"&view"+sessionFile+	//show only directors feed
-				//"&novideo"+
-				//"&noaudio"+
+				"&broadcast"+	//show only directors feed
 				"&label="+encodedUserName+ //sets label to guests name they entered earlier
 				"&mobile"+	//sets for mobile devices (no video etc)
 				"&webcam"+	//disables screenshare use &webcam2 to show share your camera screen
-				//"&cover"+	//make video cover space
-				"&vdo=0"+	//auto select camera
-				"&safemode"+	//loads camera in simplist way
+				"&miconly"+	//disable camera
+				//"&safemode"+	//loads camera in simplist way
 				"&hh"+	//hide vdo ninja header
-				//"&ee"+	//easy exit
+				"&fadein"+
 				//"&cleanoutput"+	//remove all interface bits
 				"&hideplaybutton"+	//hides big play button if autoplay is disabled
 				"&cv"+	//clean viewer
