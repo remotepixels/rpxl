@@ -32,6 +32,6 @@ setTimeout(
     }
 
    // document.exitFullscreen();
-  }, 100);
+  }, 1000);
 
  
