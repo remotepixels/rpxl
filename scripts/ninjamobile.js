@@ -1,9 +1,28 @@
 
-//document.getElementById("chatbutton").onclick = function() {replacething()};
-//setInterval(replacething, 500);
+  
+  const observer = new MutationObserver((mutations, obs) => {
+    const videotag = document.getElementsByClassName("video");
+    if (videotag) {
+      videotag.setAttribute("playsinline", "");
+      videotag.setAttribute("webkit-playsinline", "");
+      videotag.setAttribute("nofullscreen", "");
+      videotag.setAttribute("disablepictureinpicture", "");
+    obs.disconnect();
+    return;
+    }
+   });observer.observe(document, {
+    childList: true,
+    subtree: true
+   });
 
-//var x = document.getElementById("myLI").parentElement.nodeName;
+
 /*
+older attempts
+document.getElementById("chatbutton").onclick = function() {replacething()};
+setInterval(replacething, 500);
+
+var x = document.getElementById("myLI").parentElement.nodeName;
+
 document.body.addEventListener("click", function (evt) {
   var html = document.querySelector('html');
   var walker = document.createTreeWalker(html, NodeFilter.SHOW_TEXT);
@@ -17,9 +36,7 @@ document.body.addEventListener("click", function (evt) {
     //console.log(evt.target);
     //alert("body clicked");
 });
-*/
 
-/*
 setTimeout(
   function() {
     var html = document.querySelector('html');
@@ -37,22 +54,7 @@ setTimeout(
     
 
   }, 500);
-  */
-  const observer = new MutationObserver((mutations, obs) => {
-    const videotag = document.getElementsByClassName("video");
-    if (videotag) {
-      videotag.setAttribute("playsinline", "");
-      videotag.setAttribute("webkit-playsinline", "");
-      videotag.setAttribute("nofullscreen", "");
-      videotag.setAttribute("disablepictureinpicture", "");
-    obs.disconnect();
-    return;
-    }
-   });observer.observe(document, {
-    childList: true,
-    subtree: true
-   });
-/*
+
 window.addEventListener("click", function (event) {
   if (event.target.id == "gowebcam") {
     const vidtag = document.querySelector("video");
@@ -64,4 +66,6 @@ window.addEventListener("click", function (event) {
     
   //  document.exitFullscreen();
   }
-});*/
+});
+
+*/
