@@ -146,23 +146,17 @@ function validateSessionID(){
 		//set sources for chat frame
 		document.getElementById("chatIFrame").allow = "autoplay; camera; microphone;";
 		document.getElementById("chatIFrame").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
-			//"&exclude=Main_Stream_"+	//do not show the main feed
-			//"&showall"+
-			"&nodirectoraudio"+ //do play show in user area
-			"&nodirectorvideo"+
-			//"&label="+encodedUserName+ //sets label to guests name they entered earlier
-			//"&showlabels"+	//show the usernames
+			"&exclude=Main_Stream_"+sessionFile+	//do not show the main feed
+			"&label=RPXL_PITV01"+
+			"&showlabels"+	//show the usernames
 			"&quality=3"+	//set camera quality to lowest possible, about 360p
 			"&webcam=2"+	//disables screenshare use &webcam2 to show share your camera screen
 			"&cover"+	//make video cover space
 			"&videobitrate=100"+
-			"&vdo=Logitech"+	//auto select camera
-			"&adevice=Logitech"+	//auto select audio device
+			//"&vdo=1"+	//auto select camera
 			"&rounded=100"+	//makes videos round
 			"&chatbutton=0"+
-			//"&mirror=2"+	//mirrors guest videos
 			"&scale=25"+	//scales peoples video to 25%
-			//"&viewwidth=160&viewheight=90"+	//sets incoming video to px size (very low res)
 			"&safemode"+	//loads camera in simplist way
 			"&st=6"+	//show audio only sources as coloured circles with first letter of name
 			"&meterstyle=2"+	//round highlight over person talking
