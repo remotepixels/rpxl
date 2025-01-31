@@ -39,7 +39,9 @@ setTimeout(
   }, 500);
   */
 
-//  window.addEventListener("resize", () => {
+
+window.addEventListener("click", function (event) {
+  if (event.target.id == "gowebcam") {
     const vidtag = document.querySelector("video");
 
     vidtag.setAttribute("playsinline", "");
@@ -47,6 +49,6 @@ setTimeout(
     vidtag.setAttribute("nofullscreen", "");
     vidtag.setAttribute("disablepictureinpicture", "");
     
-    document.exitFullscreen();
- // });
- 
+  //  document.exitFullscreen();
+  }
+});
