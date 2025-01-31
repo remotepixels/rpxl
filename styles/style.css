@@ -723,7 +723,7 @@ input[type=text]:focus {
 	.about {
 		height:1600px!important;
 	}
-	.popupGroup {
-		scale:0.7!important;
+	.popupWindow {
+		scale:0.6!important;
 	}
 }
