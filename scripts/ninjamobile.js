@@ -8,7 +8,6 @@ window.addEventListener("click", function (event) {
     vidtag.setAttribute("disablepictureinpicture", "");
     
   //  document.exitFullscreen();
-  }
 });
 
 /*
