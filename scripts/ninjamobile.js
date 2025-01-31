@@ -30,6 +30,7 @@ setTimeout(
       //node.nodeValue = node.nodeValue.replace(/playsinline/, 'playsinline webkit-playsinline');
       //node.nodeValue = node.nodeValue.replace(/Do you trust them\?/, '');
     }
+    
     const vidtag = document.querySelector("video");
     vidtag.setAttribute("playsinline", "");
     vidtag.setAttribute("webkit-playsinline", "");
