@@ -1,19 +1,24 @@
 
-  
-  const observer = new MutationObserver((mutations, obs) => {
-    const videotag = document.querySelector("video");
-    if (videotag) {
-      videotag.setAttribute("playsinline", "");
-      videotag.setAttribute("webkit-playsinline", "");
-      videotag.setAttribute("nofullscreen", "");
-      videotag.setAttribute("disablepictureinpicture", "");
+
+const observer = new MutationObserver((mutations, obs) => {
+  const videotag = document.getElementsByClassName("video");
+  if (videotag) {
+    const vidtag = document.querySelector("video");
+
+    vidtag.setAttribute("playsinline", "");
+    vidtag.setAttribute("webkit-playsinline", "");
+    vidtag.setAttribute("nofullscreen", "");
+    vidtag.setAttribute("disablepictureinpicture", "");
+
     obs.disconnect();
     return;
-    }
-   });observer.observe(document, {
-    childList: true,
-    subtree: true
-   });
+  }
+});
+  
+observer.observe(document, {
+  childList: true,
+  subtree: true
+});
 
 
 /*
