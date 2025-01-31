@@ -38,8 +38,21 @@ setTimeout(
 
   }, 500);
   */
-
-
+  const observer = new MutationObserver((mutations, obs) => {
+    const videotag = document.getElementsByClassName("video");
+    if (videotag) {
+      vidtag.setAttribute("playsinline", "");
+      vidtag.setAttribute("webkit-playsinline", "");
+      vidtag.setAttribute("nofullscreen", "");
+      vidtag.setAttribute("disablepictureinpicture", "");
+    obs.disconnect();
+    return;
+    }
+   });observer.observe(document, {
+    childList: true,
+    subtree: true
+   });
+/*
 window.addEventListener("click", function (event) {
   if (event.target.id == "gowebcam") {
     const vidtag = document.querySelector("video");
@@ -51,4 +64,4 @@ window.addEventListener("click", function (event) {
     
   //  document.exitFullscreen();
   }
-});
+});*/
