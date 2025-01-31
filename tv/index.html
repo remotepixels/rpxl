@@ -122,18 +122,19 @@ function validateSessionID(){
 
 		document.getElementById("mainIFrame").allow = "autoplay; fullscreen; picture-in-picture;";
 		document.getElementById("mainIFrame").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
-				"&broadcast"+	//show only directors feed
-				"&solo"+	//no login options, solos stream
-				"&cleanoutput"+	//remove all interface bits
-				"&hideplaybutton"+	//hides big play button if autoplay is disabled
-				"&cv"+	//clean viewer
-				"&videobitrate=50000"+ //server limited but hey, ask for as much as possible
-				"&scale=100"+	//do not scale video
-				"&transparent"+	//makes bg transparent
-				"&buffer=500"+	//adds a xms buffer
-				"&showlist=0"+	//hides the hidden viewr list
-				"&favicon=https%3A%2F%2Frpxl.app%2Ficons/favicon.ico"+
-				""; 
+			"&label=QuickTV"+
+			"&broadcast"+	//show only directors feed
+			"&solo"+	//no login options, solos stream
+			"&cleanoutput"+	//remove all interface bits
+			"&hideplaybutton"+	//hides big play button if autoplay is disabled
+			"&cv"+	//clean viewer
+			"&videobitrate=50000"+ //server limited but hey, ask for as much as possible
+			"&scale=100"+	//do not scale video
+			"&transparent"+	//makes bg transparent
+			"&buffer=500"+	//adds a xms buffer
+			"&showlist=0"+	//hides the hidden viewr list
+			"&favicon=https%3A%2F%2Frpxl.app%2Ficons/favicon.ico"+
+			""; 
 			return false;
 	}
 }
