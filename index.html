@@ -498,7 +498,7 @@ function validateStageName(){
 			//set sources for chat frame
 			document.getElementById("chatIFrame").allow = "autoplay; camera; microphone;";
 			document.getElementById("chatIFrame").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
-				"&nodirectoraudio"+ //do play show in user area
+				"&nodirectoraudio"+ //do not play in user area
 				"&nodirectorvideo"+
 				"&label="+encodedUserName+ //sets label to guests name they entered earlier
 				"&showlabels"+	//show the usernames
@@ -580,33 +580,51 @@ function validateStageName(){
 			document.getElementById("mainIFrame").allow =  "microphone;";
 			document.getElementById("mainIFrame").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
 				"&broadcast"+ 	//show only directors feed
+				//"&novideo"+
+				//"&noaudio"+
 				"&label="+encodedUserName+ //sets label to guests name they entered earlier
-				//"&mobile"+	//sets for mobile devices (no video etc)
+				"&mobile"+	//sets for mobile devices (no video etc)
 				"&webcam"+	//disables screenshare use &webcam2 to show share your camera screen
 				//"&cover"+	//make video cover space
 				"&vdo=0"+	//auto select camera
 				"&safemode"+	//loads camera in simplist way
 				"&hh"+	//hide vdo ninja header
 				//"&ee"+	//easy exit
-				//"&cv"+	//clean viewer
-				//"&hpb"+	//hide play button
+				//"&cleanoutput"+	//remove all interface bits
+				"&hideplaybutton"+	//hides big play button if autoplay is disabled
+				"&cv"+	//clean viewer
 				"&nsb"+	//hide speaker button
 				"&nohub"+	//hide hangup button
 				"&hidehome"+	//hide vdo ninja home page
 				"&transparent"+	//makes bg transparent
-				"&hidetranslate"+	//hides translate menu
+				//"&hidetranslate"+	//hides translate menu
 				"&darkmode"+	//
-				"&disablehotkeys"+	//no hotkeys
-				"&nocontrols"+	//hides video player controls
+				//"&disablehotkeys"+	//no hotkeys
+				//"&nocontrols"+	//hides video player controls
 				"&showlist=1"+	//show hidden guest list
-				"&scale=100"+	//do not scale video
+				//"&scale=100"+	//do not scale video
 				"&buffer=500"+	//adds a xms buffer
 				"&preloadbitrate=-1"+	//preloads the video, might not be necessary as only use scene 1
+				"&videobitrate=5000"+ //server limited but hey, ask for as much as possible
 				"&waitimage=https%3A%2F%2Frpxl.app%2Fimages%2FnosignalHD.png"+
 				"&js=https%3A%2F%2Frpxl.app%2Fscripts%2Fninjamobile.js"+
 				"&css=https%3A%2F%2Frpxl.app%2Fstyles%2Fninjamobile.css"+	//load style sheet
 			""; 
 /*
+			"&label=QuickTV"+
+			"&broadcast"+	//show only directors feed
+			"&solo"+	//no login options, solos stream
+			"&cleanoutput"+	//remove all interface bits
+			"&hideplaybutton"+	//hides big play button if autoplay is disabled
+			"&cv"+	//clean viewer
+			"&videobitrate=50000"+ //server limited but hey, ask for as much as possible
+			"&scale=100"+	//do not scale video
+			"&transparent"+	//makes bg transparent
+			"&buffer=500"+	//adds a xms buffer
+			"&showlist=0"+	//hides the hidden viewr list
+			"&favicon=https%3A%2F%2Frpxl.app%2Ficons/favicon.ico"+
+			""; 
+			return false;
 			//set sources for main frame
 			setTimeout(function(){
 			document.getElementById("mainIFrame").allow = "autoplay;";
