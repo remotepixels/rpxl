@@ -274,12 +274,20 @@ i.las.la-chevron-right {
     transform: scale(1);
     animation: pulse 1s 5;
 }
-/*	customize user preview and display including signal and mute icons	*/
-.container_holder_video {
-	width: 100%!important;
-	height: 100%!important;
 
+/*	customize playback	of main video */
+.container_holder_video {
+    width: 100%!important;
+	height: 100%!important;
 }
+
+.holder {
+    top: unset!important;
+    left: unset!important;
+    width:100%!important;
+    height:100%!important;
+
+    }
 
 .holder {
 	position: relative!important;

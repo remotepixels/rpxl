@@ -568,25 +568,24 @@ function validateStageName(){
 			//document.getElementById("mainIFrame").style.height="100%";
 			//document.getElementById("mainIFrame").style.display="inline-block";
 
-			document.getElementById("chatIFrame").style.top="0px";
-			document.getElementById("chatIFrame").style.width="100%";
-			document.getElementById("chatIFrame").style.height="100%";
-			document.getElementById("chatIFrame").style.display="inline-block";
+			document.getElementById("mainIFrame").style.top="0px";
+			document.getElementById("mainIFrame").style.width="calc(100% - 5px)";
+			document.getElementById("mainIFrame").style.height="calc(100% - 5px)";
 
-			document.getElementById("chatIFrame").style.display="inline-block";
+			document.getElementById("mainIFrame").style.display="inline-block";
 			//document.getElementById("mainIFrame").style.display="inline-block";
 		
 			
 			//set sources for chat frame
-			document.getElementById("chatIFrame").allow =  "microphone;";
-			document.getElementById("chatIFrame").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
+			document.getElementById("mainIFrame").allow =  "microphone;";
+			document.getElementById("mainIFrame").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
 				"&broadcast"+ 	//show only directors feed
 				"&label="+encodedUserName+ //sets label to guests name they entered earlier
-				"&mobile"+	//sets for mobile devices (no video etc)
+				//"&mobile"+	//sets for mobile devices (no video etc)
 				"&webcam"+	//disables screenshare use &webcam2 to show share your camera screen
 				//"&cover"+	//make video cover space
 				"&vdo=0"+	//auto select camera
-				//"&safemode"+	//loads camera in simplist way
+				"&safemode"+	//loads camera in simplist way
 				"&hh"+	//hide vdo ninja header
 				//"&ee"+	//easy exit
 				//"&cv"+	//clean viewer
@@ -601,7 +600,6 @@ function validateStageName(){
 				"&nocontrols"+	//hides video player controls
 				"&showlist=1"+	//show hidden guest list
 				"&scale=100"+	//do not scale video
-				"&buffer=500"+	//adds a xms buffer
 				"&buffer=500"+	//adds a xms buffer
 				"&preloadbitrate=-1"+	//preloads the video, might not be necessary as only use scene 1
 				"&waitimage=https%3A%2F%2Frpxl.app%2Fimages%2FnosignalHD.png"+
