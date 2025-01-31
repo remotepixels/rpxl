@@ -19,23 +19,30 @@ document.body.addEventListener("click", function (evt) {
 });
 */
 
-
+/*
 setTimeout(
   function() {
     var html = document.querySelector('html');
     var walker = document.createTreeWalker(html, NodeFilter.SHOW_TEXT);
     var node;
     while (node = walker.nextNode()) {
-      node.nodeValue = node.nodeValue.replace(/Not Visible/, 'Connected');
+      //node.nodeValue = node.nodeValue.replace(/Not Visible/, 'Connected');
       //node.nodeValue = node.nodeValue.replace(/playsinline/, 'playsinline webkit-playsinline');
       //node.nodeValue = node.nodeValue.replace(/Do you trust them\?/, '');
     }
-    
+
     const vidtag = document.querySelector("video");
     vidtag.setAttribute("playsinline", "");
     vidtag.setAttribute("webkit-playsinline", "");
     
-    document.exitFullscreen();
-  }, 500);
 
+  }, 500);
+  */
+ 
+  window.addEventListener("resize", () => {
+    const vidtag = document.querySelector("video");
+    vidtag.setAttribute("playsinline", "");
+    vidtag.setAttribute("webkit-playsinline", "");
+    document.exitFullscreen();
+  });
  
