@@ -27,11 +27,14 @@ setTimeout(
     var node;
     while (node = walker.nextNode()) {
       node.nodeValue = node.nodeValue.replace(/Not Visible/, 'Connected');
-      node.nodeValue = node.nodeValue.replace(/playsinline/, 'playsinline webkit-playsinline');
+      //node.nodeValue = node.nodeValue.replace(/playsinline/, 'playsinline webkit-playsinline');
       //node.nodeValue = node.nodeValue.replace(/Do you trust them\?/, '');
     }
-
-   // document.exitFullscreen();
-  }, 1000);
+    const vidtag = document.querySelector("video");
+    vid.setAttribute("playsinline", "");
+    vid.setAttribute("webkit-playsinline", "");
+    
+    document.exitFullscreen();
+  }, 50);
 
  
