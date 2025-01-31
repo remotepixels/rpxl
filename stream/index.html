@@ -330,15 +330,15 @@ function validateSessionID(){
 		"&label=Server"+	//sets livestream as label for director connection
 		"&hidehome"+	//hide vdo ninja homepage	
 		"&director"+	//join as director
-		"&preview"+	//forces self preview for clients
+		"&preview"+	//forces self preview
 		"&showdirector"+	//shows director interface
 		"&wc"+	//disables screenshare use &webcam2 to show share your camera screen
 		"&novice"+	//simplyfy director layout
 		"&hidesolo"+	//hide solo links
 		"&notify"+	// notify when people join
 		"&ovb="+document.forms["sessionIDCode"]["quality"].value+	//outbound video bitrate for main (obs stream)
-		"&trb=30000"+	//total room bit rate
-		"&hiddenscenebitrate=30000"+	//30mbps, highest quality
+		"&trb=50000"+	//total room bit rate
+		"&hiddenscenebitrate=50000"+	//30mbps, highest quality
 		"&quality="+document.forms["sessionIDCode"]["resolution"].value+	//1 720p set to 0 for 1080p
 		"&cleandirector"+	//hides link generator in diretor room
 		"&darkmode"+	
@@ -350,7 +350,7 @@ function validateSessionID(){
 		"&denoise=0"+	//turns off denoiser
 		"&ab=128"+	//constant audio bitrate of 24kbps
 		"&chroma=191919"+	//set bg color
-		"&codirector="+sessionFile+	//allow co-directors and set the password to same session (not ideal but for now whatever) 
+		//"&codirector="+sessionFile+	//allow co-directors and set the password to same session (not ideal but for now whatever) 
 		//document.forms["sessionIDCode"]["queue"].value+		//for queue, curently off
 		"&js=https%3A%2F%2Frpxl.app%2Fscripts%2Fninjadirector.js"+
 		"&css=https%3A%2F%2Frpxl.app%2Fstyles%2Fninjadirector.css"+	//css
