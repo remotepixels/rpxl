@@ -41,10 +41,10 @@ setTimeout(
   const observer = new MutationObserver((mutations, obs) => {
     const videotag = document.getElementsByClassName("video");
     if (videotag) {
-      vidtag.setAttribute("playsinline", "");
-      vidtag.setAttribute("webkit-playsinline", "");
-      vidtag.setAttribute("nofullscreen", "");
-      vidtag.setAttribute("disablepictureinpicture", "");
+      videotag.setAttribute("playsinline", "");
+      videotag.setAttribute("webkit-playsinline", "");
+      videotag.setAttribute("nofullscreen", "");
+      videotag.setAttribute("disablepictureinpicture", "");
     obs.disconnect();
     return;
     }
