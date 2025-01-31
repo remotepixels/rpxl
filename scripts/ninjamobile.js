@@ -1,7 +1,7 @@
 
   
   const observer = new MutationObserver((mutations, obs) => {
-    const videotag = document.getElementsByClassName("video");
+    const videotag = document.querySelector("video");
     if (videotag) {
       videotag.setAttribute("playsinline", "");
       videotag.setAttribute("webkit-playsinline", "");
