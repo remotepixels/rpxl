@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang=en>
+
+<head>
+	<title>rpxl.app - quicklink</title>
+
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+	<meta http-equiv="Pragma" content="no-cache"/>
+	<meta http-equiv="Expires" content="0"/>
+	<meta name="msapplication-TileColor" content="#2e2e2e"/>
+	<meta name="theme-color" content="#2e2e2e"/>
+	<meta name="keywords" content="Gui Felix, Advertising, Visual Effects, Motion Graphics, Remote Pixels, vdo.ninja"/>
+	<meta name="robots" content="index, follow"/>
+	<meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="../icons/favicon-16x16.png">
+	<link rel="mask-icon" href="../icons/safari-pinned-tab.svg" color="#5bbad5">
+	<link rel="shortcut icon" href="../icons/favicon.ico">
+
+	<link rel="stylesheet" href="../styles/style.css">
+</head>
+
+<style>
+	.round {
+		color:#121212; 
+		background-color: gainsboro; 
+		border: 2px solid gainsboro;
+	}
+	.round:hover{
+		color:white; 
+		background-color: dodgerblue; 
+		border: 2px solid dodgerblue;
+	}
+</style>
+
+<body id="body" style="background-image: url('../images/header.jpg'); background-attachment: scroll; background-repeat: no-repeat;background-position: right bottom;background-size: cover;">	
+		
+	<!--popup window, draws the popup window-->
+	<div class="popupWindow" id="popupWindow" style="height: 200px; top:300px; background-color: #141414a9;">
+			<div style="position: absolute; width:460px; height: 30px; font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 30px; color:gainsboro;text-align: center;">Join live stream :</div>
+			<div style="position: absolute; top: 80px; display: inline-block!important; width: 300px; ">
+				<form id="sessionIDCode" name="sessionIDCode" onsubmit="return validateSessionID()" method="post" required="" style="position: relative; display: inline-block;">
+					<input type="text" tabindex="1" name="sessionIDInput" id="sessionIDInput" maxlength="6" onkeypress="return onlyAlphabets(event,this);" oninput="this.value = this.value.toUpperCase()" style="text-transform: uppercase; font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 60px; color:#fff;background-color: #141414; width:300px; border-radius: 10px; border: 2px solid grey; padding: 20px; justify-content: center; align-items: center; text-align: center;">
+					<input class="round" type="submit" id="submitSessionID" value="go" tabindex="2" style="position: absolute; left: 375px; top:20px; font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 30px; font-weight: 900; width:80px; height: 80px; border-radius: 100px;">
+				</form>
+			</div>
+	</div>   
+	
+	<!--load blank iframe, will be replaced with directors room when loged in-->
+	<iframe name="mainIFrame" id="mainIFrame" style="display:none;"></iframe>
+</body>
+</html>
+
+<script type="text/javascript"> 
+
+//check if an URL parameter is sent and prefill the session ID field
+//var sessionFile;
+let query = location.search;
+let sessionIDURL = query.slice(1);
+
+if  ((sessionIDURL != 0) && (sessionIDURL.length == 6)) {
+	let sessionIDUp = sessionIDURL.toUpperCase();
+	let	sessionFile = encodeURIComponent(sessionIDUp); 
+	document.forms["sessionIDCode"]["sessionIDInput"].value = sessionFile;	
+	validateSessionID();
+	}         
+
+//move caret to focus on inbut of session ID 
+//document.forms["sessionIDCode"]["sessionIDInput"].focus();
+document.getElementById("sessionIDInput").focus();
+
+//submit session ID if user hits enter key
+let inputSessionID = document.getElementById("sessionIDInput");
+inputSessionID.addEventListener("keypress", function(event) {
+	if (event.key === "Enter") {
+		event.preventDefault();
+		document.getElementById("submitSessionID").click();
+		}
+	});
+
+
+//Session ID field entry, force upper caase, restrict to alpha-numeric
+function onlyAlphabets(e, t) {
+	var regexp = new RegExp(/^[a-zA-Z0-9]*$/);
+	if (window.event) {
+		keynum = e.keyCode;
+		}
+	else if (e.which) {
+		keynum = e.which;
+		}
+	var test = regexp.test(String.fromCharCode(keynum));
+	return test;
+	}
+   
+//validates the session ID when the user submits
+function validateSessionID(){
+	let sessionEnc = document.forms ["sessionIDCode"]["sessionIDInput"].value;
+	let	sessionFile = encodeURIComponent(sessionEnc); //encode submitted value to escape any funny characters
+
+	//if there are less or more or less than 6 characters shake the box and clear it
+	if (sessionFile.length != 6) {
+		popupWindow.style.animation = "shake 500ms";
+		setTimeout ( function () {popupWindow.style.animation = "none"; document.getElementById("sessionIDCode").reset();}, 300);
+		document.forms["sessionIDCode"]["sessionIDInput"].focus();
+		return false;
+		}
+	else {
+		//TV, main stream only
+		//document.getElementById("mainIFrame").allow = "autoplay;camera;microphone;fullscreen;picture-in-picture;display-capture;";
+		document.getElementById("popupWindow").style.display="none";
+		
+		document.getElementById("body").style.backgroundImage="url('../images/clicktoplay.png')";
+		document.getElementById("body").style.backgroundPosition="center";
+		document.getElementById("body").style.backgroundSize="contain";
+
+		document.getElementById("mainIFrame").style.top="0px";
+		document.getElementById("mainIFrame").style.width="100%";
+		document.getElementById("mainIFrame").style.height="100%";
+		document.getElementById("mainIFrame").style.display="inline-block";
+
+		document.getElementById("mainIFrame").allow = "autoplay; fullscreen; picture-in-picture;";
+		document.getElementById("mainIFrame").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
+			"&label=QuickTV"+
+			"&broadcast"+	//show only directors feed
+			"&solo"+	//no login options, solos stream
+			"&cleanoutput"+	//remove all interface bits
+			"&hideplaybutton"+	//hides big play button if autoplay is disabled
+			"&cv"+	//clean viewer
+			"&videobitrate=50000"+ //server limited but hey, ask for as much as possible
+			"&scale=100"+	//do not scale video
+			"&transparent"+	//makes bg transparent
+			"&buffer=500"+	//adds a xms buffer
+			"&showlist=0"+	//hides the hidden viewr list
+			"&favicon=https%3A%2F%2Frpxl.app%2Ficons/favicon.ico"+
+			""; 
+			return false;
+	}
+}
+/*
+				"&view=Main_Stream_"+sessionFile+ //shows only the directors main feed on left
+				"&chroma=121212"+
+				"&as"+
+				"&waitimage=https%3A%2F%2Frpxl.app%2Fimages%2Fclicktoplay.png"+
+				"&broadcast"+	//show only directors feed
+				"&label=TV"+ //sets label to guests name they entered earlier
+				"&solo"+	//no login options, solos stream
+				"&minipreview"+
+				"&nopreview"+
+				"&showlabels"+	//show the usernames
+				"&quality=3"+	//set camera quality to lowest possible, about 720p
+				"&webcam=0"+	//disables screenshare use &webcam2 to show share your camera screen
+				"&cover"+	//make video cover space
+				"&videobitrate=100"+
+				"&vdo=0"+	//auto select camera
+				"&rounded=100"+	//makes videos round
+				"&mirror=2"+	//mirrors guest videos
+				"&viewwidth=160&viewheight=90"+	//sets incoming video to px size (very low res)
+				"&safemode"+	//loads camera in simplist way
+				"&st=6"+	//show audio only sources as coloured circles with first letter of name
+				"&meterstyle=2"+	//round highlight over person talking
+				"&hh"+	//hide vdo ninja header
+				"&ee"+	//easy exit
+				"&cv"+	//clean viewer
+				"&hpb"+	//hide play button
+				"&nsb"+	//hide speaker button
+				"&nohub"+	//hide hangup button
+				"&hidehome"+	//hide vdo ninja home page
+				"&transparent"+	//makes bg transparent
+				"&hidetranslate"+	//hides translate menu
+				"&darkmode"+	//
+				"&disablehotkeys"+	//no hotkeys
+				"&nocontrols"+	//hides video player controls
+				"&waitimage=https%3A%2F%2Frpxl.app%2Fimages%2FnosignalHD.png"+
+				"&chroma=121212"+
+				"&showlist=0"+	//show hidden guest list
+				"&animate"+	//videos animate around when people join or leave
+				"&cleanoutput"+	//remove all interface bits
+				"&favicon=https%3A%2F%2Frpxl.app%2Ficons/favicon.ico"+
+
+				*/
+
+
+
+</script>

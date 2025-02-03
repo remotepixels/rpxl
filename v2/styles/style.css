@@ -1,0 +1,729 @@
+.addWebcam {	
+	scale: 1.3;
+	position: absolute;
+	display: inline;
+	right: 15px;
+	top: 13px;
+    border: 1px solid white;
+    border-radius: 100px;
+    padding-left:5px;
+    padding-right:5px;
+    padding-top: 4px;
+    padding-bottom: 2px;
+	background-color: grey;
+    opacity:0.3;
+}
+.addWebcam:hover{	
+	opacity: 1;
+	cursor: pointer;
+}
+
+.addWebcamWindow {
+	position: absolute;
+	right: 0px;
+	top: 60px;
+	margin-right:0px;
+	padding-left:5px;
+	padding-right:0px;
+	height: calc(100% - 60px);
+	background-color: #121212;
+	display:none;
+}
+body {
+	font-family: 'Roboto';
+	font-weight: 300;
+	font-size: 18px;
+	color: gainsboro;
+	margin:0px;
+	background-color: #121212;
+	width:100%;
+	height:100vh;
+	overflow: auto;
+	}
+.topnav {
+	z-index: 2;
+	position: fixed;
+	top:0px;
+	left:0px;
+	width: 100%;
+	height: 60px;
+	overflow: hidden;
+	-webkit-backdrop-filter: blur(50px);
+	backdrop-filter: blur(50px);
+	background-color: #121212c4;
+	}
+.joinSession {
+	position: absolute;
+	text-align: center;
+	left: calc(100% - 233px);
+	width: 205px;
+	margin: 10px;
+	color: #ffffff;
+	text-decoration: none;
+	border-radius: 20px;
+	padding: 8px 2px 8px 3px;
+	border: 2px solid gainsboro;
+	background: #2b2b2bb3;
+	cursor: pointer;
+	}
+.joinSession:hover {
+	background-color: dodgerblue;
+	border: 2px solid dodgerblue;
+	}	
+.startSessionIcon {
+		position: relative; 
+		display: inline-block;  
+		left: 460px; 
+		top: -100px; 
+		text-align: center;
+		width: 205px;
+		margin: 10px;
+		color: #ffffff;
+		text-decoration: none;
+		border-radius: 20px;
+		padding: 8px 2px 8px 3px;
+		border: 2px solid gainsboro;
+		background: #2b2b2bb3;
+		cursor: pointer;
+		scale:1.7;
+	}
+.startSessionIcon:hover {
+	background-color: dodgerblue;
+	border: 2px solid dodgerblue;
+	}	
+.exitSession {
+	position: absolute;
+	text-align: center;
+	right: 5px;
+	width: 95px;
+	/* margin: 10px; */
+	top: 17px;
+	color: #5e5e5e;
+	text-decoration: none;
+	border-radius: 20px;
+	font-weight: 400;
+	height: 22px;
+	padding: 2px 0px 2px 1px;
+	border: 2px solid color(srgb 0.3686 0.3686 0.3687);
+	cursor: pointer;
+	}
+.exitSession:hover {
+	color: #840000;
+	border: 2px solid #840000;
+	}	
+.siteHeader{
+	position: relative;
+	display: inline-block;
+	background-image: url("../images/header.jpg");
+	background-attachment: scroll;
+	background-repeat: no-repeat;
+	background-position: right bottom;
+	background-size: cover;
+	height: 800px;
+	width: 100%;
+	}
+.siteMainIcon {
+	position: relative;
+	display: inline;
+	top: 120px;
+	left: 120px;
+	height: 120px;
+	width: 120px;
+	}
+.siteTitle {
+	position: relative;
+	display: inline;
+	font-size: 110px;
+	font-weight: 500;
+	color: #ffffff;
+	top: 100px;
+	left: 140px;
+	}
+.siteSubTitle {
+	position: relative;
+	display: inline;
+	left: 120px;
+	font-size: 78px;
+	font-weight: 300;
+	color: #ffffff;
+	top: 160px;
+	line-height: 130%;
+	letter-spacing: 2px;
+	}
+h2 {
+	position: relative;
+	display: inline;
+	font-size: 78px;
+	font-weight: 300;
+	line-height: 130%;
+	letter-spacing: 2px;
+	}
+h3 {
+	position: relative;
+	display: inline;
+	font-size: 48px;
+	font-weight: 300;
+	}
+.textBG{
+	position: relative;
+	justify-content: center;
+	margin: auto;
+	width: 800px;
+	}
+h4 {
+	font-size: 48px;
+	font-weight: 100;
+	}
+h5 {
+	font-size: 14px;
+	font-weight: 100;
+	}
+.footer {
+	width: 100%;
+	height: 300px;
+	background-color: #222222;
+	}
+a {
+	color: lightgray;
+	text-decoration: none;
+	}
+
+.siteIcon {
+	position: absolute;
+	top:8px;
+	left: 8px;
+	height:44px;
+	width:44px;
+	opacity:0.5;
+	}
+
+.ninjaIcon {
+	color: white;
+	position: absolute;
+	float: left;
+	top: 10px;
+	text-decoration: none;
+	transition-duration: 0.2s;
+	left: 60px;
+	cursor: pointer;
+	font-weight: 400;
+	opacity: 0.5;
+	}	
+.ninjaIcon:hover {
+	color: white;
+	opacity: 1;
+	}
+
+
+.clientLink {
+	display:inline;
+	position: relative;
+	width: 100%;
+	margin-left: 32%;
+	font-size: 24px;
+	font-weight: 400;
+    color: white;
+	top: 15px;
+}
+.sessionLink {
+	position: relative;
+	text-decoration: underline;
+	font-size: 24px;
+	font-weight: 400;
+    color: white;
+	opacity:0.3;
+
+}
+.sessionLink:hover {
+    color: white;
+	text-decoration: underline;
+	text-decoration-color: dodgerblue;
+    cursor: pointer;
+	opacity:1;
+}
+
+iframe {
+	width:100%;
+	height:100%;
+	border:0px;
+	margin:0px;
+	padding:0px;
+	position:absolute;
+	display:block;
+	}
+.clock {
+	position: absolute;
+	text-align: center;
+	left: calc(100% - 120px);
+	width: 120px;
+	/* height: 64px; */
+	top: 18px;
+	color: #ffffff4d;
+	border-radius: 10px;
+	/* padding: 5px 5px 2px 5px; */
+	font-size: 24px;
+	font-weight: 400;
+	cursor: default;
+	}
+.clockDuration {
+	position: relative;
+	left: 10%;
+	font-size: 24px;
+	font-weight: 400;
+	cursor: default;
+	opacity:0.3;
+	}
+.mainIFrame {
+	width: calc(100% - 115px);
+	height: calc(100% - 60px);
+	border: 0px;
+	margin: 0px;
+	padding-left: 0px;
+	position: fixed;
+	top: 60px;
+	left: 0px;
+	background-color: #121212;
+	display: block;
+	z-index: 0;
+}
+.chatIFrame {
+	width:calc(100% - 5px);
+	height:100%;
+	border:0px;
+	margin:0px;
+	padding:0px;
+	top:60px;
+	left:0px;
+	position:fixed;
+	z-index:5;
+	overflow:auto;
+	background-color: #00000000;
+}
+.directorroom {
+	background-color: dimgrey;
+	width: 100%;
+	height:calc(100% - 60px);
+	border:0px;
+	margin: 0px;
+	padding:0px;
+	top:60px;
+}
+
+/*popup for session ID and username*/
+.blackout {
+	z-index: 3;
+	position: fixed;
+	top:0px;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.7);
+ 	}
+.popupGroup {
+	border:0px;
+	z-index: 5;
+	position: fixed;
+	width:100%;
+	top:0px;
+	animation: slideIn 0.25s linear;
+	overflow: auto;
+	height :100vh;
+	}
+.popupWindow {
+	position: relative;
+	left: calc(50% - 250px);
+	display: inline-flex;
+	border: 2px solid rgba(221, 221, 221, 0.17);
+	-webkit-backdrop-filter: blur(50px);
+	backdrop-filter: blur(50px);
+	padding-left: 40px;
+	padding-right: 40px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	width: 460px;
+	height: 320px;
+	border-radius: 20px;
+	font-family: 'Roboto';
+	font-weight: 300;
+	font-size: 24px;
+	box-shadow: 0 0 100px 0px rgba(0, 0, 0, 1);
+	}
+.popupTitle {	
+	position: relative;
+	display: inline-block;
+	justify-content: center;
+	font-size: 32px;
+	text-align: center;
+	color: gainsboro;
+	}
+input[type=text] {
+	outline: none;
+	}
+input[type=text]:focus {
+	outline: none;
+	}
+:where([autocomplete=one-time-code]) {
+	--otp-digits: 6;
+	--otp-ls: 2.2ch;
+	--otp-gap: 1.2;
+	--_otp-bgsz: calc(var(--otp-ls) + 1ch);
+	--_otp-digit: 0;
+	/* all: unset; */
+
+	color: #ffffff;
+	background: linear-gradient(90deg, var(--otp-bg, rgba(221, 221, 221, 0.05)) calc(var(--otp-gap) * var(--otp-ls)), transparent 0), linear-gradient(90deg, var(--otp-bg, rgba(221, 221, 221, 0.05)) calc(var(--otp-gap) * var(--otp-ls)), transparent 0);
+	background-position: calc(var(--_otp-digit) * var(--_otp-bgsz)) 0, 0;
+	background-repeat: no-repeat, repeat-x;
+	background-size: var(--_otp-bgsz) 100%;
+	caret-color: var(--otp-cc, rgba(0, 0, 0, 0));
+	caret-shape: block;
+	clip-path: inset(2% calc(var(--otp-ls) / 1.5) 3px 3px);
+	font-family: ui-monospace, monospace;
+	font-size: var(--otp-fz, 1.6em);
+	inline-size: calc(var(--otp-digits) * var(--_otp-bgsz));
+	letter-spacing: var(--otp-ls);
+	padding-block: var(--otp-pb, 1ch);
+	padding-inline-start: calc(((var(--otp-ls) - 1ch) / 1.8) * var(--otp-gap));
+	text-transform: uppercase;
+	margin-bottom: 40px;
+	margin-left:6px;
+	opacity: 0.8;
+	}
+.button {
+	position: relative;
+	display: inline-block;
+	width: 210px;
+	background-color: gainsboro;
+	border: 0px;
+	border-radius: 30px;
+	cursor: pointer;
+	font-family: 'Roboto';
+	font-size: 24px; 
+	font-weight: 500; 
+	padding: 8px 2px 8px 3px;
+	}
+.button:hover {
+	background-color: dodgerblue;
+	color: gainsboro;
+	}
+
+.askNamePopupContent {
+	position: relative;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	width: 460px;
+	display: none;
+	color: gainsboro;
+	}
+.enterStageName {
+	/* z-index: 10; */
+	text-align: center;
+	font: inherit;
+	font-weight: light;
+	color: black;
+	background-color: gainsboro;
+	width: 300px;
+	height: 48px;
+	margin-top: 0px;
+	border: 0px solid;
+	border-radius: 10px;
+}
+.subtext{
+	position: relative;
+	color: gainsboro;
+	text-align: justify;
+	font-size: 14px;
+	margin-top: 25px;
+	margin-bottom: 25px;
+	border: 2px solid rgba(221, 221, 221, 0.17);
+	border-radius: 10px;
+	padding: 20px;
+	background-color: rgba(221,221,221,0.1);
+}
+
+/*animation*/
+@keyframes shake {
+	0% {transform: translateX(0px);}
+	15% {transform: translateX(-25px);}
+	30% {transform: translateX(25px);}
+	45% {transform: translateX(-25px);}
+	60% {transform: translateX(25px);}
+	75% {transform: translateX(-25px);}
+	100% {transform: translateX(0px); animation-timing-function: ease-in;}
+	}
+@keyframes fadeIn {
+	0% { opacity: 0; }
+	100% { opacity: 1; }
+	}
+@keyframes fadeOut {
+	0% { opacity: 1; }
+	100% { opacity: 0; }
+	}
+@keyframes slideIn {
+	0% { transform: translateY(-50px); animation-timing-function: linear; }
+	100% { transform: translateY(0px); animation-timing-function: ease-in; }
+	}
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(200, 60, 60, 1);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(200, 60, 60, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 50px rgba(200, 60, 60, 0);
+    }
+}
+
+/*popup for session ID and username*/
+.streamerName {
+	position: relative;
+	display: inline;
+	border: 2px solid rgb(50, 50, 50);
+	border-radius: 20px;
+	font-size: 18px;
+	font-weight: 500;
+	padding-left: 20px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	color: gainsboro;
+	background-color: rgba(0, 0, 0, 0);
+	width: 200px;
+}
+.multiSelectBlock {
+	position: relative; 
+	display: inline; 
+	border: 2px solid rgb(50, 50, 50); 
+	font-size: 18px; 
+	font-weight: 500; 
+	margin-right:-7px;
+	padding-right:-10px;
+	padding-top: 5px;
+	padding-bottom: 5px;;
+	color:gainsboro;
+	background-color: rgba(0, 0, 0, 0);
+	width:100px;
+	cursor: pointer;
+}
+.multiSelectBlockHighlighted {
+	position: relative; 
+	display: inline;
+	padding-top: 5px;
+	border: 2px solid rgba(221, 221, 221, 0.2); 
+	background-color: dodgerblue; 	
+	color: gainsboro;
+}
+	
+.multiSelectBlock:hover {
+	background-color: gainsboro;
+	border: 2px solid gainsboro; 
+	color: black;
+}
+ sup { 
+	position: relative; 
+	display: inline;
+	font-size: 12px;
+}
+
+@media only screen and (max-width: 1250px) {
+	.interfaceSideText {
+		display: none!important;
+	}
+}
+@media only screen and (max-width: 1000px) {
+	.siteHeader{
+		height: 440px;
+		width: 100%;
+		}
+	.siteMainIcon {
+		top: 80px;
+		left: 40px;
+		height: 60px;
+		width: 60px;
+		}
+	.siteTitle {
+		font-size: 60px;
+		top: 70px;
+		left: 60px;
+		}
+	.siteSubTitle {
+		left: 40px;
+		font-size:50px;
+        font-weight: 400;
+		top: 60px;
+		line-height: 130%;
+		letter-spacing: 1px;
+		}
+	h2 {
+		font-size: 40px;
+		line-height: 130%;
+		letter-spacing: 2px;
+		}
+	h3 {
+		font-size: 30px;
+		}
+	.textBG{
+        font-size: 15px;
+		margin: auto;
+		width: 550px;
+		}
+	h4 {
+		font-size: 24px;
+		font-weight: 100;
+		}
+	h5 {
+		font-size: 14px;
+		font-weight: 100;
+		}
+	.openingText {
+		height: 430px!important;
+		}
+    .interfaceHD {
+        display:none;
+		}
+    .interfaceMobile {
+        display: block!important;
+    	}
+    .login {
+	display:none;
+    	}
+    .browser {
+	display:none;
+    	}
+	.secure {
+		display:none;
+		}
+	.secureMobile {
+		display:block!important;
+		}
+	.creditText {
+		width:calc(100% - 200px)!important;
+		}
+	.creditIcon {
+		width:150px;
+		height: 150px;
+		cursor: pointer;
+		}
+	.startSession {
+		height:400px!important;
+	}
+	.startSessionIcon {
+		left: 60px;
+		top: 40px;
+	}
+	.startSessionIcon:hover {
+		background-color: dodgerblue;
+		border: 2px solid dodgerblue;
+		}	
+	.about {
+		height: 1200px!important;
+		}
+}
+
+@media only screen and (max-width: 600px) {
+	.siteHeader{
+		height: 400px;
+		width: 100%;
+		}
+	.siteMainIcon {
+		top: 80px;
+		left: 20px;
+		height: 60px;
+		width: 60px;
+		}
+	.siteTitle {
+		font-size: 60px;
+		top: 70px;
+		left: 30px;
+		}
+	.siteSubTitle {
+		left: 20px;
+		font-size:35px;
+        font-weight: 400;
+		top: 60px;
+		line-height: 130%;
+		letter-spacing: 0px;
+		}
+	h2 {
+
+		font-size: 40px;
+		line-height: 130%;
+		letter-spacing: 2px;
+		}
+	h3 {
+		font-size: 30px;
+		}
+	.textBG{
+        font-size: 15px;
+		margin: auto;
+		width: 360px;
+		}
+	h4 {
+		font-size: 24px;
+		font-weight: 100;
+		}
+	h5 {
+		font-size: 14px;
+		font-weight: 100;
+		}
+	.openingText {
+		height: 580px!important;
+		}
+    .interfaceHD {
+        display:none;
+    }
+    .interfaceMobile {
+        display: block!important;
+		height: 530px!important;
+    }
+	.interfaceMobileImage {
+		width:360px;
+		height:185px;
+	}
+    .login {
+		display:none;
+    }
+    .browser {
+		display:none;
+    }
+	.secure {
+		display:none;
+	}
+	.secureMobile {
+		display:block!important;
+		height:620px!important;
+	}
+	.secureMobileImage {
+		width:360px;
+		height:56px;
+	}
+	.credit {
+		height:670px!important;
+	}
+	.creditText {
+		width:calc(100% - 100px)!important;
+	}
+	.creditIcon {
+		width: 80px;
+		height: 80px;
+		cursor: pointer;
+	}
+	.startSession {
+		height:400px!important;
+	}
+	.startSessionIcon {
+		left: 60px;
+		top: 40px;
+	}
+	.startSessionIcon:hover {
+		background-color: dodgerblue;
+		border: 2px solid dodgerblue;
+		}	
+	.about {
+		height:1600px!important;
+	}
+	.popupWindow {
+		scale:0.6!important;
+	}
+}
