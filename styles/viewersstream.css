@@ -1,37 +1,4 @@
-:root {  
-    color-scheme: light dark;
-   
-    --color-dark-bg: #141414;
-    --color-dark-grey: #282828;
-    --color-mid-grey: #3c3c3c;
-    --color-light-grey: #949494;
-    --color-light-white: #e0e0e0;
-    --color-light-bg: #f0f0f0;
-    --color-red: #be0000;
-    
-    --radius-big: 10px;
-    --radius-small: 5px;
-    --button-height: 40px;
-    --button-width: 60px;
-    --button-wide-width: 80px;
-    --border-width: 1px;
 
-    --shadows: 0px 0px 40px 0px rgba(0,0,0,.25);
-}
-* {
-    font-family: "Roboto", serif;
-    font-optical-sizing: auto;
-    font-weight: 300;
-    font-style: normal;
-    font-size: 18px;
-    border: 0px;
-    box-sizing: border-box;
-}
-body {
-    margin: 0px;
-    background-color: light-dark(var(--color-light-grey), var(--color-dark-grey));
-
-}
 .holder{	
 	position:relative!important;
 	left:0px!important;
