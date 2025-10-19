@@ -1,690 +1,422 @@
 <!DOCTYPE html>
-<html lang=en>
-
+<html lang="en">
 <head>
-	<title>rpxl.app</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="-1"/>
+    <meta name="msapplication-TileColor" content="#2e2e2e"/>
+    <meta name="description" content="Serverless web app that allows you transmit to a high quality stream to clients to view and comment on using WEBRTC and VDO.NINJA. Communication between clients is handled using low latency and very little bandwidth, dedicating as much bandwidth to the main strea, often the feed from an edit machine. Also, we think Capybara's are awesome though that might not be relevant in this case.">
+    <meta name="keywords" content="Gui Felix, Advertising, Visual Effects, Motion Graphics, Remote Pixels, vdo.ninja"/>
+    <meta name="robots" content="index, follow"/>
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 
-	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
-	<meta http-equiv="Pragma" content="no-cache"/>
-	<meta http-equiv="Expires" content="0"/>
-	<meta name="msapplication-TileColor" content="#2e2e2e"/>
-	<meta name="theme-color" content="#2e2e2e"/>
-	<meta name="keywords" content="Gui Felix, Advertising, Visual Effects, Motion Graphics, Remote Pixels, vdo.ninja"/>
-	<meta name="robots" content="index, follow"/>
-	<meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-	<meta name="mobile-web-app-capable" content="yes"/>
-	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+    <link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="icons/favicon.ico">
+    <meta name="color-scheme" content="light dark">
 
-	<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
-	<link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#5bbad5">
-	<link rel="shortcut icon" href="icons/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@200" rel="stylesheet">
 
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=tv" />
+    <link rel="stylesheet" href="styles/clientstyle.css">
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/mobilestyle.css">
 
-	<link rel="stylesheet" href="styles/style.css">
+    <title>alpha.rpxl.app v3 (beta)</title>
 </head>
-    
-<body>
 
-<!-- top navbar -->
-	<div class="topnav" id="topnav">
-        <div id="joinSession" class="joinSession" onclick="clickLiveSession()">Join a live session</div>
-	</div>
-
-	<div id="subNav"  class="topnav" style="background-color: #191919 ;display: none;">
-		<img src="icons/android-chrome-192x192.png" class="siteIcon" id="siteIcon"/>
-		<div class="ninjaIcon"><a href="https://vdo.ninja" target="_blank" class="vdoninjatext">Powered by<br>VDO.NINJA</a></div>
-		<div class="clientLink" id="clientLink" style="top: 16px; margin-left: 180px; color: rgb(65, 65, 65);">Stream : <div id="sessionLink" class="sessionLink" value="https://rpxl.app"></div></div>
-		<div id="clock" class="clock" style="left: calc(100% - 240px);"></div>	
-		<div id="exitSession" class="exitSession" onclick="leave()">Leave</div>
-	</div>
-
-	<div id="hideChat" style="position: absolute; top: calc(100% - 40px); left:calc(100% - 40px); width:0px; height:0px; border-bottom: 20px solid white; border-left: 20px solid transparent; border-top: 20px solid transparent; border-right: 20px solid white; z-index: 99; cursor: pointer; opacity:0.3; display: none;"></div>
-
-	<!--frames for chat and live stream-->
-	<div id="frameholder">
-		<iframe title="chatIFrame" class="chatIFrame" name="chatIFrame" id="chatIFrame" style="display:none;"></iframe>
-		<iframe title="mainIFrame" class="mainIFrame" name="mainIFrame" id="mainIFrame" style="display:none;"></iframe>
-	</div>
-
-    <div id="siteHeader" class="siteHeader">
-        <img src="icons/android-chrome-192x192.png" class="siteMainIcon"/>
-        <div class="siteTitle">RPXL</div>
-        <p></p>
-        <div class="siteSubTitle">Simple,<br>secure,<br>server less,<br>remote collaboration.</div>
-    </div>
-
-    <div id="textBG" class="textBG">
-        <div id="opening text" class="openingText" style="height:550px;">
-            <p>&nbsp;</p>
-            <h3>
-				Stream high quality video from anywhere, to anywhere using only your browser.
-            </h3>
-            <p>&nbsp;</p>
-			Using the incredible open source <a href="https://vdo.ninja">vdo.ninja</a> software created by <a href="https://github.com/steveseguin/vdo.ninja">Steve Seguin</a>, RPXL is an optimised and simplified front end focused for realtime, remote editorial approvals.
-            <p></p>
-            Created as an alternative to server based messaging apps, vdo.ninja uses a peer to peer model allowing very low latency (less than 1 second) using webRTC and modern video codecs (vp9, Av1).
-            <p></p>
-            Bandwidth is concentrated on one high quality primary video stream, (at the moment up to 20Mbps) for your edit, and only minimal data used for communication between participants (typically between 30kbps to 60kbps per participant), RPXL puts your work front and centre.
-			<p>&nbsp;</p>
-        </div>
-
-		<div id="interface" class="interfaceHD" style="height:820px;">
-            <h3>
-                Designed to stay in the background, providing only the functions need.<br>
-            </h3>
-            <p>&nbsp;</p>
-			<p>&nbsp;</p>
-			<div><img src="images/interface.jpg" width="800" height="483"></div>
-			<div style="position: relative; display: inline-flex; top: -545px; right: -175px;">Runs in the browser, no need for downloads or installs. </div>
-			<div style="position: relative; display: inline-flex; top: -470px; right: 650px; width: 200px;" class="interfaceSideText"><h5>Sometimes bandwidth can be limited, so you can send high resolution files directly for download and review. Files are sent from the host directly to the client, never saved to a server.</h5></div>
-			<div style="position: relative; display: inline-flex; top: -620px; left: 818px; width: 200px;" class="interfaceSideText"><h5>Clients connect with their camera and microphone using low bandwidth but also very low latency (typically less than 40ms using only 40kbps per connection).<p></p> All communication is direct peer to peer and encrypted.</h5></div>
-			<div style="position: relative; display: inline-flex; top: -240px; left: 614px; width: 200px;" class="interfaceSideText"><h5>Minimal interface showing only the controls you need, download files. Mute the mic or camera, and settings.</h5></div>
-			<div style="position: relative; display: inline-flex; top: -150px; right: 120px;"><h5>Your footage featured in beautiful Full HD</h5></div>
-		</div>
-
-		<div id="interfaceMobile" class="interfaceMobile" style="height:580px; display:none;">
-            <h3>
-                Four mobile.
-            </h3>
-            <p>&nbsp;</p>
-			Four buttons, that's it, view your edit clutter free on the go, no distractions. <br>
-			<br>
-			<div><img src="images/intefacemobile.jpg" width="600" height="277" class="interfaceMobileImage"></div>
-			<div style="position: relative; display: inline-block;">
-				<p></p>
-				Connect, watch and chat, all in the browser, no need for downloads or installs. 
-				<p></p> 
-				Receive files, mute your microphone and audio settings. For mobile a simple user list shows the participants without video so your bandwidth goes where it's needed most, the edit.
-				<p></p>
-			</div>
-		</div>
-
-        <div id="login" class="login" style="height:700px;">
-            <div style="position: relative; display: inline-flex; width: 400px; left: 50px;"><img src="images/join.jpg" width="350" height="572" class="loginpic" >
-                <div style="position: relative; left: 50px; top:0px; width: 350px;">
-                    <h2>
-                    Mic,<br>
-                    camera,<br>
-                    connect.<br>
-                    </h2>
-                    <div style="position: relative; top: 30px;">That's it, no unnecessary setup options, connect with the minimal fuss.<br>
-                        <p></p>
-						Simple client logins, with only the tools they need. Using the browsers in built camera and microphone utilities we've removed options like screen sharing, waiting rooms, text chats and other complications.
-                        <p></p>
-                        <h5><sup>*</sup>Camera optional.</h5>
-                    </div>
-                </div>
+<body id="body">
+        
+    <div id="shmeg" class="shmeg">
+        <div class="siteHeader">
+            <div class="text">
+                <!-- <img src="icons/android-chrome-192x192.png" class="siteMainIcon"/> -->
+                <div class="siteTitle">RPXL</div>
+                <p></p>
+                <div class="siteSubTitle">Simple,<br>secure,<br>server less,<br>remote collaboration.</div>
             </div>
         </div>
 
-        <div id="browser" class="browser" style="height:500px;">
-                <h3>
-                    Runs in the browser,<br>
-                    any browser.
-                    <p></p>
-                </h3>
-                <div style="position: relative; display: inline-block; width:550px;">
-                	Chrome, Safari, Firefox?
-					<p></p>
-                	RPXL Will run on nearly all modern browsers and on most modern desktop operating systems that support them. No software installs, no updating, no plugins required.
-                	<p></p>
-					Safari on iOs and Chrome on Android are also supported for the mobile warriors amongst you.
-					<p></p>
-				</div>
-				<div style="position: relative; display: inline-block; width:800px;">
-					Tested on Safari, Chrome and Firefox, but all chromium based desktop browsers including Microsoft Edge, Opera, Brave or Vivaldi should work.<sup>*</sup>
-					<p></p>
-					<h5>
-						*Microsoft Internet Explorer and Edge Classic will not work.<br>
-					</h5>
-				</div>
-            <div style="position: relative; display: inline-block; top: -370px; left: 560px;"><img src="images/browsers.png" width="200" height="198"></div>
-        </div>
-
-		<div id="secure" class="secure" style="height:750px;">
-			<div style="position: relative; display: flex; width:450px; left:350px;">
-            <h3>
-				Secure to the core.
-            </h3>
-			</div>
-			<div style="position: relative; display: inline-block; top: -100px;"><img src="images/secure.jpg" width="300" height="520"></div>
-			<div style="position: relative; display: block; width: 450px; top: -590px; left: 350px;">
-            <p>&nbsp;</p>
-			WebRTC was designed to be secure from the start and as such all transfers are encrypted using DTLS (Datagram Transport Layer Security) and SRTP (Secure Real-time Transport Protocol).
-			<p></p>
-			Added to HTTPS encryption this guarantees any communication between you and your clients, remains safe and secure.
-			<p></p>
-            vdo.ninja and RPXL are essentially server-less. STUN (Session Traversal Utilities for NAT) servers help devices behind NAT (Network Address Translation) determine their public IP address and port. This process facilitates peer-to-peer connections in most scenarios, even when devices are located in different network environments. When STUN is not enough, such as in more complex network setups with strict NAT policies, TURN (Traversal Using Relays around NAT) servers help relay traffic between devices.
-            <p></p>
-            All this is handled invisibly and securely behind the scenes, this means your data is encrypted, stays encrypted and is never saved to a central server.
-			<p></p>
-			No worrying about what your data is being used for, no using your data to train AI, no cookies to track you.
-            <p></p>
+        <div class="textBackground">
+            <div class="text">
+                <p>&nbsp;</p>
+                <h4>Stream high quality video from anywhere, to anywhere using only your browser.<sup>*</sup></h4>
+                <p>Using the incredible open source <a href="https://vdo.ninja">vdo.ninja</a> software created by <a href="https://github.com/steveseguin/vdo.ninja">Steve Seguin</a>, RPXL is an optimised and simplified front end focused for realtime, remote, editorial approvals.</p>
+                <p>Created as an alternative to server based messaging apps, vdo.ninja uses a peer to peer model allowing very low latency using webRTC and modern video codecs.</p>
+                <p>Bandwidth is concentrated on one, high quality primary video stream. With only minimal data used for communication between participants (typically between 30kbps to 90kbps per participant).</p>
+                <p><img src="images/interface.jpg" width="750" height="453" style="border-radius: 10px; overflow: hidden; position: relative; display: inline-block;"></p>
+                <p>RPXL puts your work front and centre.</p>
+                <p>&nbsp;</p>
+                <h4>No sign-ups, no downloads, <br>no watermarks, no time limits.<sup>**</sup></h4>
+                <p><img src="images/join.jpg" width="300" height="520" style="border-radius: 10px; overflow: hidden; margin-right:50px; float:left">
+                <p> As this app is essentially server-less there are no costs in running this service. </p>
+                <p>So want to stream your timeline for to a remote client for quick feedback and approval? Go ahead.</p>
+                <p>Clients can login via desktop or mobile to view the stream, all they need supply is a username, we don't require registration or an email address. If they choose to share their microphone or camera they can talk and communicate with others in the room in real time to give feedback.</p>
+                <p>Even without a microphone or camera, clients can annotate directly on the stream and highlighting areas live or drawing boundaries for quick and accurate feedback, shared instantly.</p>
+                <p>Nothing to download, nothing to update.</p></p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <h4>Secure to the core.</h4>
+                <p>
+                    <img src="images/secure.jpg" width="300" height="520" style="border-radius: 10px; overflow: hidden; margin-left:50px; float:right">
+                    Unlike Zoom or Teams which require a server, all connections and encoding is handled by you, peer to peer, and are not routed through a central server for distribution. </p>
+                    <p>Which means we don't see your data, we don't record your data and we don't use your data to train AI.</p>
+                    <p>WebRTC was designed to be secure from the start and as such all transfers are encrypted using DTLS (Datagram Transport Layer Security) and SRTP (Secure Real-time Transport Protocol). Added to HTTPS encryption this guarantees any communication between you and your clients. STUN (Session Traversal Utilities for NAT) servers help devices behind NAT (Network Address Translation) determine their public IP address and port. This process facilitates peer-to-peer connections, even when devices are located in different network environments.</p>
+                    <p>All this is handled invisibly and securely behind the scenes, this means your data is encrypted and stays encrypted.</p></p>
+                    <p>&nbsp;</p>
+                </p>
+                <h4>So what's the catch?</h4>
+                <p>Because all encoding is handled locally, the more clients connect, the greater the load on your machine, typically about a dozen clients should be fine.</p>
+                <p>The Streaming part of this app is desktop only, it won't work with mobile devices or tablets. We also strongly recommend using a wired ethernet connection as wifi has some inherit latency issues that can cause the stream to lag or drop out. Streaming and encoding can be offloaded to a separate machine if you want to keep your edit machine free of encoding duties.</p>
+                <p>In order to capture your video stream from your edit package you will either need a capture device (a cheap HDMI to USB capture device is fine) Blackmagic and AJA cards are not supported but the Blackmagic Web-presenter will work. An alternative is to use a virtual camera software such as OBS or NDI tools, they're free and they work very well.</p>
+                <p>We've had some issues with the colour fidelity with some of the cheaper capture cards, it appears they sometimes double up the LUT on footage, this can cause some pretty big colour disparities so be sure to test first.</p>
+                <p>Colour fidelity and audio sync are as good as can be expected within the browser realm, don't expect HDRI or 10 bit colour if you clients are on a cellphone connection, it's good, but it's not perfect. Audio sync can slip if the machine is overloaded or there is some network congestion, but generally it should be within 2 frames.</p>
+                <p>We prioritised speed and ease of use over absolute accuracy. This tool is not meant to replace file sharing tools such as frame.io or kollaborate but more to offer a higher quality alternative when presenting to smaller groups.</p>
+                <p>If you've read this far and still want to give it a go, use the button bellow to get started.</p>
+                <p>&nbsp;</p>
+                <a href="https://alpha.rpxl.app/stream" target="_self" style="text-decoration: none"><button class="botton buttonblue buttonWider">Create a live session</button></a>
+                <p>&nbsp;</p>
+                <hr>
+                <p>&nbsp;</p>
+                <h5>
+                <sup>*</sup>Okay, you are going need some sort of capture device to get your video into your browser.<br>
+                <sup>**</sup>Because we're awesome that way.
+                </h5>
+                <p>&nbsp;</p>
             </div>
-
         </div>
-		<div id="secureMobile" class="secureMobile" style="height:580px; display:none;">
-            <h3>
-				Secure to the core.
-            </h3>
-			<p>&nbsp;</p>
-			<img src="images/securemobile.png" width="600" height="93" class="secureMobileImage">
-			<p></p>
-			WebRTC was designed to be secure from the start and as such all transfers are encrypted using DTLS (Datagram Transport Layer Security) and SRTP (Secure Real-time Transport Protocol).
-			<p></p>
-			Added to HTTPS encryption this guarantees any communication between you and your clients, remains safe and secure.
-			<p></p>
-            vdo.ninja and RPXL are essentially server-less. STUN (Session Traversal Utilities for NAT) servers help devices behind NAT (Network Address Translation) determine their public IP address and port. This process facilitates peer-to-peer connections in most scenarios, even when devices are located in different network environments. When STUN is not enough, such as in more complex network setups with strict NAT policies, TURN (Traversal Using Relays around NAT) servers help relay traffic between devices.
-            <p></p>
-            All this is handled invisibly and securely behind the scenes, this means your data is encrypted, stays encrypted and is never saved to a central server.
-			<p></p>
-			No worrying about what your data is being used for, no using your data to train AI, no cookies to track you.
-            <p></p>
-        </div>
-
-        <div id="credit" class="credit" style="height:550px;">
-            <p>&nbsp;</p>
-            <h3>
-				Credit, where credit is due.</h3>
-            </h3>
-            <p>&nbsp;</p>
-			<div style="position: relative; display: inline-block; width:calc(100% - 250px)" class="creditText">
-				Created by Steve Seguin, vdo.ninja, in its simplest form allows live video from a smartphone, tablet, or remote computer to be sent directly into OBS Studio or other browser-enabled software. It is offered as a free web service, but also available as customisable and deployable code. Some have called it the modern Swiss Army knife of audio and video transmission.
-				<p></p>
-				We customised vdo.ninja for our admittedly niche use case, remote editorial workflows. Although other products are available we found their features and costs to be excessive for our use. With the excellent API and controls created by Steve, we were able to create something, simple, fast and targeted at exactly our needs.
-				<p></p>
-				vdo.ninja has a massive amount of customisable parameters and options and we highly recommend you check it out if you wish to set up a similar service, links are provided bellow to both the projects github page and Steve's Discord channel.
-				<p></p>
-			</div>
-
-            <div style="position: relative; display: inline; left: 10px; vertical-align: top;">
-				<img src="images/vdoninja.png" width="200" height="200" class="creditIcon" onclick="window.location = 'https://vdo.ninja/'">
-			</div>
-        </div>
-
-
-        <div id="startSession" class="startSession" style="height:450px;">
-            <p>&nbsp;</p>
-            <h3>
-				Ready, set, stream.</h3>
-            </h3>
-            <p>&nbsp;</p>
-			<div style="position: relative; display: inline-block; width:calc(100% - 350px)" class="creditText">
-				Start your stream right now.
-				<p></p>
-				No signups, no account, no fees.
-				<p></p>
-				Simply click the button and stream.
-				<p></p>
-			</div>
-
-            <div >
-				<span class="startSessionIcon" onclick="window.location = 'https://rpxl.app/stream/'")>Start streaming now!</span>
-			</div>
+        <div class="footer">
+            <div class="text">
+                <p>&nbsp;</p>
+                Links 
+                <p></p>
+                <a href="https://alpha.rpxl.app/stream/help.html">Creating a stream</a>
+                <p></p>
+                <a href="https://vdo.ninja">vdo.ninja website</a><br>
+                <a href="https://https://docs.vdo.ninja">vdo.ninja documentation</a><br>
+                <a href="https://github.com/steveseguin/vdo.ninja">vdo.ninja github</a>
+                <p></p>
+                <a href="https://discord.com/invite/T4xpQVv">Steve Seguin discord</a>	
+                <p></p>
+                <a href="https://ndi.video/tools/">ndi tools</a><br>
+                <a href="https://obsproject.com">obs studio</a><br>
+                <p style="text-align: right;"><a href="#top">back to top</a></p>
+                <p>&nbsp;</p>
+            </div>
         </div>
     </div>
 
-	<div id="footer" class="footer">
-		<div class="textBG">
-			<p>&nbsp;</p>
-			<p>&nbsp;</p>
-			Links 
-			<p></p>
-			<div style="position: relative; display: inline-block; width:50%;">
-				<a href="https://vdo.ninja">vdo.ninja website</a><br>
-				<a href="https://https://docs.vdo.ninja">vdo.ninja documentation</a><br>
-				<a href="https://github.com/steveseguin/vdo.ninja">vdo.ninja github</a>
-				<p></p>
-				<a href="https://discord.com/invite/T4xpQVv">Steve Seguin discord</a>	
-			</div>
-			<div style="position: relative; display: inline-block; top:-19px;">
-				<a href="https://ndi.video/tools/">ndi tools</a><br>
-				<a href="https://obsproject.com">obs studio</a><br>
-				<p>&nbsp;</p>
-			</div>
-			<br>
-			<div style="position: relative; display: inline-block; width:100%;">
-				<p style="text-align: right;">
-					<a href="#top" style="text-align: right;">back to top</a>
-				</p>
-			</div>
-			
-		</div>
-	</div>
 
-	<!--popup window things-->
-	<!--darken screen for popups-->
-	<div class="blackout" id="blackout" role="button" onclick="fadeOutPopup()" style="display:none;">
+    <!--iframes for vdo ninja and annotations canvas-->
+    <div id="viewerMobile" class="">
+        <iframe class="viewersiframe hidden" id="viewersStream" allow="autoplay;camera;microphone;fullscreen;picture-in-picture;display-capture;midi;geolocation;screen-wake-lock;"></iframe>
+    </div>
 
-		<!--fade and slide in popup window-->
-		<div class="popupGroup" id="popupGroup"> 
-            
-			<!--popup window, draws the white popup window-->
-			<div class="popupWindow" id="popupWindow" onclick="event.stopPropagation()">
-				
-				<!--popup window content : live session ID--> 
-				<div id="sessionIDpopupContent">	
-					<div class="popupTitle" style="width:445px; padding-bottom:20px;">
-						Enter live session ID
-						<p></p>
-					</div>
-					<form id="sessionIDCode" name="sessionIDCode" onsubmit="return checkSessionFile()" method="post" required="">
-						<input name="sessionIDInput" id="sessionIDInput" type="text" autocomplete="one-time-code" maxlength="6" onkeypress="return onlyAlphabets(event,this);" oninput="this.value = this.value.toUpperCase()" tabindex="1" style="--_otp-digit: 6;">
-						<br>
-						<div style="display: flex; justify-content: center; align-items: center; width:445px;">
-							<input type="submit" id="submitSessionID" value="Next" class="button" tabindex="2">
-						</div>
-					</form>
-				</div>
-				 
-				<!--popup window content : ask for a username--> 
-				<div class="askNamePopupContent" id="askNamePopupContent" style="animation: 300ms ease-out fadeIn; display: none;">
-					<div class="popupTitle">Enter your name</div>
-					<p></p>
-					<form id="stageName" name="stageName" onsubmit="return validateStageName()" method="post" required="">
-						<input class="enterStageName" type="text" maxlength="11" name="enterStageName">
-						<br>
-						<div class="subtext" id="subtext">
-							Your browser may prompt you for microphone and camera access.
-							<p></p>
-							To talk to others during the session you must select ALLOW.
-							You can mute or turn off your camera at any time during the sesssion.
-						</div>
-						<input type="submit" value="Join" class="button">                            
-					</form>
-					</div>
+    <div class="mainZoom hidden" id="zoomdiv">
+        <iframe class="mainstreamiframe" id="mainStream" allow="autoplay;screen-wake-lock;display-capture;"></iframe>   
+        <canvas id="annotationsCanvas" class="annotationsCanvas"></canvas>
+    </div>
 
-				<!--popup window content : warning if on mobile device--> 
-					<div id="mobileWarningPopupContent" style="animation: 300ms ease-out fadeIn; display: none;">
-						<div class="popupTitle" style="width:445px;">
-							Mobile support coming soon.
-							<p></p>
-						</div>
-						<div style="position:relative; left:20px; top:20px; width:400px;">
-						Currently, RPXL only supports desktop clients on Windows, Mac and Linux.
-						<p></p>
-						Support for mobile clients, iOs, iPadOs and Android is in development.
-						</div>
-					</div>
+    <!--Main interface-->
+    <div id="mainWindow" class="hidden">
+        <!--top menu bar-->
+        <div id="topmenu" class="toolbar top">	
+            <div style="width:20px"></div>
+            <h3 id="sessionTitle">RPXL</h3>&nbsp;<h3 id="sessionID">RPXL</h3>
+            <div class="toolspacer"></div>           
+            <div class="toolset">
+                <a href="https://vdo.ninja" target="_blank" style="text-decoration: none">
+                    <button class="botton buttonblue" id="vdoninja">&nbsp;&nbsp;Powered by vdo.ninja&nbsp;&nbsp;</button>
+                </a>
+            </div>
+        </div>
+        <!--bottom menu bar-->
+        <div id="bottomMenu" class="toolbar bottom">
+            <div class="toolset">
+                <button class="tool toolmoresettings" id="toolSettings" aria-expanded="false" role="button"><span class="material-symbols-outlined">settings</span></button>
+            </div>
+            <div class="toolset toolspacer">
+                <button class="tool toolred disable" aria-expanded="false" id="toolMuteMicrophone" role="button" disabled><span class="material-symbols-outlined">mic</span></button>
+                <button class="tool disable" aria-expanded="false" id="toolMuteCamera" disabled role="button"><span class="material-symbols-outlined">photo_camera</span></button>
+            </div>
+            <div class="toolset" id="toolAnnotations">
+                <button class="tool streamtool disable" aria-expanded="false" id="toolDraw" disabled role="button"><span class="material-symbols-outlined">format_ink_highlighter</span></button>
+                <button class="tool streamtool toolmoresettings disable" aria-expanded="false" id="toolPalette" disabled role="button"><span class="material-symbols-outlined">palette</span></button>
+                <button class="tool streamtool disable" aria-expanded="false" id="toolEraser" disabled role="button"><span class="material-symbols-outlined">ink_eraser_off</span></button>
+            </div>
+            <div class="toolspacer"></div>
+            <div class="toolset"><button class="tool streamtool disable" aria-expanded="false" id="toolMuteStream" disabled role="button"><span class="material-symbols-outlined">volume_up</span></button>   
+                <span class="volume streamtool" role="button"><input type="range" id="toolStreamVolume" value="80" min="0" max="100" disabled class="streamtool disable"></span>        
+            </div>
+        </div>
+    </div>
 
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="popupBG hidden" id="popupBG"></div>
+
+    <!--enter username, select camera and microphone dialog-->
+    <dialog id="settingsDialog" class="toolpopup top middle hidden">
+        <div class="table">
+            <div id="camPreview" style="grid-column: 1 / span 2;">
+                <video id="camera" class="camera " autoplay playsinline poster=""></video>
+                <span id="meterGraph" class="meterGraph"><span id="micmeter" class="meter"></span></span>
+            </div>
+            <div><span class="material-symbols-outlined" style="justify-content: center; align-items: center;">account_circle</span></div>
+            <div><input type="text" maxlength="25" class="textinput" id="name" placeholder="Name (Required)" contenteditable="true" autocomplete="off"></div>
+            <div><span class="material-symbols-outlined" style="justify-content: center; align-items: center;">mic</span></div><div class="custom-select"><select id="microphoneSource"><option value="" disabled>None</option></select></div>
+            <div><span class="material-symbols-outlined" style="justify-content: center; align-items: center;">photo_camera</span></div><div class="custom-select"><select id="cameraSource"><option value="" disabled>None</option></select></div>
+            <div></div><div></div>
+            <div style="grid-column: 1 / span 2;"><button id="checkLogin" class="botton buttonblue buttonWider">Join live session</button></div>
+        </div>
+        <!-- duplicate elements not used (so use same logic in stream and client) -->
+        <div class="hidden">Video source</div><div class="custom-select hidden"><select contenteditable="true" id="videoSource"><option value="">None</option></select></div>
+        <div class="hidden">Audio source</div><div class="custom-select hidden"><select contenteditable="true" id="audioSource"><option value="">None</option></select> </div>
+        <div style="grid-column: 1 / span 2 hidden" id="settingsDialogVideoAudioPreview"><video id="video" class="videosource hidden" autoplay playsinline poster="" muted></video><span id="meterGraph" class="meterGraph hidden"><span id="audiometer" class="meter hiddden"></span></div> 
+    </dialog>
+
+    <!----- popup color menu ------>
+    <dialog id="paletteDialog" class="toolpopup bottom middle hidden">
+            <div><span class="colorpot" role="button" value="black" aria-expanded="false" style="background-color: black;"></span><span class="colorpot selectedcolorpot" role="button" value="white" aria-expanded="true" style="background-color: white;"></span><span class="colorpot" role="button" value="cyan" aria-expanded="false" style="background-color: cyan;"></span><span class="colorpot" role="button" value="magenta" aria-expanded="false" style="background-color: magenta;"></span><span class="colorpot" role="button" value="yellow" aria-expanded="false" style="background-color: yellow;"></span></div>
+    </dialog>
+
+    <!----- Permissions ------>
+    <div id="permissionsCheck" class="">
+        <dialog id="permissionsDialogClient" class="toolpopup top middle hidden">
+            <span class="material-symbols-outlined" style="font-size:125px">error</span><br>
+            <h2>Access to your microphone<br>or camera is blocked.</h2>
+            <p>If you choose to join without a<br>microphone or camera other<br>guests will not be able to<br>hear or see you.</p>
+            <p>For help on how to allow<br>access, <a href="https://www.google.com/search?q=browser+miicrophone+and+camera+permissions+setup+for+desktop+and+mobile&rlz=1C5CHFA_enCH1148CH1149&oq=browser+miicrophone+and+camera+permissions+setup+for+desktop+and+mobile&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBCTIxMDk0ajBqN6gCCLACAfEFhqUbtfZyAjs&sourceid=chrome&ie=UTF-8" target="_new">click here.</a></p>
+            <p>If you wish to join anyway</p>
+            <button id="permissionIgnore" class="botton buttonblue buttonWider" autofocus> Join anyway </button>
+            <!-- <h5>Mic and camera can be muted.</h4> -->
+        </dialog>
+    </div>
+
+    <!----- popup menu microphone mute ------>
+    <dialog id="popupMicMuted" class="toolpopup top middle hidden warning">
+        <h2 style="color: var(--color-light-bg)">Warning : Your microphone is muted</h2>
+    </dialog>
+
+    <!----- popup menu microphone mute ------>
+    <dialog id="popupCamMuted" class="toolpopup top middle  hidden notification">
+        <h2>Your camera has been turned off</h2>
+    </dialog>
+
+    <!----- popup menu microphone mute ------>
+    <dialog id="popupStreamMuted" class="toolpopup top middle  hidden notification">
+        <h2>Incoming stream muted (You will still hear participants)</h2>
+    </dialog>
+
+    <!----- popup stream zoomed popup------>
+    <div id="zoom-popup" class="zoom-popup">Stream zoomed</div>
+
 </body>
 </html>
 
-<script type="text/javascript">  
-//popup live session window if the live button is clicked
-function clickLiveSession() {
-	blackout.style.animation = "fadeIn 500ms ease-out";
-	blackout.style.display = "block";
-	setTimeout(function () { blackout.style.animation = "none";}, 300);
-        document.forms["sessionIDCode"]["sessionIDInput"].focus();
-	}
-  			
-//hide live session window when user clicks off
-function fadeOutPopup() {
-	blackout.style.animation = "fadeOut 300ms ease-out";
-	setTimeout(function () { blackout.style.animation = "none"; blackout.style.display = "none"; }, 300);
-	}
+<script src="scripts/deviceselect.js"></script>
+<script src="scripts/cookies.js"></script>  <!-- check and store cookies -->
+<script src="scripts/initui.js"></script>
+<script src="scripts/initvdo.js"></script>
+<script src="scripts/interface.js"></script>
+<script src="scripts/annotations.js"></script>
 
-//cookie bits
-//read cookie username value
-function getCookie(cname) {
-	let name = cname + "=";
-	let decodedCookie = decodeURIComponent(document.cookie);
-	let ca = decodedCookie.split(';');
-	for(let i = 0; i < ca.length; i++) {
-		let c = ca[i];
-		while (c.charAt(0) == ' ') {
-			c = c.substring(1);
-			}
-		if (c.indexOf(name) == 0) {
-			return c.substring(name.length, c.length);
-			}
-		}
-  	return "";
-	}
+<script lang="javascript">
+localStorage.clear(); //clear local storage on load to avoid issues with old settings
+sessionStorage.clear(); //clear session storage on load to avoid issues with old settings
 
-//check if an URL parameter is supplied
-//if there is clean the string and check the file
-let query = location.search;
-let sessionIDURL = query.slice(1);
-let sessionIDUp = sessionIDURL.toUpperCase();
-let	sessionFile = encodeURIComponent(sessionIDUp); 
+randomBG (); //initui.js
+checkSessionURL ()
 
-if  ((sessionFile != 0) && (sessionFile.length == 6)) {
-	document.forms ["sessionIDCode"]["sessionIDInput"].value = sessionFile;	
-	blackout.style.display = "block";
-	checkSessionFile ();
-	}  
-
-//clock for top right of window
-//clock check if and add zero in front of numbers < 10
-function startTime() {
-	const today = new Date();
-        let h = today.getHours();
-        let m = today.getMinutes();
-	        let s = today.getSeconds();
-        m = checkTime(m);
-	    h = checkTime(h);
-		    s = checkTime(s);
-        document.getElementById('clock').innerHTML =  h + ":" + m + ":" +s ;
-        setTimeout(startTime, 1000);
-	}
-function checkTime(i) {
-        if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
-        return i;
-        }    
-    
-//Session ID field entry, force upper caase, restrict to alpha-numeric
-const input = document.querySelector('[autocomplete=one-time-code');
-input.addEventListener('input', () => input.style.setProperty('--_otp-digit', input.selectionStart));
-
-function onlyAlphabets(e, t) {
-	var regexp = new RegExp(/^[a-zA-Z0-9]*$/);
-	if (window.event) {
-		keynum = e.keyCode;
-		}
-	else if (e.which) {
-		keynum = e.which;
-		}
-	var test = regexp.test(String.fromCharCode(keynum));
-	return test;
-	}
-
-//submit session ID if user hits enter key
-let inputSessionID = document.getElementById("sessionIDInput");
-inputSessionID.addEventListener("keypress", function(event) {
+document.getElementById("checkLogin").addEventListener("pointerdown", setupSession);//User, camera and microphone dialogue window submit button and enter actions (run setupSession())
+document.getElementById("name").addEventListener("keypress", function(event) {
 	if (event.key === "Enter") {
-		event.preventDefault();
-		document.getElementById("submitSessionID").click();
+		event.preventDefault();        //stop form submitting before we check values
+		document.getElementById("checkLogin").click();
 		}
 	});
-	
-//checks the sessionID input is 6 characters long after encoding and auto fills username if cookie exists (been here in last 24 hours)
-function checkSessionFile () {	
-	let v1 = document.forms ["sessionIDCode"]["sessionIDInput"].value;
-	let cookieStoredName = "";
 
-	sessionFile = encodeURIComponent(v1); 
-	let user = getCookie("username");
-	if (user != "") {
-		cookieStoredName = user;
-	}
+function checkSessionURL () {
+        const queryURL = window.location.search.slice(1);
+        let decodeURL;
 
-	if  ((sessionFile != 0) && (sessionFile.length == 6)) {
-		sessionIDpopupContent.style.animation = "none";
-		sessionIDpopupContent.style.display = "none";
+        try {
+            decodeURL = window.atob(queryURL); 
+                // Throws DOMException if invalid characters
+            } catch (error) {
+            if ((error instanceof URIError) || (error instanceof DOMException && error.message.includes("invalid character")) || (error instanceof TypeError)) {
+                alert("Invalid Session ID provided in URL.\n\nIf you are seeing this the link supplied has been corrupted or is incomplete.\n\nPlease check with the sender.");
+            } else {
+                console.error("Unexpected error:", error);
+            }
+        }
 
-		document.getElementById("sessionLink").innerHTML = sessionFile;
-//		document.getElementById("sessionLink").value = +sessionFile;	
-		
-		askNamePopupContent.style.animation = "fadeIn 300ms ease-out";
-		//popupWindow.style.height = "360px";
-		//popupWindow.style.width = "420px";
-		//popupWindow.style.left = "calc(50% - 190px)";
-		askNamePopupContent.style.display = "block";
-		document.forms["stageName"]["enterStageName"].value = cookieStoredName;
-		document.forms["stageName"]["enterStageName"].focus()
-		return false;
-	}
-	else {
-		popupWindow.style.animation = "shake 500ms";
-		setTimeout ( function () {popupWindow.style.animation = "none"; document.forms["stageName"]["enterStageName"].focus(); }, 300); 
-		document.forms["sessionIDCode"]["sessionIDInput"].focus();
-		return false;
-	}
+        const params = new URLSearchParams(decodeURL);
+        if (params.has('SID')) {
+            const SID = params.get('SID');
+            const sanitizedSessionID = encodeURIComponent(SID); 
+            
+            if (!sanitizedSessionID || sanitizedSessionID.length !== 9) {
+                console.log('INCORRECTLY FORMATED SESSION ID');
+                return;
+            } else {
+                getDevices().then(() => {
+                [mainAudioSelect, userAudioSelect, mainVideoSelect, userVideoSelect].forEach(sel => {
+                    sel.addEventListener('change', handleSelectionChange);
+                    });
+                });
+
+                checkCookie("username", "camera", "mic"); //cookies.js
+                sessionStorage.setItem("sessionID", sanitizedSessionID);    //store the sanitized session ID for later
+
+                shmeg.classList.add("hidden");
+                settingsDialog.classList.remove("hidden");
+                settingsDialog.show();
+                document.getElementById("sessionID").innerHTML = "("+sanitizedSessionID+")";
+
+                document.getElementById("name").focus();
+                if (params.has('PN')) {
+                    const PN = params.get('PN') || "RPXl";
+                    const decodePN = decodeURI(PN);
+                    //console.log('Name parameter exists',decodePN);
+                    document.getElementById("sessionTitle").innerHTML = decodePN;
+                }                
+            }
+        }      
 }
-	  
-//if the session id checks out when user enters a name
-//check the username (stagename), make sure it isn't empty, then clean up the string
-//set a cookie and start the session
-function validateStageName(){
-	let varstageName = document.forms ["stageName"]["enterStageName"].value;
-	//if they try to submit an empty name shake the box and highlight the stage name field
-	if (!varstageName) {								
-		popupWindow.style.animation = "shake 500ms";
-		setTimeout ( function () {popupWindow.style.animation = "none"; document.forms["stageName"]["enterStageName"].focus(); }, 300);  
-		return false;
-		}
-	//encode the name entered to a URI to escape any odd characters set cookie for next 24 hours
-	else {
-		//check if on mobile device
-		let mobile = false;
-		//ipad pro workaround, not really working at moment
-		if ('ontouchstart' in window || (window?.DocumentTouch && document instanceof DocumentTouch)) {
-			mobile = true;
-		}
-		//usual mobile detection
-		if (navigator.userAgent.match(/Android/i)
-			|| navigator.userAgent.match(/webOS/i)
-			|| navigator.userAgent.match(/iPhone/i)
-			|| navigator.userAgent.match(/iPad/i)
-			|| navigator.userAgent.match(/iPod/i)
-			|| navigator.userAgent.match(/BlackBerry/i)
-			|| navigator.userAgent.match(/Windows Phone/i)) {
-			mobile = true;
-		} else {
-			mobile = false;
-		}
-		let uri = document.forms ["stageName"]["enterStageName"].value;		
-		let encodedUserName = encodeURIComponent(uri);     
-		let expires = "expires=" + (new Date(Date.now() + 86400*1000).toUTCString());
-		document.cookie = "username=" + encodedUserName + ";" + expires + ";path=/";
 
-		//swap navigation bars, add clock and load vdoninja
-		startTime ();
-		document.getElementById("blackout").style.display = "none";
-		document.getElementById("topnav").style.display = "none";
-		document.getElementById("siteHeader").style.display = "none";
-		document.getElementById("textBG").style.display = "none";
-		document.getElementById("footer").style.display = "none";
+//check that the user has entered a name
+function setupSession() {
+    const nameInput = document.getElementById("name");
 
-		//if we are on desktop, load the chat and main frame
+    let username = nameInput.value.trim();
+    sanitizedUserName = encodeURIComponent(username); 
 
-		if (mobile == 0) {
-			document.getElementById("subNav").style.display = "block";
-			document.getElementById("clientLink").style.display = "block";
-			document.getElementById("sessionLink").style.display = "inline-block";
-			document.getElementById("chatIFrame").style.display="inline-block";
-			document.getElementById("mainIFrame").style.display="inline-block";
+    if (!sanitizedUserName) {           //if no username flash and select;
+        nameInput.style.animation = "pulse 500ms";
+        setTimeout(() => { nameInput.style.animation = "none"; }, 500);
+        nameInput.focus();
+        return;
+    } else {         //hide the user, camera and microphone dialog
+        settingsDialog.close(); 
+        ["settingsDialog", "popupBG", "shmeg"].forEach(id => {
+            document.getElementById(id).classList.add("hidden");
+        });    
+        document.getElementById("mainWindow").classList.remove("hidden");      
+        document.body.style.backgroundImage = "none";
+        
+        sessionStorage.setItem("director", "false");        
+        sessionStorage.setItem("username", sanitizedUserName);
 
-			//set sources for chat frame
-			document.getElementById("chatIFrame").allow = "autoplay; camera; microphone;";
-			document.getElementById("chatIFrame").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
-				"&nodirectoraudio"+ //do not play in user area
-				"&nodirectorvideo"+
-				"&groupd=client"+
-				"&label="+encodedUserName+ //sets label to guests name they entered earlier
-				"&showlabels"+	//show the usernames
-				"&quality=3"+	//set camera quality to lowest possible, about 360p
-				"&webcam=2"+	//disables screenshare use &webcam2 to show share your camera screen
-				"&cover"+	//make video cover space
-				"&videobitrate=100"+
-				"&vdo=1"+	//auto select camera
-				"&rounded=100"+	//makes videos round
-				"&scale=25"+	//scales peoples video to 25%
-				"&safemode"+	//loads camera in simplist way
-				"&st=6"+	//show audio only sources as coloured circles with first letter of name
-				"&meterstyle=2"+	//round highlight over person talking
-				"&hh"+	//hide vdo ninja header
-				"&ee"+	//easy exit
-				"&cv"+	//clean viewer
-				"&hpb"+	//hide play button
-				"&nsb"+	//hide speaker button
-				"&nohub"+	//hide hangup button
-				"&hidehome"+	//hide vdo ninja home page
-				"&transparent"+	//makes bg transparent
-				"&hidetranslate"+	//hides translate menu
-				"&darkmode"+	//
-				"&disablehotkeys"+	//no hotkeys
-				"&nocontrols"+	//hides video player controls
-				"&showlist=0"+	//show hidden guest list
-				"&animate"+	//videos animate around when people join or leave
-				"&js=https%3A%2F%2Frpxl.app%2Fscripts%2Fninjachat.js"+
-				"&css=https%3A%2F%2Frpxl.app%2Fstyles%2Fninjachat.css"+	//load style sheet
-			""; 
+        //change login dialog layout (remove camera preview)
+        document.getElementById("settingsDialog").classList.remove("top", "middle");        
+        document.getElementById("settingsDialog").classList.add("toolpopup", "bottom", "left");
+        document.getElementById("camPreview").style.display = "none";
+        document.getElementById("checkLogin").innerHTML = "Change settings";
+        checkLogin.removeEventListener("pointerdown", setupSession);    // Remove start session listener and add settings change listener
+        
+        // Events to allow zooming in of stream
+        window.addEventListener("wheel", onWheel, { passive: false });
+        window.addEventListener("pointerdown", onMouseDown);
+        window.addEventListener("pointermove", onMouseMove);
+        window.addEventListener("pointerup", onMouseUp);
 
-			//set sources for main frame
-			setTimeout(function(){
-			document.getElementById("mainIFrame").allow = "autoplay;";
-			document.getElementById("mainIFrame").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
-				"&directorsonly"+ 	//show only directors feed no guest audio fixes echo issue
-				"&solo"+	//no login options, solos stream
-				"&cleanoutput"+	//remove all interface bits
-				"&hideplaybutton"+	//hides big play button if autoplay is disabled
-				"&cv"+	//clean viewer
-				"&videobitrate=50000"+ //server limited but hey, ask for as much as possible
-				"&transparent"+	//makes bg transparent
-				"&preloadbitrate=-1"+	//preloads the video, might not be necessary as only use scene 1
-				"&waitimage=https%3A%2F%2Frpxl.app%2Fimages%2FnosignalHD.png"+
-				"&rampuptime=6000"+
-				"&buffer=1000"+	//adds a xms buffer
-				"&showlist=0"+	//hides the hidden viewr list
-				""; 
-			},1000);
-		}
-		else {		
-			
-			//if we are on tablet or mobile device, load a different set of options
+        checkLogin.addEventListener("pointerdown",() => {
+            viewerStream() ; //from initvdo.js
+        });
 
-			document.getElementById("mainIFrame").style.top="0px";
-			document.getElementById("mainIFrame").style.width="calc(100% - 5px)";
-			document.getElementById("mainIFrame").style.height="calc(100% - 5px)";
-
-			document.getElementById("mainIFrame").style.display="inline-block";
-		
-			document.getElementById("mainIFrame").allow="microphone; ";
-			document.getElementById("mainIFrame").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
-				"&broadcast"+	//show only directors feed
-				"&label="+encodedUserName+ //sets label to guests name they entered earlier
-				//"&mobile"+	//sets for mobile devices (no video etc)
-				"&webcam"+	//disables screenshare use &webcam2 to show share your camera screen
-				"&miconly"+	//disable camera
-				//"&safemode"+	//loads camera in simplist way
-				"&hh"+	//hide vdo ninja header
-				"&fadein"+
-				//"&cleanoutput"+	//remove all interface bits
-				"&hideplaybutton"+	//hides big play button if autoplay is disabled
-				"&cv"+	//clean viewer
-				"&nsb"+	//hide speaker button
-				"&nohub"+	//hide hangup button
-				"&hidehome"+	//hide vdo ninja home page
-				"&transparent"+	//makes bg transparent
-				//"&hidetranslate"+	//hides translate menu
-				"&darkmode"+	//
-				//"&disablehotkeys"+	//no hotkeys
-				"&nocontrols"+	//hides video player controls
-				//"&showlist=1"+	//show hidden guest list
-				//"&scale=100"+	//do not scale video
-				"&buffer=500"+	//adds a xms buffer
-				//"&preloadbitrate=-1"+	//preloads the video, might not be necessary as only use scene 1
-				"&videobitrate=5000"+ //server limited but hey, ask for as much as possible
-				"&waitimage=https%3A%2F%2Frpxl.app%2Fimages%2FnosignalHD.png"+
-				"&js=https%3A%2F%2Frpxl.app%2Fscripts%2Fninjamobile.js"+
-				"&css=https%3A%2F%2Frpxl.app%2Fstyles%2Fninjamobile.css"+	//load style sheet
-			""; 
-/*
-			"&label=QuickTV"+
-			"&broadcast"+	//show only directors feed
-			"&solo"+	//no login options, solos stream
-			"&cleanoutput"+	//remove all interface bits
-			"&hideplaybutton"+	//hides big play button if autoplay is disabled
-			"&cv"+	//clean viewer
-			"&videobitrate=50000"+ //server limited but hey, ask for as much as possible
-			"&scale=100"+	//do not scale video
-			"&transparent"+	//makes bg transparent
-			"&buffer=500"+	//adds a xms buffer
-			"&showlist=0"+	//hides the hidden viewr list
-			"&favicon=https%3A%2F%2Frpxl.app%2Ficons/favicon.ico"+
-			""; 
-			return false;
-			//set sources for main frame
-			setTimeout(function(){
-			document.getElementById("mainIFrame").allow = "autoplay;";
-			document.getElementById("mainIFrame").src = "https://vdo.rpxl.app/?room=RPXL_"+sessionFile+
-				"&broadcast"+ 	//show only directors feed
-				"&solo"+	//no login options, solos stream
-				"&cleanoutput"+	//remove all interface bits
-				"&hideplaybutton"+	//hides big play button if autoplay is disabled
-				"&cv"+	//clean viewer
-				"&videobitrate=50000"+ //server limited but hey, ask for as much as possible
-				"&transparent"+	//makes bg transparent
-				"&preloadbitrate=-1"+	//preloads the video, might not be necessary as only use scene 1
-				"&waitimage=https%3A%2F%2Frpxl.app%2Fimages%2FnosignalHD.png"+
-				"&buffer=500"+	//adds a xms buffer
-				"&showlist=0"+	//hides the hidden viewr list
-				""; 
-			},1000);*/
-		}
-		return false;
-	}
-}
-function leave () {
-		//reset site to as first arrived
-		let frame = document.getElementById("mainIFrame");
-		frame.parentNode.removeChild(frame);
-		
-		frame = document.getElementById("chatIFrame");
-		frame.parentNode.removeChild(frame);
-
-		document.getElementById("topnav").style.display = "block";
-		document.getElementById("siteHeader").style.display = "block";
-		document.getElementById("textBG").style.display = "block";
-		document.getElementById("footer").style.display = "block";
-
-		document.getElementById("subNav").style.display = "none";
-		document.getElementById("clientLink").style.display = "none";
+        viewerStream(); //from initvdo.js
+        setTimeout(function(){   
+            viewMainStream();//from initvdo.js
+        },250);
+    }
 }
 
 
-/*
-//"&cleanoutput"+
-//"&view=Main_Stream_"+sessionFile+ 
-"&broadcast="+ 	//show only directors feed
-"&label="+encodedUserName+ //sets label to guests name they entered earlier
-//"&showlabels"+	//show the usernames
-//"&quality=3"+	//set camera quality to lowest possible, about 360p
-"&mobile"+	//sets for mobile devices (no video etc)
-"&webcam"+	//disables screenshare use &webcam2 to show share your camera screen
-//"&cover"+	//make video cover space
-//"&videobitrate=100"+
-"&vdo=0"+	//join without camera
-//"&rounded=100"+	//makes videos round
-//"&mirror=2"+	//mirrors guest videos
-//"&viewwidth=160&viewheight=90"+	//sets incoming video to px size (very low res)
-//"&safemode"+	//loads camera in simplist way
-//"&st=6"+	//show audio only sources as coloured circles with first letter of name
-//"&meterstyle=2"+	//round highlight over person talking
-"&hh"+	//hide vdo ninja header
-"&ee"+	//easy exit
-"&cv"+	//clean viewer
-"&hpb"+	//hide play button
-"&nsb"+	//hide speaker button
-"&nohub"+	//hide hangup button
-"&hidehome"+	//hide vdo ninja home page
-"&transparent"+	//makes bg transparent
-"&hidetranslate"+	//hides translate menu
-"&darkmode"+	//
-"&buffer=500"+	//adds a xms buffer
-"&preloadbitrate=-1"+	//preloads the video, might not be necessary as only use scene 1
-//"&scale=100"+	//do not scale video
-//"&queue"+
-//"&disablehotkeys"+	//no hotkeys
-"&nocontrols"+	//hides video player controls
-"&showlist=1"+	//show hidden guest list
-"&waitimage=https%3A%2F%2Frpxl.app%2Fimages%2FnosignalHD.png"+
-//"&animate"+	//videos animate around when people join or leave
-"&js=https%3A%2F%2Frpxl.app%2Fscripts%2Fninjamobile.js"+
-"&css=https%3A%2F%2Frpxl.app%2Fstyles%2Fninjamobile.css"+	//load style sheet
 
-*/
+
+//pich to zoom and pan 
+
+// let lastTouchDistance = null;
+
+// function getTouchDistance(touches) {
+//     const dx = touches[0].clientX - touches[1].clientX;
+//     const dy = touches[0].clientY - touches[1].clientY;
+//     return Math.hypot(dx, dy);
+// }
+
+// zoomDiv.addEventListener("touchmove", function(e) {
+//     if (e.touches.length === 2) {
+//         e.preventDefault(); // Prevent scrolling/zooming the page
+
+//         const distance = getTouchDistance(e.touches);
+
+//         if (lastTouchDistance) {
+//             const delta = (distance - lastTouchDistance) * 0.005; // Scale sensitivity
+//             const prevScale = scale;
+//             scale = clamp(scale + delta, MIN_SCALE, MAX_SCALE);
+
+//             if (scale === 1) {
+//                 translate.x = 0;
+//                 translate.y = 0;
+//                 zoomPopup.classList.remove("visible");
+//             } else {
+//                 zoomPopup.classList.add("visible");
+
+//                 const rect = zoomDiv.getBoundingClientRect();
+//                 const centerX = (e.touches[0].clientX + e.touches[1].clientX) / 2 - rect.left;
+//                 const centerY = (e.touches[0].clientY + e.touches[1].clientY) / 2 - rect.top;
+
+//                 const dx = centerX - rect.width / 2;
+//                 const dy = centerY - rect.height / 2;
+
+//                 translate.x -= dx * (scale - prevScale) / scale;
+//                 translate.y -= dy * (scale - prevScale) / scale;
+
+//                 constrainPan();
+//             }
+
+//             applyTransform();
+//         }
+
+//         lastTouchDistance = distance;
+//     }
+// }, { passive: false });
+
+// zoomDiv.addEventListener("touchend", () => {
+//     lastTouchDistance = null;
+// });
+
+// zoomDiv.addEventListener("touchstart", (e) => {
+//     if (e.touches.length === 1 && scale > 1) {
+//         isDragging = true;
+//         dragStart.x = e.touches[0].clientX;
+//         dragStart.y = e.touches[0].clientY;
+//     }
+// });
+
+// zoomDiv.addEventListener("touchmove", (e) => {
+//     if (e.touches.length === 1 && isDragging) {
+//         const dx = e.touches[0].clientX - dragStart.x;
+//         const dy = e.touches[0].clientY - dragStart.y;
+
+//         dragStart.x = e.touches[0].clientX;
+//         dragStart.y = e.touches[0].clientY;
+
+//         translate.x += dx;
+//         translate.y += dy;
+
+//         constrainPan();
+//         applyTransform();
+//     }
+// }, { passive: false });
+
+// zoomDiv.addEventListener("touchend", () => {
+//     isDragging = false;
+// });
 </script>

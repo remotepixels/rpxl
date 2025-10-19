@@ -1,0 +1,104 @@
+
+.camera {
+    /* display: block; */
+    position: relative;
+    top:10px;
+    left: 10px;
+    margin-bottom: 20px;;
+    object-fit: cover;
+    width: 220px;
+    height: 220px;
+    border-radius: 100%;
+    /* background-color: black; */
+    background-color: light-dark(var(--color-light-white), var(--color-dark-grey))!important;
+    opacity: 1;
+    z-index: 3;
+}
+.meterGraph {
+    position: absolute;
+    /* top: 15px; */
+    left: 50%;
+    transform: translateX(-50%);
+    overflow: hidden;
+    height: 240px;
+    width: 240px;
+    border-radius: 100%;
+    border: var(--border-width) solid light-dark(var(--color-light-white), var(--color-dark-grey));
+    background-color: light-dark(white, var(--color-dark-bg));
+}
+.siteHeader{
+    position: relative;
+    width:100%;
+    display: inline-block;
+    height: 600px;
+ 	-webkit-backdrop-filter:  brightness(0.7);
+	backdrop-filter:  brightness(0.7);
+    margin:0px;
+    padding:0px;
+    }
+.siteMainIcon {
+	position: relative;
+	display: inline;
+	top: 45px;
+	left: -150px;
+	height: 120px;
+	width: 120px;
+	}
+.siteTitle {
+	position: relative;
+	display: inline;
+	font-size: 110px;
+	font-weight: 500;
+	color: #ffffff;
+	top: 25px;
+	/* left: -130px; */
+	}
+.siteSubTitle {
+	position: relative;
+	display: inline-block;
+	/* left: 90px; */
+	font-size: 78px;
+	font-weight: 300;
+	color: #ffffff;
+	top: 10px;
+	}
+
+h4 {
+	position: relative;
+	display: inline;
+	font-size: 50px;
+	font-weight: 300;
+	}
+h5 {
+	position: relative;
+	display: inline;
+	font-size: 14px;
+	font-weight: 300;
+	}
+.text{
+	position: relative;
+	justify-content: center;
+	margin: auto;
+	width: 750px;
+    color: light-dark(var(--color-light-grey), var(--color-light-grey));
+	}
+.footer {
+    display: block;
+	/* height: 300px; */
+    margin-bottom: -20px;
+	background-color: var(--color-dark-bg);
+	}
+
+.textBackground {
+    margin-top:-20px;
+    margin-bottom:-20px;
+    /* width: 100vw; */
+    padding: 0px;
+    display: block;
+    background-color: light-dark(var(--color-light-bg), var(--color-dark-grey));
+	}
+sup{
+    font-size: 16px;
+    vertical-align: super;
+    line-height: 0;
+}

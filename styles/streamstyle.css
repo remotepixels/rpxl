@@ -1,0 +1,79 @@
+/*generate new SID icon controls*/
+.refreshicon {
+    position: absolute;
+    top:5px;
+    right:5px;
+    z-index:3;
+    cursor: pointer;
+}
+.rotate360 {
+    transform: rotate(180deg);
+    transition: transform ease-in-out 0.3s;
+}
+.refreshicon:hover, .helpicon:hover {
+    color: light-dark(var(--color-dark-grey), var(--color-light-white));
+
+}
+.helpicon {
+    position: absolute; 
+    right:-5px;
+    top:-10px;
+    font-size:32px;
+    cursor: pointer;
+    z-index:10;
+}
+
+.videosource, .camera {
+    display: inline;
+    position: relative;
+    object-fit: contain;
+    width: 254px;
+    height: 185px;
+    border-top-left-radius: var(--radius-big);
+    border-bottom-left-radius: var(--radius-big);
+    background-color: light-dark(var(--color-light-white), var(--color-dark-bg))!important;
+}
+.meterGraph{
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    height: 185px;
+    width:10px;
+    left: 1px;
+    border-top-right-radius: var(--radius-big);
+    border-bottom-right-radius: var(--radius-big);
+    border: var(--border-width) solid light-dark(var(--color-light-white), var(--color-dark-grey));
+    background-color: light-dark(var(--color-light-white), var(--color-mid-grey));
+}
+
+.buttonmoresettings {
+    position: relative;
+    display: inline;
+    width: 200px;
+    padding-right:30px;
+    background-color: light-dark(var(--color-light-white), var(--color-mid-grey));
+}
+.buttonmoresettings[aria-expanded="true"]::after {
+    transform: rotate(180deg) translateY(50%);
+}
+.collapsed {
+    display:none;
+    max-height: 0px;
+}
+/*quit menu confirmation*/
+.confirmpopup {
+    position: absolute;
+    display: inline-block;
+    height: var(--button-height);
+    right: 5px;
+    top: -15px;
+    border: 0px;
+    color: light-dark(var(--color-light-grey), var(--color-light-grey));
+    background-color: light-dark(var(--color-light-bg), var(--color-dark-bg));
+    border-radius: var(--radius-big);
+    z-index: 10;
+    box-shadow: none!important;
+
+    padding:0px; margin:0px; left:auto; width:260px
+
+}

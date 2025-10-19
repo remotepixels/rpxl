@@ -1,0 +1,124 @@
+@media (max-width: 760px) {
+    .volume, #toolMuteCamera {
+        display: none;
+    }
+    .volume {
+        display: none;
+    }
+    .siteHeader {
+        height:400px;
+    }
+    .text {
+        max-width:550px;
+    }
+    .siteTitle {
+        font-size: 80px;
+    }
+    .siteSubTitle {
+        font-size:50px;
+    }
+    h4 {
+        font-size:25px;
+    }
+    img { 
+        scale:0.85;
+        transform-origin: 0%;
+    }
+    .viewersiframe {
+        opacity:0px;
+        left:-100px;
+        width:1px;
+        height:1px;
+    }
+    #topmenu {
+        display: none;
+    }
+    #bottomMenu {
+        height:70px;
+        bottom:0px;
+        padding-bottom: 20px;
+        /* margin-bottom:20px; */
+    }
+    .toolpopup.bottom {
+        bottom: calc(35px + var(--button-height));
+    }
+    .mainZoom {
+        left: 0px;
+        top: 5px;
+        height: calc(100% - var(--toolbarheight));
+        width:100%;
+    }
+}
+@media (max-width: 420px) {
+    .volume, #toolMuteCamera, #toolMuteMicrophone{
+        display: none;
+    }
+    .siteHeader {
+        height:330px;
+    }
+    .text {
+        max-width:300px;
+    }
+    .siteTitle {
+        font-size: 90px;
+    }
+    .siteSubTitle {
+        font-size:32px;
+    }
+    h4 {
+        font-size:25px;
+    }
+    img { 
+        scale:1;
+    }
+    .viewersiframe {
+        opacity:0px;
+        left:-100px;
+        width:1px;
+        height:1px;
+    }
+    #topmenu {
+        display: none;
+    }
+    #bottomMenu {
+        height:70px;
+        bottom:0px;
+        padding-bottom: 20px;
+        /* margin-bottom:20px; */
+    }
+    .toolpopup.bottom {
+        bottom: calc(35px + var(--button-height));
+    }
+    .mainZoom {
+        left: 0px;
+        top: 5px;
+        height: calc(100% - var(--toolbarheight));
+        width:100%;
+    }
+}
+@media (max-height: 430px) {
+    #topmenu {
+        display: none;
+    }
+    #bottomMenu {
+        height:70px;
+        bottom:0px;
+        padding-bottom: 20px;
+        /* margin-bottom:20px; */
+    }
+    .toolpopup.bottom {
+        bottom: calc(35px + var(--button-height));
+    }
+    .viewersiframe {
+        opacity:0px;
+        left:-100px;
+        width:1px;
+        height:1px;
+    }
+    .mainZoom {
+        left: 0px;
+        top: 5px;
+        height: calc(100% - var(--toolbarheight));
+        width:100%;
+    }
+}
