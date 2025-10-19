@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="../styles/streamstyle.css">
     <link rel="stylesheet" href="../styles/styles.css">
     
-    <title>alpha.rpxl.app v3 | Stream (beta)</title>
+    <title>rpxl.app v3 | Stream (beta)</title>
 </head>
 
 <body>
@@ -213,12 +213,12 @@ if (isMobileDevice()) {
 //share and quit menu, blind stream tool
 copyMainLink.addEventListener("pointerdown", () => {
     let ShareURL = sessionStorage.getItem("ShareURL");
-    copyToClipboard("https://alpha.rpxl.app/?" + ShareURL);
+    copyToClipboard("https://rpxl.app/?" + ShareURL);
 });
 
 copyQuickLink.addEventListener("pointerdown", () => {
     let ShareURL = sessionStorage.getItem("ShareURL");
-    copyToClipboard("https://alpha.rpxl.app/qv/?" + ShareURL);
+    copyToClipboard("https://rpxl.app/qv/?" + ShareURL);
 });
 
 function copyToClipboard(text) {
@@ -326,7 +326,7 @@ function checkSessionID() {
 
     //Set Session Title & Copy Session Quick Link to Clipboard
     sessionName.innerHTML = projectName + " (" + sessionIDEnteredSanitized + ")";
-    navigator.clipboard.writeText("https://alpha.rpxl.app/qv/?" + encodedSIDAndProject );
+    navigator.clipboard.writeText("https://rpxl.app/qv/?" + encodedSIDAndProject );
 
     //hide stream settings creation dialog
     settingsDialog.close();

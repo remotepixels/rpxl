@@ -6,7 +6,7 @@ function viewerStream () {
     let storedCameraIndex = sessionStorage.getItem("cameraSourceIndex");
     let storedMicIndex = sessionStorage.getItem("microphoneSourceIndex");
     // let storedIsDirector = sessionStorage.getItem("director");
-    // let joinAsDirector = "&css=https%3A%2F%2Falpha.rpxl.app%2Fstyles%2FvdoViewer.css";
+    // let joinAsDirector = "&css=https%3A%2F%2Frpxl.app%2Fstyles%2FvdoViewer.css";
 
     let currentUsername = document.getElementById("name").value.trim() || "Streamer"; //current values in form`
     let sanitizedCurrentUserName = encodeURIComponent(currentUsername); 
@@ -47,7 +47,7 @@ function viewerStream () {
 
         //if no video source is selected or the camera is disabled in the browser then set to connect as miconly
         if ((sanitizedCamera == "0") || (sanitizedCamera == "disabled_in_browser") || (sanitizedCamera == null) || (sanitizedCamera == "null") ) {
-            var camSetup = "&avatar=https%3A%2F%2Falpha.rpxl.app%2Favatars%2F"+avatar+"&videodevice=0";//"&novideo&videodevice=0";
+            var camSetup = "&avatar=https%3A%2F%2Frpxl.app%2Favatars%2F"+avatar+"&videodevice=0";//"&novideo&videodevice=0";
         } else {
             var camSetup = "&videodevice="+sanitizedCamera+"&videobitrate=64";
         }
@@ -58,9 +58,9 @@ function viewerStream () {
             var micSetup = "&audiodevice="+sanitizedMicrophone;
         }
         // if (storedIsDirector == "true") { 
-        //     joinAsDirector = "&director&exclude="+sanitizedSessionID+"&css=https%3A%2F%2Falpha.rpxl.app%2Fstyles%2FvdoDirector.css"
+        //     joinAsDirector = "&director&exclude="+sanitizedSessionID+"&css=https%3A%2F%2Frpxl.app%2Fstyles%2FvdoDirector.css"
         // }
-        document.getElementById("viewersStream").src = "https://alpha.rpxl.app/vdo/?room=RPXL_"+sanitizedSessionID+
+        document.getElementById("viewersStream").src = "https://rpxl.app/vdo/?room=RPXL_"+sanitizedSessionID+
             "&cleanish"+
             //"&graphs"+
             "&showlabels"+
@@ -78,7 +78,7 @@ function viewerStream () {
             "&chroma=3c3c3c"+
             "&nomouseevents"+
             "&group=Client"+
-            "&css=https%3A%2F%2Falpha.rpxl.app%2Fstyles%2FvdoViewer.css"+
+            "&css=https%3A%2F%2Frpxl.app%2Fstyles%2FvdoViewer.css"+
             ""; 
 
         reactivateUserTools(); //reactivate tools - initui.js
@@ -95,7 +95,7 @@ function viewerStream () {
 function viewMainStream () {
     let sanitizedSessionID = sessionStorage.getItem("sessionID");
 
-    document.getElementById("mainStream").src = "https://alpha.rpxl.app/vdo/?room=RPXL_"+sanitizedSessionID+
+    document.getElementById("mainStream").src = "https://rpxl.app/vdo/?room=RPXL_"+sanitizedSessionID+
         "&view=Stream_"+sanitizedSessionID+
         "&autostart"+
         "&hidehome"+//hide vdo ninja homepage
@@ -106,11 +106,11 @@ function viewMainStream () {
         "&chroma=3c3c3c"+
         "&preloadbitrate=-1"+//preloads the video, might not be necessary as only use scene 1
         "&rampuptime=6000"+
-        "&waitimage=https%3A%2F%2Falpha.rpxl.app%2Fimages%2FnosignalHD.png"+
+        "&waitimage=https%3A%2F%2Frpxl.app%2Fimages%2FnosignalHD.png"+
         "&buffer=1000"+//adds a xms buffer
         "&showlist=0"+//hides the viewer list
-        "&css=https%3A%2F%2Falpha.rpxl.app%2Fstyles%2FvdoMain.css"+
-        "&js=https%3A%2F%2Falpha.rpxl.app%2Fscripts%2Fvdomain.js"+
+        "&css=https%3A%2F%2Frpxl.app%2Fstyles%2FvdoMain.css"+
+        "&js=https%3A%2F%2Frpxl.app%2Fscripts%2Fvdomain.js"+
         ""; 
 
     setTimeout(function(){   
@@ -154,7 +154,7 @@ function startMainStream() {
             ((sanitizedAudio == "0") || (sanitizedAudio == "disabled_in_browser") || (sanitizedAudio == null) || (sanitizedAudio == "null")))
         {
             console.log("no audio or video stream starting data only stream")
-            document.getElementById("mainStream").src = "https://alpha.rpxl.app/vdo/?room=RPXL_"+sanitizedSessionID+
+            document.getElementById("mainStream").src = "https://rpxl.app/vdo/?room=RPXL_"+sanitizedSessionID+
                 "&push=Stream_"+sanitizedSessionID+
                 "&dataonly"+
                 "";
@@ -171,7 +171,7 @@ function startMainStream() {
                 var audioSetup = "&audiodevice="+sanitizedAudio;
             }
 
-            document.getElementById("mainStream").src = "https://alpha.rpxl.app/vdo/?room=RPXL_"+sanitizedSessionID+
+            document.getElementById("mainStream").src = "https://rpxl.app/vdo/?room=RPXL_"+sanitizedSessionID+
                 "&push=Stream_"+sanitizedSessionID+videoSetup+audioSetup+
                 "&view"+
                 //"&solo"+
@@ -194,9 +194,9 @@ function startMainStream() {
                 "&agc=0"+//turns off auto gain control
                 "&denoise=0"+//turns off denoiser
                 "&ab=128"+//constant audio bitrate
-                "&waitimage=https%3A%2F%2Falpha.rpxl.app%2Fimages%2FnosignalHD.png"+
-                "&css=https%3A%2F%2Falpha.rpxl.app%2Fstyles%2FvdoMain.css"+
-                "&js=https%3A%2F%2Falpha.rpxl.app%2Fscripts%2Fvdomain.js"+
+                "&waitimage=https%3A%2F%2Frpxl.app%2Fimages%2FnosignalHD.png"+
+                "&css=https%3A%2F%2Frpxl.app%2Fstyles%2FvdoMain.css"+
+                "&js=https%3A%2F%2Frpxl.app%2Fscripts%2Fvdomain.js"+
                 ""; 
 
         setTimeout(function(){   
