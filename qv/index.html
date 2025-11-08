@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="../styles/styles.css">
     <link rel="stylesheet" href="../styles/mobilestyle.css">
 
-    <title>rpxl.app v3 | Quickview (beta)</title>
+    <title>alpha.rpxl.app v3 | Quickview (beta)</title>
 </head>
 <style>
     .mainZoom {
@@ -132,7 +132,7 @@ function checkSessionURL () {
     const queryURL = window.location.search.slice(1);
     if (!queryURL) {       
         alert("Invalid Session ID provided in URL.\n\nIf you are seeing this the link supplied has been corrupted or is incomplete.\n\nPlease check with the streamer.");
-        window.location.href = "https://rpxl.app";
+        //window.location.href = "https://alpha.rpxl.app";
         return;
     };
 
@@ -144,7 +144,7 @@ function checkSessionURL () {
         } catch (error) {
         if ((error instanceof URIError) || (error instanceof DOMException && error.message.includes("invalid character")) || (error instanceof TypeError)) {
             alert("Invalid Session ID provided in URL.\n\nIf you are seeing this the link supplied has been corrupted or is incomplete.\n\nPlease check with the streamer.");
-            window.location.href = "https://rpxl.app";
+            //window.location.href = "https://alpha.rpxl.app";
             return;
         } else {
             console.error("Unexpected error:", error);
@@ -159,7 +159,7 @@ function checkSessionURL () {
         
         if (!sanitizedSessionID || sanitizedSessionID.length !== 9) {
             alert("Invalid Session ID provided in URL.\n\nIf you are seeing this the link supplied has been corrupted or is incomplete.\n\nPlease check with the streamer.");
-            window.location.href = "https://rpxl.app";
+            //window.location.href = "https://alpha.rpxl.app";
             return;
         } else {
             sessionStorage.setItem("sessionID", sanitizedSessionID);    //store the sanitized session ID for later

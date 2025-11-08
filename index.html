@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="styles/styles.css">
     <link rel="stylesheet" href="styles/mobilestyle.css">
 
-    <title>rpxl.app v3 (beta)</title>
+    <title>alpha.rpxl.app v3 (beta)</title>
 </head>
 
 <body id="body">
@@ -81,7 +81,7 @@
                 <p>We prioritised speed and ease of use over absolute accuracy. This tool is not meant to replace file sharing tools such as frame.io or kollaborate but more to offer a higher quality alternative when presenting to smaller groups.</p>
                 <p>If you've read this far and still want to give it a go, use the button bellow to get started.</p>
                 <p>&nbsp;</p>
-                <a href="https://rpxl.app/stream" target="_self" style="text-decoration: none"><button class="botton buttonblue buttonWider">Create a live session</button></a>
+                <a href="https://alpha.rpxl.app/stream" target="_self" style="text-decoration: none"><button class="botton buttonblue buttonWider">Create a live session</button></a>
                 <p>&nbsp;</p>
                 <hr>
                 <p>&nbsp;</p>
@@ -97,7 +97,7 @@
                 <p>&nbsp;</p>
                 Links 
                 <p></p>
-                <a href="https://rpxl.app/stream/help.html">Creating a stream</a>
+                <a href="https://alpha.rpxl.app/stream/help.html">Creating a stream</a>
                 <p></p>
                 <a href="https://vdo.ninja">vdo.ninja website</a><br>
                 <a href="https://https://docs.vdo.ninja">vdo.ninja documentation</a><br>
@@ -127,7 +127,7 @@
     <!--Main interface-->
     <div id="mainWindow" class="hidden">
         <!--top menu bar-->
-        <div id="topmenu" class="toolbar top">	
+        <!-- <div id="topmenu" class="toolbar top">	
             <div style="width:20px"></div>
             <h3 id="sessionTitle">RPXL</h3>&nbsp;<h3 id="sessionID">RPXL</h3>
             <div class="toolspacer"></div>           
@@ -136,13 +136,13 @@
                     <button class="botton buttonblue" id="vdoninja">&nbsp;&nbsp;Powered by vdo.ninja&nbsp;&nbsp;</button>
                 </a>
             </div>
-        </div>
+        </div> -->
         <!--bottom menu bar-->
         <div id="bottomMenu" class="toolbar bottom">
             <div class="toolset">
                 <button class="tool toolmoresettings" id="toolSettings" aria-expanded="false" role="button"><span class="material-symbols-outlined">settings</span></button>
             </div>
-            <div class="toolset toolspacer">
+            <div id="micCamControls" class="toolset toolspacer">
                 <button class="tool toolred disable" aria-expanded="false" id="toolMuteMicrophone" role="button" disabled><span class="material-symbols-outlined">mic</span></button>
                 <button class="tool disable" aria-expanded="false" id="toolMuteCamera" disabled role="button"><span class="material-symbols-outlined">photo_camera</span></button>
             </div>
@@ -155,6 +155,9 @@
             <div class="toolset"><button class="tool streamtool disable" aria-expanded="false" id="toolMuteStream" disabled role="button"><span class="material-symbols-outlined">volume_up</span></button>   
                 <span class="volume streamtool" role="button"><input type="range" id="toolStreamVolume" value="80" min="0" max="100" disabled class="streamtool disable"></span>        
             </div>
+        </div>
+        <div>
+            <h3 class="copyCredit">Powered by vdo.ninja</h3>
         </div>
     </div>
 
@@ -277,14 +280,14 @@ function checkSessionURL () {
                 shmeg.classList.add("hidden");
                 settingsDialog.classList.remove("hidden");
                 settingsDialog.show();
-                document.getElementById("sessionID").innerHTML = "("+sanitizedSessionID+")";
+                //document.getElementById("sessionID").innerHTML = "("+sanitizedSessionID+")";
 
                 document.getElementById("name").focus();
                 if (params.has('PN')) {
                     const PN = params.get('PN') || "RPXl";
                     const decodePN = decodeURI(PN);
-                    //console.log('Name parameter exists',decodePN);
-                    document.getElementById("sessionTitle").innerHTML = decodePN;
+                    console.log('Name parameter exists',decodePN);
+                    //document.getElementById("sessionTitle").innerHTML = decodePN;
                 }                
             }
         }      
@@ -336,87 +339,4 @@ function setupSession() {
         },250);
     }
 }
-
-
-
-
-//pich to zoom and pan 
-
-// let lastTouchDistance = null;
-
-// function getTouchDistance(touches) {
-//     const dx = touches[0].clientX - touches[1].clientX;
-//     const dy = touches[0].clientY - touches[1].clientY;
-//     return Math.hypot(dx, dy);
-// }
-
-// zoomDiv.addEventListener("touchmove", function(e) {
-//     if (e.touches.length === 2) {
-//         e.preventDefault(); // Prevent scrolling/zooming the page
-
-//         const distance = getTouchDistance(e.touches);
-
-//         if (lastTouchDistance) {
-//             const delta = (distance - lastTouchDistance) * 0.005; // Scale sensitivity
-//             const prevScale = scale;
-//             scale = clamp(scale + delta, MIN_SCALE, MAX_SCALE);
-
-//             if (scale === 1) {
-//                 translate.x = 0;
-//                 translate.y = 0;
-//                 zoomPopup.classList.remove("visible");
-//             } else {
-//                 zoomPopup.classList.add("visible");
-
-//                 const rect = zoomDiv.getBoundingClientRect();
-//                 const centerX = (e.touches[0].clientX + e.touches[1].clientX) / 2 - rect.left;
-//                 const centerY = (e.touches[0].clientY + e.touches[1].clientY) / 2 - rect.top;
-
-//                 const dx = centerX - rect.width / 2;
-//                 const dy = centerY - rect.height / 2;
-
-//                 translate.x -= dx * (scale - prevScale) / scale;
-//                 translate.y -= dy * (scale - prevScale) / scale;
-
-//                 constrainPan();
-//             }
-
-//             applyTransform();
-//         }
-
-//         lastTouchDistance = distance;
-//     }
-// }, { passive: false });
-
-// zoomDiv.addEventListener("touchend", () => {
-//     lastTouchDistance = null;
-// });
-
-// zoomDiv.addEventListener("touchstart", (e) => {
-//     if (e.touches.length === 1 && scale > 1) {
-//         isDragging = true;
-//         dragStart.x = e.touches[0].clientX;
-//         dragStart.y = e.touches[0].clientY;
-//     }
-// });
-
-// zoomDiv.addEventListener("touchmove", (e) => {
-//     if (e.touches.length === 1 && isDragging) {
-//         const dx = e.touches[0].clientX - dragStart.x;
-//         const dy = e.touches[0].clientY - dragStart.y;
-
-//         dragStart.x = e.touches[0].clientX;
-//         dragStart.y = e.touches[0].clientY;
-
-//         translate.x += dx;
-//         translate.y += dy;
-
-//         constrainPan();
-//         applyTransform();
-//     }
-// }, { passive: false });
-
-// zoomDiv.addEventListener("touchend", () => {
-//     isDragging = false;
-// });
 </script>

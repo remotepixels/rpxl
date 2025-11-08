@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="../styles/streamstyle.css">
     <link rel="stylesheet" href="../styles/styles.css">
     
-    <title>rpxl.app v3 | Stream (beta)</title>
+    <title>alpha.rpxl.app v3 | Stream (beta)</title>
 </head>
 
 <body>
@@ -77,7 +77,9 @@
                 <span class="volume streamtool" role="button"><input type="range" id="toolStreamVolume" value="0" min="0" max="100" disabled class="disable streamtool"/></span>    
             </div>
         </div>
-
+        <div>
+            <h3 class="copyCredit">Powered by vdo.ninja</h3>
+        </div>
     </div>    
 
     <div class="popupBG hidden" id="popupBG"></div>
@@ -121,7 +123,7 @@
     <dialog id="shareDialog" class="toolpopup top left share hidden">
         <button class="link" id="copyMainLink"><h2>Main share link</h2><br>Copy Main share link to clipboard <br> Allows full voice and video communications and live annotations</button>
         <button class="link" id="copyQuickLink"><h2>Quick share link</h2><br>Copy Quick share link to clipboard <br> No voice or video communications, streamer and clients can annotate</button>
-        <button class="link" id="copyOBSLink"><h2>OBS source link</h2><br>Copy OBS source link to clipboard <br> Main stream URL for OBS browser source</button>
+        <button class="link" id="copyOBSLink"><h2>OBS source link</h2><br>Copy OBS share link to clipboard <br> Main stream URL for input to OBS browser source</button>
     </dialog>
 
     <!----- quit dialog ------>
@@ -213,12 +215,17 @@ if (isMobileDevice()) {
 //share and quit menu, blind stream tool
 copyMainLink.addEventListener("pointerdown", () => {
     let ShareURL = sessionStorage.getItem("ShareURL");
-    copyToClipboard("https://rpxl.app/?" + ShareURL);
+    copyToClipboard("https://alpha.rpxl.app/?" + ShareURL);
 });
 
 copyQuickLink.addEventListener("pointerdown", () => {
     let ShareURL = sessionStorage.getItem("ShareURL");
-    copyToClipboard("https://rpxl.app/qv/?" + ShareURL);
+    copyToClipboard("https://alpha.rpxl.app/qv/?" + ShareURL);
+});
+
+copyOBSLink.addEventListener("pointerdown", () => {
+    let ShareURL = sessionStorage.getItem("sessionID");
+    copyToClipboard("https://alpha.rpxl.app/?view=Stream_"+ShareURL+"&room=RPXL_"+ShareURL);
 });
 
 function copyToClipboard(text) {
@@ -314,7 +321,7 @@ function checkSessionID() {
     const sanitizedProject = encodeURIComponent(projectName);
     const sessionIDEntered = sessionID.value;
     const sessionIDEnteredSanitized = sessionIDEntered.toUpperCase(); 
-    let user = document.getElementById("name").value.trim() || "Presenter";
+    let user = document.getElementById("name").value.trim() || "Streamer";
 
     var SIDAndProject = "SID="+sessionIDEnteredSanitized+"&PN="+sanitizedProject;
     var encodedSIDAndProject = btoa(SIDAndProject);
@@ -326,7 +333,7 @@ function checkSessionID() {
 
     //Set Session Title & Copy Session Quick Link to Clipboard
     sessionName.innerHTML = projectName + " (" + sessionIDEnteredSanitized + ")";
-    navigator.clipboard.writeText("https://rpxl.app/qv/?" + encodedSIDAndProject );
+    navigator.clipboard.writeText("https://alpha.rpxl.app/qv/?" + encodedSIDAndProject );
 
     //hide stream settings creation dialog
     settingsDialog.close();
