@@ -215,17 +215,17 @@ if (isMobileDevice()) {
 //share and quit menu, blind stream tool
 copyMainLink.addEventListener("pointerdown", () => {
     let ShareURL = sessionStorage.getItem("ShareURL");
-    copyToClipboard("https://alpha.rpxl.app/?" + ShareURL);
+    copyToClipboard("https://rpxl.app/?" + ShareURL);
 });
 
 copyQuickLink.addEventListener("pointerdown", () => {
     let ShareURL = sessionStorage.getItem("ShareURL");
-    copyToClipboard("https://alpha.rpxl.app/qv/?" + ShareURL);
+    copyToClipboard("https://rpxl.app/qv/?" + ShareURL);
 });
 
 copyOBSLink.addEventListener("pointerdown", () => {
     let ShareURL = sessionStorage.getItem("sessionID");
-    copyToClipboard("https://alpha.rpxl.app/?view=Stream_"+ShareURL+"&room=RPXL_"+ShareURL);
+    copyToClipboard("https://rpxl.app/?view=Stream"+ShareURL+"&room=RPXL"+ShareURL);
 });
 
 function copyToClipboard(text) {
@@ -333,7 +333,7 @@ function checkSessionID() {
 
     //Set Session Title & Copy Session Quick Link to Clipboard
     sessionName.innerHTML = projectName + " (" + sessionIDEnteredSanitized + ")";
-    navigator.clipboard.writeText("https://alpha.rpxl.app/qv/?" + encodedSIDAndProject );
+    navigator.clipboard.writeText("https://rpxl.app/qv/?" + encodedSIDAndProject );
 
     //hide stream settings creation dialog
     settingsDialog.close();
