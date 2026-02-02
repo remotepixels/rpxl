@@ -1,213 +1,397 @@
-//start the chat stream on vdo ninja (used by presenter and client)
-var avatar = "";
+//sets up vdoninja and streams
+let firstRun = true;
+let userStreamID = generateRandomID();
+const sessionID = sessionStorage.getItem("sessionID");
+const isStreamer = window.location.pathname.startsWith("/stream");
+const isQuickShare = window.location.pathname.startsWith("/qs");
+const mainVideoPreview = document.getElementById("mainStream");
+let mainStreamAudio = false;
+let userStreamAudio = "micStandby";
 
-function viewerStream () {
-    let storedUserName = sessionStorage.getItem("username"); //retrieve username, camera and mic settings from storage
-    let storedCameraIndex = sessionStorage.getItem("cameraSourceIndex");
-    let storedMicIndex = sessionStorage.getItem("microphoneSourceIndex");
-    let storedIsDirector = sessionStorage.getItem("director");
-    let joinAsDirector = "&css=https%3A%2F%2Frpxl.app%2Fstyles%2FvdoViewer.css";
+//vdo sdk's, 
+const vdo = new VDONinjaSDK({
+	salt: "rpxl.app",
+	allowFallback: false,
+	debug: false
+});
 
-    let currentUsername = document.getElementById("name").value.trim() || "Streamer"; //current values in form`
-    let sanitizedCurrentUserName = encodeURIComponent(currentUsername); 
-    let currentCamera = document.getElementById("cameraSource").selectedIndex;
-    let currentMic = document.getElementById("microphoneSource").selectedIndex;
+//if host then start second sdk for main stream only
+const vdoMS = new VDONinjaSDK({
+	salt: "rpxl.app",
+	allowFallback: false,
+	debug: false
+});
 
-    if (!sanitizedCurrentUserName) {
-        document.getElementById("name").style.animation = "pulse 500ms";
-        setTimeout(() => { document.getElementById("name").style.animation = "none"; }, 500);
-        document.getElementById("name").focus();
-        return;
-    } 
-        
-    if (avatar == "") {
-        // pick a random avatar image
-        const numberArray = Array.from({ length: 43 }, (_, i) => String(i).padStart(3, '0'));
-        const randomNum = numberArray[Math.floor(Math.random() * numberArray.length)];
-        avatar = `${randomNum}.png`;
-    }
-    //compare form values with stored values, if they're different then reload the iframe
-    if ((sanitizedCurrentUserName != storedUserName) || (currentCamera != storedCameraIndex) || (currentMic != storedMicIndex)) {
-        if (!document.getElementById("viewersStream").classList.contains("hidden") ) { 
-            document.getElementById("viewersStream").classList.add("hidden"); 
-        }
-        document.getElementById("popupBG").classList.add("hidden"); 
-        viewersStream.contentWindow.postMessage({ close: true }, "*"); // hangup connection on video ninja
-        console.log("Viewer settings changed, reloading...");
 
-        storeSelectedDevicesUser(); //store new user only settings - initui.js
+//connect to vdo.ninja and join room always publish a user track
+async function VDOConnect(sessionID) {
+	//join room with placeholder stream will be replaced as devices come online
+	setupVDOListeners();
+	const userInit = initStream("user");
+	STREAMS.user = userInit.stream;
+	TRACKS.user.video = userInit.video.track;
+	TRACKS.user.audio = userInit.audio.track;
+	let sanitizedCurrentUserName = encodeURIComponent(document.getElementById("name").value.trim());
 
-        deactivateUserTools(); //turn off tools while reloading frame - initui.js
+	await vdo.connect({
+		password: null,
+		push: true,
+		view: true
+	});
 
-        //reload the stored values and use to reload viewers frame
-        let sanitizedSessionID = sessionStorage.getItem("sessionID");   //retrieve session ID
-        let sanitizedUserName = sessionStorage.getItem("username"); //retrieve username, camera and mic settings from storage
-        let sanitizedCamera = sessionStorage.getItem("cameraDevice");
-        let sanitizedMicrophone = sessionStorage.getItem("microphoneDevice");
+	await vdo.joinRoom({
+		room: sessionID,
+		mode: "full",
+		label: sanitizedCurrentUserName,
+		video: true,
+		audio: true,
+		data: true,
+		viewOptions: {
+			quality: 2,
+			scale: .10
+		}
+	})
 
-        //if no video source is selected or the camera is disabled in the browser then set to connect as miconly
-        if ((sanitizedCamera == "0") || (sanitizedCamera == "disabled_in_browser") || (sanitizedCamera == null) || (sanitizedCamera == "null") ) {
-            var camSetup = "&avatar=https%3A%2F%2Frpxl.app%2Favatars%2F"+avatar+"&videodevice=0";//"&novideo&videodevice=0";
-        } else {
-            var camSetup = "&videodevice="+sanitizedCamera+"&videobitrate=64";
-        }
+	if (!STREAMS.user || STREAMS.user.getTracks().length === 0) {
+		throw new Error('Invalid media stream created');
+	}
 
-        if ((sanitizedMicrophone == "0") || (sanitizedMicrophone == "disabled_in_browser") || (sanitizedMicrophone == null) || (sanitizedMicrophone == "null") ) {
-            var micSetup = "&audiodevice=0";
-        } else {
-            var micSetup = "&audiodevice="+sanitizedMicrophone;
-        }
-        if (storedIsDirector == "true") { 
-            joinAsDirector = "&director&novice&hidesolo&css=https%3A%2F%2Frpxl.app%2Fstyles%2FvdoDirector.css"
-        }
-        document.getElementById("viewersStream").src = "https://rpxl.app/vdo/?room=RPXL"+sanitizedSessionID+
-            "&cleanish"+
-            //"&graphs"+
-            "&showlabels"+
-            "&label="+sanitizedUserName+camSetup+micSetup+joinAsDirector+
-            "&hidehome"+
-            "&style=6"+
-            "&meterstyle=1"+
-            "&webcam"+
-            "&notify"+
-            "&disablehotkeys"+
-            "&clearstorage"+
-            "&autostart"+
-            "&nocontrols"+
-            "&signalmeter"+
-            "&chroma=3c3c3c"+
-            "&nomouseevents"+
-            "&group=Client"+
-            "&css=https%3A%2F%2Frpxl.app%2Fstyles%2FvdoViewer.css"+
-            ""; 
+	if (isStreamer) userStreamID = `hs_${userStreamID}`; //append hs_ for host if streamer
 
-        reactivateUserTools(); //reactivate tools - initui.js
-        setTimeout(function(){   
-            document.getElementById("viewersStream").classList.remove("hidden");  //wait 1 second and show frame
-        },2000);
-    } else {
-        console.log("Viewer settings unchanged, not reloading")
-        closeDialog(settingsDialog, toolSettings);
-    }
+	await vdo.publish(STREAMS.user, { 
+		streamID: userStreamID, 
+		role: "both",
+		  encoding: {
+			video: {
+			maxBitrate: "30k",
+			minBitrate: "10k"
+			}
+		},
+		media: {
+			video: {
+			frameRate: 15,
+			resolution: "320x180"
+			}
+		}
+	});
+
+	document.getElementById("userStream").srcObject = STREAMS.user;
+
+	if (isStreamer) {
+		//if streamer publish main stream (placeholder for now)
+		wait(50);
+		setupVDOMSListeners();
+		const mainInit = initStream("main");
+		STREAMS.main = mainInit.stream;
+		TRACKS.main.video = mainInit.video.track;
+		TRACKS.main.audio = mainInit.audio.track;
+		const mainStreamID = "ms_" + generateRandomID();
+
+		await vdoMS.connect({
+			password: "",
+			push: true
+		});
+		await vdoMS.joinRoom({
+			room: sessionID,
+			mode: "full",
+			video: true,
+			audio: true,
+			data: true,
+			claim: true,  
+			viewOptions: {
+				quality: 0,
+				scale: 100
+			}
+		})
+
+		if (!STREAMS.main || STREAMS.main.getTracks().length === 0) {
+			throw new Error('Invalid media stream created');
+		}
+
+		await vdoMS.publish(STREAMS.main, { streamID: mainStreamID, role: "publisher" });
+		document.getElementById("mainStream").srcObject = STREAMS.main;
+
+		//sessionStorage.setItem("mainStreamID", mainStreamID);
+	}
+
+	initUserStream();
 }
 
-//view the mainstream (used by clients)
-function viewMainStream () {
-    let sanitizedSessionID = sessionStorage.getItem("sessionID");
 
-    document.getElementById("mainStream").src = "https://rpxl.app/vdo/?room=RPXL"+sanitizedSessionID+
-        "&view=Stream"+sanitizedSessionID+
-        "&autostart"+
-        "&hidehome"+//hide vdo ninja homepage
-        "&solo"+//no login options, solos stream
-        "&cleanish"+//remove all interface bits
-        "&meterstyle=3"+
-        "&hideplaybutton"+//hides big play button if autoplay is disabled
-        "&chroma=3c3c3c"+
-        "&preloadbitrate=-1"+//preloads the video, might not be necessary as only use scene 1
-        "&rampuptime=6000"+
-        "&agc=0"+//turns off auto gain control
-        "&denoise=0"+//turns off denoiser
-        "&ab=16"+//constant audio bitrate
-        "&waitimage=https%3A%2F%2Frpxl.app%2Fimages%2FnosignalHD.png"+
-        "&buffer=1000"+//adds a xms buffer
-        "&showlist=0"+//hides the viewer list
-        "&css=https%3A%2F%2Frpxl.app%2Fstyles%2FvdoMain.css"+
-        "&js=https%3A%2F%2Frpxl.app%2Fscripts%2Fvdomain.js"+
-        ""; 
+//initializes the user stream with the correct video / audio device or a placeholder stream, also sets up the label
+async function initUserStream() {
+	//load previous settings
+	const previousSettingsJSON = localStorage.getItem(APP_NS);
+	if (!previousSettingsJSON) return;
 
-    setTimeout(function(){   
-        document.getElementById("zoomdiv").classList.remove("hidden");
-    },2000);
+	const settings = JSON.parse(previousSettingsJSON);
+	if (!settings?.length) return;
+
+	const last = settings[0];
+
+	let sanitizedCurrentUserName = encodeURIComponent(document.getElementById("name").value.trim());
+
+	//clients must have name unless.... they are the host, or they are using a quickshare link
+	//hosts
+	if (sanitizedCurrentUserName !== last.userName || firstRun === true) {
+		const userLabel = document.getElementById("userLabel");
+		userLabel.innerHTML = decodeURIComponent(sanitizedCurrentUserName);
+
+		vdo.sendData({
+			type: 'userLabel',
+			label: sanitizedCurrentUserName,
+			timestamp: Date.now()
+		});
+
+		storeSelectedDevicesUser();
+	}
+	//mere mortals and peasants
+	if (!sanitizedCurrentUserName && !isStreamer) {
+		const el = document.getElementById("name");
+		el.style.animation = "pulse 500ms";
+		setTimeout(() => (el.style.animation = "none"), 500);
+		el.focus();
+		return;
+	}
+	const invalid = new Set(["", "0", "null", "none", null]); //list of invalid sources
+	const cameraSelect = document.getElementById("cameraSource");
+	const microphoneSelect = document.getElementById("microphoneSource");
+	const cameraCurrentSource = cameraSelect?.value ?? "";
+	const microphoneCurrentSource = microphoneSelect?.value ?? "";
+
+	if (cameraCurrentSource !== last.cameraSource || firstRun === true) {
+		let oldVideoTrack = TRACKS.user.video;
+		let newVideoTrack = null;
+		//init selected camera with low settings (ask nice)
+		if (!invalid.has(cameraCurrentSource)) {
+			const newMediaStream = await navigator.mediaDevices.getUserMedia({
+				video: {
+					deviceId: { exact: cameraCurrentSource },
+					width: { ideal: 320 },
+					height: { ideal: 240 },
+					frameRate: { ideal: 15, max: 30 }
+				},
+				audio: false
+			});
+
+			newVideoTrack = newMediaStream.getVideoTracks()[0];
+			newMediaStream.getAudioTracks().forEach(t => t.stop());
+
+			reactivateTools("userCamera");
+		} else {
+			//console.warn("no user camera selected using placeholder");
+			const tempVideo = initUserVideoTrack();
+			newVideoTrack = tempVideo.track;
+
+			deactivateTools("userCamera");
+			hideBannerByKey("cam_muted");
+		}
+
+		if (oldVideoTrack !== newVideoTrack) {
+			//console.warn("changing user camera track or 1st run")
+			try {
+				await vdo.replaceTrack(oldVideoTrack, newVideoTrack);
+			} catch (error) {
+				console.warn(`Failed to switch camera: ${error.message}`, 'error');
+			}
+
+			oldVideoTrack.stop();
+			TRACKS.user.video = newVideoTrack;
+			storeSelectedDevicesUser();
+
+			//go through each connection and re-limit bitrate for user stream
+			limitVideoBitrateForUser();
+		}
+	}
+	//init select microphone 
+	if (microphoneCurrentSource !== last.microphoneSource || firstRun === true) {
+		let oldAudioTrack = TRACKS.user.audio;
+		let newAudioTrack = null;
+
+		if (!invalid.has(microphoneCurrentSource)) {
+			const newMediaStream = await navigator.mediaDevices.getUserMedia({
+				audio: {
+					deviceId: { exact: microphoneCurrentSource },
+					echoCancellation: true,
+					noiseSuppression: true,
+					autoGainControl: true
+				},
+				video: false
+			});
+
+			newAudioTrack = newMediaStream.getAudioTracks()[0];
+			newMediaStream.getVideoTracks().forEach(t => t.stop());
+			userStreamAudio = "micLive"; //this is a real audio
+
+			reactivateTools("userMicrophone");
+		} else {
+			const tempAudio = initAudioTrack();
+			newAudioTrack = tempAudio.track;
+			userStreamAudio = "micStandby"; //placeholder audio
+
+			deactivateTools("userMicrophone");
+			hideBannerByKey("mic_muted");
+			//console.warn("no user microphone selected usinf placeholder);
+		}
+
+		if (oldAudioTrack !== newAudioTrack) {
+			//console.warn("changing user microphone track, or 1st run")
+			try {
+				await vdo.replaceTrack(oldAudioTrack, newAudioTrack)
+			} catch (error) {
+				console.warn(`Failed to switch microphone: ${error.message}`, 'error');
+			}
+
+			vdo.sendData({
+				type: 'userStreamAudio',
+				info: userStreamAudio,
+				timestamp: Date.now()
+			});
+
+			oldAudioTrack.stop();
+			TRACKS.user.audio = newAudioTrack;
+			storeSelectedDevicesUser();
+		}
+	}
+	if (!isStreamer) firstRun = false; //we've run it before
+	if (isStreamer) initMainStream();
+
+	closeDialog(openModal, openIcon);
 }
 
-//used to start main stream by presenter
-function startMainStream() {
-    //get settings from local storage
-    let sanitizedSessionID = sessionStorage.getItem("sessionID");
-    
-    let storedResolution = sessionStorage.getItem("resolution");
-    let storedQuality = sessionStorage.getItem("quality");
-    let storedVideoIndex = sessionStorage.getItem("videoSourceIndex");
-    let storedAudiondex = sessionStorage.getItem("audioSourceIndex"); 
+async function initMainStream() {
+	//load previous settings
+	const previousSettingsJSON = localStorage.getItem(APP_NS);
+	if (!previousSettingsJSON) return;
 
-    console.log("stored video:",storedVideoIndex,"storedadeo",storedAudiondex)
-    let currentResolution = getCheckedRadioValue("resolution");
-    let currentQuality = getCheckedRadioValue("quality");
-    let currentVideoIndex = document.getElementById("videoSource").selectedIndex;
-    let currentAudioIndex = document.getElementById("audioSource").selectedIndex;
+	const settings = JSON.parse(previousSettingsJSON);
+	if (!settings?.length) return;
 
-    console.log("current video",currentVideoIndex,"current audio",currentAudioIndex)
-    if ((storedResolution != currentResolution) || (storedQuality != currentQuality) || (storedVideoIndex != currentVideoIndex) || (storedAudiondex != currentAudioIndex)) {
-        if (!document.getElementById("mainStream").classList.contains("hidden") ) { 
-            document.getElementById("mainStream").classList.add("hidden"); 
-            document.getElementById("zoomdiv").classList.add("hidden");
-        }
-        mainStream.contentWindow.postMessage({ close: true }, "*"); // hangup connection on video ninja
-        console.log("Main stream settings changed, reloading...")
+	const last = settings[0];
 
-        storeSelectedDevicesSession(); //store new user only settings and reload frame - initui.js
+	let currentProjectName = encodeURIComponent(project.value.trim() || "");
 
-        let resolution = sessionStorage.getItem("resolution"); 
-        let quality = sessionStorage.getItem("quality"); 
-        let sanitizedVideo = sessionStorage.getItem("videoDevice"); 
-        let sanitizedAudio = sessionStorage.getItem("audioDevice"); 
-        
-        if (((sanitizedVideo == "0") || (sanitizedVideo == "disabled_in_browser") || (sanitizedVideo == null) || (sanitizedVideo == "null")) &&
-            ((sanitizedAudio == "0") || (sanitizedAudio == "disabled_in_browser") || (sanitizedAudio == null) || (sanitizedAudio == "null")))
-        {
-            console.log("no audio or video stream starting data only stream")
-            document.getElementById("mainStream").src = "https://rpxl.app/vdo/?room=RPXL"+sanitizedSessionID+
-                "&push=Stream"+sanitizedSessionID+
-                "&dataonly&director"+
-                "";
-        } else {
-            console.log("Starting main stream with settings :", resolution, quality, sanitizedVideo, sanitizedAudio);
-            if ((sanitizedVideo == "0") || (sanitizedVideo == "disabled_in_browser") || (sanitizedVideo == null) || (sanitizedVideo == "null") ) {
-                var videoSetup = "&videodevice=0&novideo";//"&novideo&videodevice=0";
-            } else {
-                var videoSetup = "&videodevice="+sanitizedVideo;
-            }
-            if ((sanitizedAudio == "0") || (sanitizedAudio == "disabled_in_browser") || (sanitizedAudio == null) || (sanitizedAudio == "null") ) {
-                var audioSetup = "&noaudio"; 
-            } else {
-                var audioSetup = "&audiodevice="+sanitizedAudio;
-            }
+	if (currentProjectName !== last.projectName) {
+		const projectTitle = document.getElementById("sessionName");
+		projectTitle.textContent = decodeURIComponent(currentProjectName);
 
-            document.getElementById("mainStream").src = "https://rpxl.app/vdo/?room=RPXL"+sanitizedSessionID+
-                "&push=Stream"+sanitizedSessionID+videoSetup+audioSetup+
-                "&view"+
-                //"&solo"+
-                //"&graphs"+
-                "&directoronly"+
-                "&mirror"+//mirror the video
-                "&rampuptime=6000"+//ramp up time of 6 seconds
-                "&hidehome"+//hide vdo ninja homepage	
-                "&webcam"+
-                "&cleanish"+//remove all interface bits
-                "&ovb="+quality+//outbound video bitrate for main (obs stream)
-                "&quality="+resolution+//1 720p set to 0 for 1080p
-                "&autostart"+//autostart directors feed
-                "&trb=50000"+//total room bit rate
-                "&hiddenscenebitrate=50000"+//50mbps, highest quality
-                "&showlist=0"+//show hidden guest list
-                "&hideplaybutton"+//hides big play button if autoplay is disabled
-                "&chroma=3c3c3c"+
-                "&meterstyle=1"+
-                "&agc=0"+//turns off auto gain control
-                "&denoise=0"+//turns off denoiser
-                "&ab=16"+//constant audio bitrate
-                "&waitimage=https%3A%2F%2Falpha.rpxl.app%2Fimages%2FnosignalHD.png"+
-                "&css=https%3A%2F%2Falpha.rpxl.app%2Fstyles%2FvdoMain.css"+
-                "&js=https%3A%2F%2Falpha.rpxl.app%2Fscripts%2Fvdomain.js"+
-                ""; 
+		//send updated project name to viewers
+		vdo.sendData({
+			type: 'streamInfo',
+			label: currentProjectName,
+			timestamp: Date.now()
+		});
 
-        setTimeout(function(){   
-            document.getElementById("mainStream").classList.remove("hidden");
-            document.getElementById("zoomdiv").classList.remove("hidden");
-        },2000);
-        }
-    } else {
-        console.log("Main stream settings unchanged, not reloading")
-    }
+		storeSelectedDevicesSession();
+	}
+
+	const radio = document.querySelector('input[name="resolution"]:checked');
+	const width = Number(radio.dataset.width);
+	const height = Number(radio.dataset.height);
+
+	let currentQuality = getCheckedRadioValue("quality") || "low";
+	//let currentQuality = document.getElementById("quality");
+	console.warn("quality", currentQuality);
+
+	const invalid = new Set(["", "0", "null", "none", null]);
+	const videoSelect = document.getElementById("videoSource");
+	const audioSelect = document.getElementById("audioSource");
+	const videoCurrentSource = videoSelect?.value ?? "";
+	const audioCurrentSource = audioSelect?.value ?? "";
+
+	if (videoCurrentSource !== last.videoSource || height != last.resolution || currentQuality != last.quality || firstRun === true) {
+		let oldVideoTrack = TRACKS.main.video;
+		let newVideoTrack = null;
+
+		//console.warn ("video setting changed:", height," stored height",last.resolution)
+		if (!invalid.has(videoCurrentSource)) {
+			const newMediaStream = await navigator.mediaDevices.getUserMedia({
+				video: {
+					deviceId: { exact: videoCurrentSource },
+					width: { ideal: width },
+					height: { ideal: height },
+					frameRate: { ideal: 30, max: 60 }
+				},
+				audio: false
+			});
+
+			newVideoTrack = newMediaStream.getVideoTracks()[0];
+			newMediaStream.getAudioTracks().forEach(t => t.stop());
+		} else {
+			const tempVideo = initVideoTrack();
+			newVideoTrack = tempVideo.track;
+
+			hideBannerByKey("video_blind");
+			//console.warn("no user camera selected using placeholder");
+		}
+
+		if (oldVideoTrack !== newVideoTrack) {
+			try {
+				await vdoMS.replaceTrack(oldVideoTrack, newVideoTrack);
+				//console.warn("replacing tracks old - new)", oldVideoTrack, newVideoTrack);
+			} catch (error) {
+				console.warn(`Failed to switch camera: ${error.message}`, 'error');
+			}
+
+			oldVideoTrack.stop();
+			TRACKS.main.video = newVideoTrack;
+			limitVideoBitrateForMainStream(currentQuality, height);
+
+			storeSelectedDevicesSession();
+		}
+	}
+
+	//init selected audio source
+	if (audioCurrentSource !== last.audioSource || firstRun === true) {
+		let oldAudioTrack = TRACKS.main.audio;
+		let newAudioTrack = null;
+
+		if (!invalid.has(audioCurrentSource)) {
+			const newMediaStream = await navigator.mediaDevices.getUserMedia({
+				audio: {
+					deviceId: { exact: audioCurrentSource },
+					echoCancellation: true,
+					noiseSuppression: true,
+					autoGainControl: true
+				},
+				video: false
+			});
+
+			newAudioTrack = newMediaStream.getAudioTracks()[0];
+			newMediaStream.getVideoTracks().forEach(t => t.stop());
+			mainStreamAudio = true; //this is a real audio source so allow volue control
+			reactivateTools("streamAudio");
+		} else {
+			//console.warn("no audio source selected creating empty stream");
+			const tempAudio = initAudioTrack();
+			newAudioTrack = tempAudio.track;
+			mainStreamAudio = false	//placeholder audio, no volume control
+			deactivateTools("streamAudio");
+			hideBannerByKey("audio_muted");
+		}
+
+		if (oldAudioTrack !== newAudioTrack) {
+			//console.warn("Audio source changed or 1st run");
+			try {
+				await vdoMS.replaceTrack(oldAudioTrack, newAudioTrack)
+			} catch (error) {
+				console.warn(`Failed to switch audio: ${error.message}`, 'error');
+			}
+
+			vdo.sendData({
+				type: 'mainStreamAudio',
+				info: mainStreamAudio,
+				timestamp: Date.now()
+			});
+
+			// if (mainStreamAudio) {
+			// 	const videoEL = document.getElementById("mainStream");
+			// 	initMainStreamVU(videoEL);
+			// }
+			oldAudioTrack.stop();
+			TRACKS.main.audio = newAudioTrack;
+			storeSelectedDevicesSession();
+		}
+	}
+	firstRun = false;
 }
