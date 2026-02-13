@@ -103,7 +103,7 @@
     <!--Setup screen, also used as setting panel later-->
     <dialog open id="settingsDialog" class="toolpopup top middle" style="min-width:620px">
         <div class="" id="settingsDialogTitleCreate" style="text-align: left; width:100%;">
-            <h2 id="createHeadingSession" style="padding-bottom: 10px;">Create live session</h2><a href="help.html" target="_blank" class="helpicon">
+            <h2 id="createHeadingSession" style="padding-bottom: 10px;">Create live session</h2><a href="/help.html" target="_blank" class="helpicon">
             <span class="material-symbols-outlined">help</span></a>
         </div>
         <div class="tableStream" id="settingsDialogProjectID">
@@ -240,7 +240,7 @@
 	sessionStorage.clear(); //clear session storage on load to avoid issues with old settings
 	sessionStorage.setItem("sessionID", generateRandomID());  //create session ID and store in session storage
 
-	const APP_NS = 'host-RPXL';
+	const APP_NS = 'host-Alpha-RPXL';
 	const devURL = window.location.origin;
 	let historyBGAttached = false;
 	let isVDOReady = false;
