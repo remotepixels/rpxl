@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="-1"/>
+    <meta name="msapplication-TileColor" content="#2e2e2e"/>
+    <meta name="description" content="Serverless web app that allows you transmit to a high quality stream to clients to view and comment on using WEBRTC and VDO.NINJA. Communication between clients is handled using low latency and very little bandwidth, dedicating as much bandwidth to the main strea, often the feed from an edit machine. Also, we think Capybara's are awesome though that might not be relevant in this case.">
+    <meta name="keywords" content="Gui Felix, Advertising, Visual Effects, Motion Graphics, Remote Pixels, vdo.ninja"/>
+    <meta name="robots" content="index, follow"/>
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../icons/favicon-16x16.png">
+    <link rel="mask-icon" href="../icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../icons/favicon.ico">
+    <meta name="color-scheme" content="light dark">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@200" rel="stylesheet" />
+
+    <link rel="stylesheet" href="../styles/styles.css">
+    <title>alpha.rpxl.app v3 | Smart TV View (beta)</title>
+    
+</head>
+<style>
+.mainZoom {
+        left: 0px;
+        top: 0px;
+        height: 100%;
+        width:100%;
+    }
+.sessionID {
+    --w: 30px;   /* control the width for each letter */
+    --g: 5px; /* the gap between letters */
+
+    font-size: 32px;  
+    line-height: 40px; /* control the height */
+    letter-spacing: var(--w);
+    font-family: monospace;
+    width: 460px;
+    transform: translateX(8px);
+    margin: 10px 0px 0px 0px;
+    padding-left:11px;
+    padding-top:10px;
+    padding-bottom: 5px;
+    clip-path: inset(0 15px 0 0);
+    justify-content: center;
+    background:
+    repeating-linear-gradient(90deg,
+        light-dark(var(--color-light-bg), var(--color-dark-grey)) 0 var(--border-width), /*left edge of block*/
+        light-dark(var(--color-light-white), var(--color-mid-grey)) 0 calc(1ch + var(--w) - var(--g) - var(--border-width)),/*colour of the ID blocks*/
+        light-dark(var(--color-light-bg), var(--color-dark-grey)) 0 calc(1ch + var(--w) - var(--g)), /*right edge o blocks*/
+        light-dark(var(--color-light-bg), var(--color-dark-grey)) 0 calc(1ch + var(--w)));/*colour of gaps between the ID blocks*/
+}
+.dialogContent.shake {
+    animation: shake 0.4s ease;
+}
+ @keyframes shake {
+	0% {transform: translateX(0px); }
+	15% {transform: translateX(-5px);}
+	30% {transform: translateX(10px);}
+	45% {transform: translateX(-15px);}
+	60% {transform: translateX(15px);}
+	75% {transform: translateX(-5px);}
+	100% {transform: translateX(0px); animation-timing-function: ease-in;}
+}
+</style>>
+
+
+<body id="body">
+    <!--iframes for vdo ninja-->
+    <div class="mainZoom hidden" id="zoomdiv">
+        <iframe class="mainstreamiframe" id="mainStream" allow="autoplay;camera;microphone;fullscreen;picture-in-picture;display-capture;midi;geolocation;screen-wake-lock;"></iframe>   
+    </div>
+
+    <!--enter session ID dialog-->
+    <dialog open id="sessionDialog" class="centerhorizontal top">
+        <div><h2>Enter a Session ID to continue</h2></div>
+        <div><input type="text" maxlength="9" class="sessionID" id="sessionID" contenteditable="true" style="text-transform:uppercase" autofocus autocomplete="off"></div>
+        <div><h3>9 character code supplied by the streamer</h3></div>
+        <div><button id="checkSession" class="botton buttonblue buttonWider">Continue</button></div>
+    </dialog>
+
+</body>
+</html>
+
+<script src="../scripts/initui.js"></script>
+<script src="../scripts/initvdo.js"></script>
+
+<script lang="javascript">
+
+randomBG (); //initui.js
+
+localStorage.clear(); //clear local storage on load to avoid issues with old settings
+sessionStorage.clear(); //clear session storage on load to avoid issues with old settings
+
+document.getElementById("sessionID").focus();
+document.getElementById("checkSession").addEventListener("click", checkEnteredSession);
+document.getElementById("sessionID").addEventListener("keypress", function(event) {
+	if (event.key === "Enter") {
+		event.preventDefault();
+		document.getElementById("checkSession").click();
+		}
+	});
+
+function checkEnteredSession() {
+    const sessionIDEntered = sessionID.value.trim();
+    const sessionIDEnteredUppercase = sessionIDEntered.toUpperCase();
+    const sessionIDEnteredSanitized = encodeURIComponent(sessionIDEnteredUppercase);
+
+    // Shake dialog if session ID incorrect
+    function showError() {
+        sessionDialog.style.animation = "shake 500ms";
+        setTimeout(() => { sessionDialog.style.animation = "none"; }, 300);
+        sessionID.value = "";
+        sessionID.focus();
+    }
+
+    if (!sessionIDEnteredSanitized || sessionIDEnteredSanitized.length !==9) {
+        showError();
+        return;
+    }
+    sessionStorage.setItem("sessionID", sessionIDEnteredSanitized);
+    sessionStorage.setItem("username", "Smart TV Viewer")
+    sessionStorage.setItem("director", "false");        
+
+    sessionDialog.close();
+    sessionDialog.classList.add("hidden");
+    document.body.style.backgroundImage = "none";
+
+    viewMainStream (); //initvdo
+}
+</script>
