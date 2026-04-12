@@ -1,3 +1,21 @@
+window.addEventListener('load', () => {
+	//document.documentElement.requestFullscreen();
+});
+
+window.addEventListener('beforeunload', () => {
+	if (vdo) {
+		vdo.disconnect();
+	}
+});
+
+document.addEventListener("visibilitychange", () => {
+	if (!document.hidden && wakeLock) {
+		//document.documentElement.requestFullscreen();
+
+		enableWakeLock();
+	}
+});
+
 function setupVDOListeners() {
 	mainVideoPreview.addEventListener("loadedmetadata", (event) => {
 		//runs when a stream is attached to the main video element
@@ -12,14 +30,12 @@ function setupVDOListeners() {
 		mainVideoPreview.style.height = `${h}px`;
 
 		resizeMarkupCanvas(); //markup.js
-
 		if (w <= 320 && h <= 80) {
-			deactivateTools("streamVideo");
-			//must ping host to see if placeholder audio!
+			setTools("video", false);
 		} else {
-			reactivateTools("streamVideo");
+			setTools("video", true);
 		}
-		//console.warn("main stream resolution: resize", w, h);
+		console.warn("main stream resolution: resize", w, h);
 	});
 
 	vdo.addEventListener(`connected`, (event) => {
@@ -31,22 +47,100 @@ function setupVDOListeners() {
 	});
 
 	vdo.addEventListener(`roomJoined`, (event) => {
-		//console.log("Joined room :", event.detail.room);
+		console.log("Joined room :", event.detail.room);
+	});
+
+	vdo.addEventListener(`roomLeft`, (event) => {
+		console.log("Left room :", event);
+		
+		//if (waitingRoom) moveRoom(waitingRoom);
 	});
 
 	vdo.addEventListener('peerConnected', (event) => {
-		//used to view peers that connect later in session (ignore streamID as will often be wrong)
+		//runs ONCE for each peer that connects
 		const uuid = event.detail.uuid;
 		const pc = event.detail.connection?.pc;
+		let sanitizedCurrentUserName = encodeURIComponent(document.getElementById("name").value.trim());
 
 		addToRegistry(uuid, null, null, null);
-		//console.warn("peer connected",uuid, streamID,label, event);
-	});
 
+		if (oneOnOneUser) {
+			excludeOneOnOne(uuid);
+			//console.log("new peer connected excluding from one on one : ", uuid);
+		}
+
+		//if peer changes microphone settings, micLive / micOffline (if no mic selected, used because we always send stream)
+		wait(500);	 //delay 
+		
+		//done 3 times once here, once on peerlist and on addvideo to be sure this stuff gets through!
+		vdo.sendData({
+			type: 'status',
+			oneOnOneUser: oneOnOneUser,
+			room: inRoom,
+			timestamp: Date.now()
+		}, uuid);
+
+		vdo.sendData({
+			type: 'userLabel',
+			label: sanitizedCurrentUserName,
+			timestamp: Date.now()
+		}, uuid);
+
+		vdo.sendData({
+			type: 'userStreamAudio',
+			info: userStreamAudio,
+			timestamp: Date.now()
+		}, uuid);
+
+		vdo.sendData({
+			type: 'oneOnOne',
+			action: "active",
+			user: oneOnOneUser,
+			host: oneOnOneHost,
+			timestamp: Date.now()
+		});
+
+		vdo.sendData({
+			type: "markup",
+			overlayNinja: {
+				action: "syncState",
+				to: uuid
+			}
+		}, uuid);
+		// if (isStreamer) {
+		// 	let currentProjectName = encodeURIComponent(project.value.trim() || "");
+			
+		// 	vdo.sendData({
+		// 		type: 'streamInfo',
+		// 		label: currentProjectName,
+		// 		timestamp: Date.now()
+		// 	}, uuid);
+
+		// 	vdo.sendData({
+		// 		type: 'mainStreamAudio',
+		// 		info: mainStreamAudio,
+		// 		timestamp: Date.now()
+		// 	}, uuid);
+
+		// 	vdo.sendData({
+		// 		type: "chatHistory",
+		// 		history: chatHistory
+		// 	}, uuid);
+
+		// 	vdo.sendData({
+		// 		type: "markup",
+		// 		overlayNinja: {
+		// 			action: "syncState",
+		// 			to: uuid
+		// 		}
+		// 	}, uuid);
+		// }
+	});
 
 	vdo.addEventListener('peerDisconnected', (event) => {
 		const uuid = event.detail.uuid;
 
+		removeFiles(uuid);
 		disconnectPeer(uuid);
 		//console.warn("peer disconnected UUID:", event.detail);
 	});
@@ -57,58 +151,102 @@ function setupVDOListeners() {
 	});
 
 	vdo.addEventListener('dataChannelOpen', (event) => {
-		//console.warn(`Data channel opened with viewer: ${event.detail.uuid}...`, 'success');
+		//RUNS - ONCE FOR DATA, ONCE FOR VIDEO/AUDIO
 		const uuid = event.detail.uuid;
-		let sanitizedCurrentUserName = encodeURIComponent(document.getElementById("name").value.trim());
-		
-		//send users name (label) to peers
-		vdo.sendData({
-			type: 'userLabel',
-			label: sanitizedCurrentUserName,
-			timestamp: Date.now()
-		}, uuid);
-		
-		//used if peer connects without a microphone
-		vdo.sendData({
-			type: 'userStreamAudio',
-			info: userStreamAudio,
-			timestamp: Date.now()
-		}, uuid);
 
-		vdo.sendData({
-			type: "markup",
-			overlayNinja: {
-				action: "syncState",
-				to: uuid
-			}
-		});
-
-		//if we are streaming we need to send some extra data like the projec name
-		if (isStreamer) {
-			let currentProjectName = encodeURIComponent(project.value.trim() || "");
-			let currentQuality = getCheckedRadioValue("quality") || "low";
-
-			vdo.sendData({
-				type: 'streamInfo',
-				label: currentProjectName,
-				timestamp: Date.now()
-			});
-
-			vdo.sendData({
-				type: 'mainStreamAudio',
-				info: mainStreamAudio,
-				timestamp: Date.now()
-			});
-
-			//console.warn("sending info for main stream audio state", mainStreamAudio);
-		}
+		//console.warn(`Data channel opened with viewer: ${event.detail.uuid}...`, 'success');
 	});
 
+	//custom data type events 
 	vdo.addEventListener('dataReceived', (event) => {
 		const uuid = event.detail.uuid;
 		const data = event.detail.data;
 		const streamID = event.detail.streamID;
-		//console.warn("Data received from ", event);
+		const payload = event.detail.data.payload;
+		//console.log("Data received from ", event);
+		
+		//user events
+		if (data.type === 'uuidInfo') {
+			localUUID = data.uuidInfo;
+
+			document.getElementById("user").setAttribute("data-uuid", localUUID);
+			console.log("Recieved local UUID Info :", localUUID);
+
+			//if we have to join waiting room announce and move immediately
+			if (joinWaiting === true) {
+				vdo.sendData({
+					type: "moveToRoom",
+					room: "lobby",
+					user: localUUID
+				});
+				
+				togglePeerRoom(localUUID, "lobby");
+				wait(100);
+				document.getElementById("app").classList.remove("hidden");
+			}
+		}
+
+		if (data.type === 'remoteToggleMic') {
+			const button = document.querySelector('[data-action="muteMicrophone"]');
+
+			UI.toggle(button);
+
+			//console.log("what use is a phone call if you can't speak mr anderson?");
+		}
+
+		//recieved on connection, moves each user to the correct room sets them as one one
+		if (data.type === 'status') {
+			const room = data.room;
+			
+			const oneOnOneUser = data.oneOnOneUser;
+			//const oneOnOneHost = data.oneOnOneHost;
+
+			if (room) {
+				togglePeerRoom(uuid, room);
+				//console.log("move user on connect:", uuid ," to room :", room);
+			}
+
+			 if (oneOnOneUser) {
+				toggleOneOnOne(oneOnOneUser, uuid);
+				//console.log("setting user one on one on connect :", oneOnOneUser);
+			 }
+		}
+
+		if (data.type === 'moveToRoom') {
+			const userToMove = data.user;
+			const toRoom = data.room;
+			if (!userToMove || !toRoom) return;
+
+			togglePeerRoom(userToMove, toRoom);
+			//console.log("move user :", userToMove, "to: ", toRoom);
+		}
+		
+		if (data.type === 'oneOnOne') {
+			const action = data.action;
+			const oneOnOneUser = data.user;
+			const oneOnOneHost = data.host;
+
+			if (!oneOnOneUser || !oneOnOneHost || !action) return;
+
+			if (action == "off") {
+				clearOneOnOne();
+				//console.log("One on one off ");
+			}
+			
+			if (action == "active") {
+				toggleOneOnOne(oneOnOneUser, oneOnOneHost);
+				//console.log("One on one : ", oneOnOneUser, "host : " ,oneOnOneHost);
+			}
+
+		}
+		
+		if (data.type === 'kick') {
+			if (vdo) {
+				vdo.disconnect();
+			}
+			window.location.replace("/error.html");
+
+		}
 
 		if (data.type === 'userLabel') {
 			const label = data.label;
@@ -120,39 +258,58 @@ function setupVDOListeners() {
 
 		if (data.type === 'streamInfo') {
 			const label = data.label;
-			const projectTitle = document.getElementById("statusLeft");
 
-			projectTitle.textContent = decodeURIComponent(label);
+			sessionName.textContent = decodeURIComponent(label);
+		}
+
+		if (data.type === 'VUData') {
+			const level = data.level;
+			const whichVU = data.whichVU;
+			
+			if (whichVU === "main") {
+				updateMainVULevel(level);
+			}
+			if (whichVU === "user") {
+				updateDOMuserVU(uuid, level);
+			}
 		}
 
 		if (data.type === 'mainStreamAudio') {
 			const audio = data.info;
-			//console.warn("recieved info for main stream audio state", audio);
-			if (audio === true) {
-				reactivateTools("streamAudio");
-			} else {
-				deactivateTools("streamAudio");
-			}
+			setTools("audio", audio);
+			//console.warn("recieved info for mainaudio state", audio);
 		}
 
 		if (data.type === 'userStreamAudio') {
 			const audio = data.info;
-			//console.warn("recieved info for user stream audio state", audio);
+
 			updateDOMuserAudio(uuid, audio);
+			//console.warn("recieved info for user stream audio state", audio);
 		}
 
-		if (data.type === 'mainStreamVU') {
-			const MSVolume = data.volume;
-			console.warn("recieved info for main stream audio VU", MSVolume);
-		}
-		if (data.type === 'userStreamVU') {
-			const USVolume = data.volume;
-			console.warn("recieved info for user stream", streamID, " audio VU", USVolume);
+		//chat
+		if (data.type === 'chat') {
+			const message = data.message;
+			const sender = data.sender;
+			const timestamp = data.timestamp;
+			
+			postMessage(message, sender, timestamp);
 		}
 
+		if (data.type === "chatHistory") {
+			const history = data.history;
+
+			history.forEach(msg => {
+				renderMessage(msg.message, msg.sender, msg.timestamp);
+			});
+			//console.warn("received chat history from peer", data, uuid);
+		}
+
+		//markup events
 		if (data.type === 'markup') {
 			const dataMarkup = data.overlayNinja;
 			//console.warn("markup data received", dataMarkup);
+
 			if (dataMarkup.action === "stroke") {
 				const s = dataMarkup.stroke;
 				drawingHistory[s.owner] ??= [];
@@ -171,10 +328,12 @@ function setupVDOListeners() {
 			}
 
 			if (dataMarkup.action === "syncState" && isStreamer) {
+				//console.log("recieved markup syncState");
 				sendFullState();
 			}
 
 			if (dataMarkup.action === "stateDump") {
+				//console.log("recieved markup state dump");
 				Object.assign(drawingHistory, dataMarkup.state);
 				redrawCanvas();
 			}
@@ -207,7 +366,6 @@ function setupVDOListeners() {
 
 		if (!uuid) return;
 		addToRegistry(uuid, label, streamID, track)
-		//addTracksToStream(uuid, label, streamID, track);
 	});
 
 	vdo.addEventListener('iceConnectionStateChange', (event) => {
@@ -219,9 +377,53 @@ function setupVDOListeners() {
 		const uuid = event.detail.uuid;
 		const streamID = event.detail.streamID;
 		const label = event.detail.info.label;
+		let sanitizedCurrentUserName = encodeURIComponent(document.getElementById("name").value.trim());
 
 		addToRegistry(uuid, label, streamID, null)
-		//console.warn("peer info",uuid, streamID,event);
+		handleGuestFiles(uuid)
+
+		vdo.sendData({
+			type: 'uuidInfo',
+			uuidInfo: uuid,
+			timestamp: Date.now()
+		}, uuid);
+
+		vdo.sendData({
+			type: 'status',
+			oneOnOneUser: oneOnOneUser,
+			room: inRoom,
+			timestamp: Date.now()
+		}, uuid);
+
+		vdo.sendData({
+			type: 'userLabel',
+			label: sanitizedCurrentUserName,
+			timestamp: Date.now()
+		}, uuid);
+
+		if (isStreamer) {
+			wait (500);
+			let currentProjectName = encodeURIComponent(project.value.trim() || "");
+			
+			vdo.sendData({
+				type: 'streamInfo',
+				label: currentProjectName,
+				timestamp: Date.now()
+			}, uuid);
+
+			vdo.sendData({
+				type: 'mainStreamAudio',
+				info: mainStreamAudio,
+				timestamp: Date.now()
+			}, uuid);
+
+			vdo.sendData({
+				type: "chatHistory",
+				history: chatHistory
+			}, uuid);
+
+		}
+
 	});
 
 
@@ -229,9 +431,25 @@ function setupVDOListeners() {
 		//will run as user connects once with streamID as null, second time with streamID
 		const uuid = event.detail.uuid;
 		const streamID = event.detail.streamID || null;
+		let sanitizedCurrentUserName = encodeURIComponent(document.getElementById("name").value.trim());
+
 		if (!streamID) return;
 
 		addToRegistry(uuid, null, streamID, null)
+
+		vdo.sendData({
+			type: 'status',
+			oneOnOneUser: oneOnOneUser,
+			room: inRoom,
+			timestamp: Date.now()
+		}, uuid);
+
+		vdo.sendData({
+			type: 'userLabel',
+			label: sanitizedCurrentUserName,
+			timestamp: Date.now()
+		}, uuid);
+
 		//console.warn("video added to room",uuid, event);
 	});
 
@@ -273,111 +491,8 @@ function setupVDOMSListeners() {
 	});
 
 	vdoMS.addEventListener(`publishing`, (event) => {	//NOTE! vdoMS
-		//only lists the stream being published????
 		//console.warn("publishing Stream :", event);
 	});
 
 }
 
-//listeners for VDO SDK events and others
-// If the tab regains focus, re-request wake lock
-document.addEventListener("visibilitychange", () => {
-	if (!document.hidden && wakeLock) {
-		//document.documentElement.requestFullscreen();
-
-		enableWakeLock();
-	}
-});
-
-//resize markup canvas on window resize
-window.addEventListener("resize", () => {
-	wait(50); //wait for resize to finish	
-	//document.documentElement.requestFullscreen();
-
-	resizeMarkupCanvas() //markup.js
-});
-
-window.addEventListener('load', () => {
-	//document.documentElement.requestFullscreen();
-
-	//resizeMarkupCanvas()//?
-});
-
-window.addEventListener('beforeunload', () => {
-	if (vdo) {
-		vdo.disconnect();
-	}
-});
-
-
-	//VDO (WAITING ROOM) LISTENERS
-	function setupVDOWRListeners() {
-		//console.warn("setting up waiting room listeners",room);
-
-		vdoWR.addEventListener(`connected`, (event) => {
-		//	console.log("connected to signaling server");
-		});
-
-		vdoWR.addEventListener(`disconnected`, (event) => {
-		//	console.log("disconnected to signaling server");
-		});
-		vdoWR.addEventListener('peerConnected', (event) => {
-			playBeep(400, 1);
-
-			const guestUUID = event.detail.uuid;
-			if (!guestUUID) return;
-
-			// convert performance timestamp to Date
-			const joinedAt = Date.now() - performance.now() + event.timeStamp;
-
-			//waitingPeers.set(guestUUID, joinedAt);
-
-			//renderWaitingPeers();
-			//log(`Peer : ${guestUUID} joined waiting room at : ${formatTime(joinedAt)}`);
-		});
-
-		vdoWR.addEventListener("peerDisconnected", (event) => {
-			const uuid = event.detail?.uuid;
-			if (!uuid) return;
-
-			//waitingPeers.delete(uuid);
-			//renderWaitingPeers();
-		});
-
-		vdoWR.addEventListener('dataReceived', (event) => {
-			const uuid = event.detail.uuid;
-			const data = event.detail.data;
-
-			//console.warn('control message waiting room:', event);
-			if (data.dataType === "migrate") {
-				const target = data.target;
-				mainRoom = data.roomid;
-
-				vdoWR.sendData({
-					dataType: 'peer-disconnect',
-					timestamp: Date.now()
-				});
-
-				//waitingPeers.delete(uuid);
-				//renderWaitingPeers();
-				log("Host has let you in");
-				vdoWR.disconnect();
-				sleep(500); 
-
-				//createVDOroom();
-
-				//["joinShareDialog", "helpIcon", "waitingButton"].forEach(id => {
-				//	document.getElementById(id).style.display = "none";
-				//});
-
-				//document.getElementById('dropArea').classList.add('hidden');
-				//document.getElementById('topmenu').classList.remove('hidden');
-				//document.getElementById('subToolBar').classList.remove('hidden');
-				//document.getElementById('dragDropMessage').textContent = "Drop to add files"
-				//document.getElementById('dragDropSubMessage').textContent = ""
-
-				//firstInteraction = false;
-				return;
-			}
-		});
-	}
